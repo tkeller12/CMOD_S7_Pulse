@@ -3,10 +3,10 @@
 
 # XDC: imports/FPGA_Constraints/Cmod-S7-25-Master.xdc
 
-# Block Designs: bd/CLOCK_SYNTH/CLOCK_SYNTH.bd
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==CLOCK_SYNTH || ORIG_REF_NAME==CLOCK_SYNTH} -quiet] -quiet
+# Block Designs: bd/clocking_wizard/clocking_wizard.bd
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==clocking_wizard || ORIG_REF_NAME==clocking_wizard} -quiet] -quiet
 
-# IP: bd/CLOCK_SYNTH/ip/CLOCK_SYNTH_clk_wiz_0_0/CLOCK_SYNTH_clk_wiz_0_0.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==CLOCK_SYNTH_clk_wiz_0_0 || ORIG_REF_NAME==CLOCK_SYNTH_clk_wiz_0_0} -quiet] -quiet
+# IP: bd/clocking_wizard/ip/clocking_wizard_clk_wiz_0_0/clocking_wizard_clk_wiz_0_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==clocking_wizard_clk_wiz_0_0 || ORIG_REF_NAME==clocking_wizard_clk_wiz_0_0} -quiet] -quiet
 
-# XDC: c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/CLOCK_SYNTH/CLOCK_SYNTH_ooc.xdc
+# XDC: c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clocking_wizard/clocking_wizard_ooc.xdc

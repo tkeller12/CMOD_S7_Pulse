@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date         : Mon Nov 25 19:13:07 2024
+| Date         : Thu Nov 28 10:16:48 2024
 | Host         : Tim-Workstation running 64-bit major release  (build 9200)
 | Command      : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
 | Design       : top
@@ -93,7 +93,7 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +-----------------------------+------+-------+------------+-----------+-------+
 |          Site Type          | Used | Fixed | Prohibited | Available | Util% |
 +-----------------------------+------+-------+------------+-----------+-------+
-| Bonded IOB                  |    0 |     0 |          0 |       150 |  0.00 |
+| Bonded IOB                  |    2 |     0 |          0 |       150 |  1.33 |
 | Bonded IPADs                |    0 |     0 |          0 |         2 |  0.00 |
 | PHY_CONTROL                 |    0 |     0 |          0 |         3 |  0.00 |
 | PHASER_REF                  |    0 |     0 |          0 |         3 |  0.00 |
@@ -148,16 +148,18 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
+| OBUF     |    2 |                  IO |
++----------+------+---------------------+
 
 
 8. Black Boxes
 --------------
 
-+-------------------------+------+
-|         Ref Name        | Used |
-+-------------------------+------+
-| CLOCK_SYNTH_clk_wiz_0_0 |    1 |
-+-------------------------+------+
++-----------------------------+------+
+|           Ref Name          | Used |
++-----------------------------+------+
+| clocking_wizard_clk_wiz_0_0 |    1 |
++-----------------------------+------+
 
 
 9. Instantiated Netlists

@@ -21,20 +21,23 @@
 
 
 module top(
-    input clk
+    input clk,
+    output pio1,
+    output pio2
     );
     
-    wire clk_250;
-    wire clk_locked;
     
-    CLOCK_SYNTH U_CLOCK_SYNTH (
-        .clk(clk),
+    clocking_wizard u_clocking_wizard (
+        .clk_in1(clk),
         .reset(reset),
-        .clk_250(clk_250),
-        .clk_locked(clk_locked)
+        .clk_out1(clk_250M),
+        .clk_out2(clk_10M),
+        .locked(locked)
     );
     
     
+    assign pio1 = clk_250M;
+    assign pio2 = clk_10M;
     
     
 endmodule
