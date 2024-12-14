@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.runs/synth_1/top.tcl"
+  variable script "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/synth_1/top.tcl"
   variable category "vivado_synth"
 }
 
@@ -57,6 +57,7 @@ if {$::dispatch::connected} {
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param chipscope.maxJobs 8
+set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7s25csga225-1
 
@@ -64,29 +65,29 @@ set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.cache/wt [current_project]
-set_property parent.project_path C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.xpr [current_project]
+set_property webtalk.parent_dir C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.cache/wt [current_project]
+set_property parent.project_path C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.xpr [current_project]
 set_property XPM_LIBRARIES XPM_CDC [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property board_part_repo_paths {C:/Users/jkell/AppData/Roaming/Xilinx/Vivado/2024.1.2/xhub/board_store/xilinx_board_store} [current_project]
 set_property board_part digilentinc.com:cmod-s7-25:part0:1.0 [current_project]
-set_property ip_output_repo c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.cache/ip [current_project]
+set_property ip_output_repo c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
-  C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/imports/memory/RAM_1Port.v
-  c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/hdl/clock_wizard_wrapper.v
-  {C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/imports/shift register/inst_shift_reg.v}
-  C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/imports/UART/uart_rx.v
-  C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/new/top.v
+  C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/imports/memory/RAM_2Port.v
+  C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/hdl/clock_wizard_wrapper.v
+  {C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/imports/shift register/inst_shift_reg.v}
+  C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/imports/UART/uart_rx.v
+  C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v
 }
-add_files C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/bd/clock_wizard/clock_wizard.bd
-set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/clock_wizard_ooc.xdc]
+add_files C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/bd/clock_wizard/clock_wizard.bd
+set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/clock_wizard_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -97,14 +98,14 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc
-set_property used_in_implementation false [get_files C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc]
+read_xdc C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc
+set_property used_in_implementation false [get_files C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/utils_1/imports/synth_1/top.dcp
+read_checkpoint -auto_incremental -incremental C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/utils_1/imports/synth_1/top.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

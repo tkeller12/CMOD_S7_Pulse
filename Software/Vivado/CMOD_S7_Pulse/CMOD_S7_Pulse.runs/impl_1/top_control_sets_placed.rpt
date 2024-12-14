@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date         : Fri Dec 13 19:28:02 2024
+| Date         : Fri Dec 13 19:55:49 2024
 | Host         : Tim-Workstation running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
 | Design       : top
@@ -73,7 +73,7 @@ Table of Contents
 +----------------------------------------------------------------+----------------------------+-----------------------+------------------+----------------+--------------+
 |                          Clock Signal                          |        Enable Signal       |    Set/Reset Signal   | Slice Load Count | Bel Load Count | Bels / Slice |
 +----------------------------------------------------------------+----------------------------+-----------------------+------------------+----------------+--------------+
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                            | u_RAM_1Port/o_Rd_DV   |                1 |              1 |         1.00 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                            | u_RAM_2Port/o_Rd_DV   |                1 |              1 |         1.00 |
 |  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_inst_shift_reg/E[1]      |                       |                1 |              1 |         1.00 |
 |  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/index[3]_i_1_n_0 |                       |                1 |              4 |         4.00 |
 |  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                            |                       |                2 |              7 |         3.50 |

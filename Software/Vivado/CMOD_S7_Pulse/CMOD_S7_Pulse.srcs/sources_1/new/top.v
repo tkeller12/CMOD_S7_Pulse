@@ -32,10 +32,11 @@ module top(
    (
     .clk_in1(clk_12MHz),
     .clk_out1(clk)
-    //.locked(locked)
+    //.locked()
     //.reset()
     );
-    
+
+    reg [7:0] r_ja = 0;    
     reg [3:0] r_led = 0;
     
     // 250 000 000 / 115 200 = 2170.1388 ~ 2170
@@ -79,20 +80,21 @@ module top(
     wire o_Rd_DV;
     wire [7:0] o_Rd_Data;
         
-    RAM_1Port #(.WIDTH(8), .DEPTH(128)) u_RAM_1Port (
-    .i_Clk(clk),
-    // Shared address for writes and reads
-    .i_Addr(addr),
+    RAM_2Port #(.WIDTH(8), .DEPTH(128)) u_RAM_2Port (
     // Write Interface
+    .i_Wr_Clk(clk),    
+    .i_Wr_Addr(addr),    
     .i_Wr_DV(i_Wr_DV),
     .i_Wr_Data(i_Wr_Data),
     // Read Interface
+    .i_Rd_Clk(clk),
+    .i_Rd_Addr(addr),
     .i_Rd_En(i_Rd_En),
     .o_Rd_DV(o_Rd_DV),
     .o_Rd_Data(o_Rd_Data)
     );
     
-    reg [7:0] r_ja = 0;
+
 
     always @(posedge clk)
     begin
