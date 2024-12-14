@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/impl_1'
+HD_PWD='C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

@@ -7,7 +7,7 @@
 <Project Product="Vivado" Version="7" Minor="67" Path="C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="f1967d1c68e84b669541083e1d274261"/>
+    <Option Name="Id" Val="3caf439c3022452f9e2a21da24918296"/>
     <Option Name="Part" Val="xc7s25csga225-1"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -91,15 +91,49 @@
   <FileSets Version="1" Minor="32">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/sources_1/bd/clocking_wizard/clocking_wizard.bd">
+      <File Path="$PSRCDIR/sources_1/bd/clock_wizard/clock_wizard.bd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="clocking_wizard.bd" FileRelPathName="ip/clocking_wizard_clk_wiz_0_0/clocking_wizard_clk_wiz_0_0.xci">
-          <Proxy FileSetName="clocking_wizard_clk_wiz_0_0"/>
+        <CompFileExtendedInfo CompFileName="clock_wizard.bd" FileRelPathName="ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0.xci">
+          <Proxy FileSetName="clock_wizard_clk_wiz_0_0"/>
         </CompFileExtendedInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/memory/RAM_1Port.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../FPGA_Modules/memory/RAM_1Port.v"/>
+          <Attr Name="ImportTime" Val="1732486085"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PGENDIR/sources_1/bd/clock_wizard/hdl/clock_wizard_wrapper.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/shift register/inst_shift_reg.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../FPGA_Modules/shift register/inst_shift_reg.v"/>
+          <Attr Name="ImportTime" Val="1734052641"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/UART/uart_rx.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../FPGA_Modules/UART/uart_rx.v"/>
+          <Attr Name="ImportTime" Val="1733455118"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/new/top.v">
         <FileInfo>
@@ -108,31 +142,11 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/FPGA_Modules/memory/RAM_2Port.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../FPGA_Modules/memory/RAM_2Port.v"/>
-          <Attr Name="ImportTime" Val="1732486089"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/FPGA_Modules/memory/FIFO.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../../../FPGA_Modules/memory/FIFO.v"/>
-          <Attr Name="ImportTime" Val="1732485500"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/FPGA_Modules/UART/uart_tx.v">
+      <File Path="$PSRCDIR/sources_1/imports/UART/uart_tx.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../FPGA_Modules/UART/uart_tx.v"/>
-          <Attr Name="ImportTime" Val="1732323753"/>
+          <Attr Name="ImportTime" Val="1733454003"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -141,6 +155,7 @@
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="top"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
       </Config>
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
@@ -161,7 +176,7 @@
       <Filter Type="Srcs"/>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="FIFO"/>
+        <Option Name="TopModule" Val="top"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="TopAutoSet" Val="TRUE"/>
         <Option Name="TransportPathDelay" Val="0"/>
@@ -188,9 +203,9 @@
         <Option Name="TopAutoSet" Val="TRUE"/>
       </Config>
     </FileSet>
-    <FileSet Name="clocking_wizard_clk_wiz_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/clocking_wizard_clk_wiz_0_0" RelGenDir="$PGENDIR/clocking_wizard_clk_wiz_0_0">
+    <FileSet Name="clock_wizard_clk_wiz_0_0" Type="BlockSrcs" RelSrcDir="$PSRCDIR/clock_wizard_clk_wiz_0_0" RelGenDir="$PGENDIR/clock_wizard_clk_wiz_0_0">
       <Config>
-        <Option Name="TopModule" Val="clocking_wizard_clk_wiz_0_0"/>
+        <Option Name="TopModule" Val="clock_wizard_clk_wiz_0_0"/>
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
@@ -224,7 +239,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="clocking_wizard_clk_wiz_0_0_synth_1" Type="Ft3:Synth" SrcSet="clocking_wizard_clk_wiz_0_0" Part="xc7s25csga225-1" ConstrsSet="clocking_wizard_clk_wiz_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/clocking_wizard_clk_wiz_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/clocking_wizard_clk_wiz_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/clocking_wizard_clk_wiz_0_0_synth_1" ParallelReportGen="true">
+    <Run Id="clock_wizard_clk_wiz_0_0_synth_1" Type="Ft3:Synth" SrcSet="clock_wizard_clk_wiz_0_0" Part="xc7s25csga225-1" ConstrsSet="clock_wizard_clk_wiz_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/clock_wizard_clk_wiz_0_0_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/clock_wizard_clk_wiz_0_0_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/clock_wizard_clk_wiz_0_0_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2024">
           <Desc>Vivado Synthesis Defaults</Desc>
@@ -254,7 +269,7 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
       <RQSFiles/>
     </Run>
-    <Run Id="clocking_wizard_clk_wiz_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7s25csga225-1" ConstrsSet="clocking_wizard_clk_wiz_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="clocking_wizard_clk_wiz_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/clocking_wizard_clk_wiz_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/clocking_wizard_clk_wiz_0_0_impl_1" ParallelReportGen="true">
+    <Run Id="clock_wizard_clk_wiz_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7s25csga225-1" ConstrsSet="clock_wizard_clk_wiz_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="clock_wizard_clk_wiz_0_0_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/clock_wizard_clk_wiz_0_0_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/clock_wizard_clk_wiz_0_0_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2024">
           <Desc>Default settings for Implementation.</Desc>

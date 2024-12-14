@@ -8,7 +8,7 @@
   **** SW Build 5164865 on Thu Sep  5 14:37:11 MDT 2024
   **** IP Build 5164407 on Fri Sep  6 08:18:11 MDT 2024
   **** SharedData Build 5164864 on Thu Sep 05 13:09:09 MDT 2024
-  **** Start of session at: Thu Nov 28 10:16:21 2024
+  **** Start of session at: Fri Dec 13 19:27:07 2024
     ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
     ** Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 
@@ -16,96 +16,142 @@ source top.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2024.1/data/ip'.
-Command: read_checkpoint -auto_incremental -incremental C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/utils_1/imports/synth_1/top.dcp
-INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/utils_1/imports/synth_1/top.dcp for incremental synthesis
+Command: read_checkpoint -auto_incremental -incremental C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/utils_1/imports/synth_1/top.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/utils_1/imports/synth_1/top.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top top -part xc7s25csga225-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7s25'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7s25'
-[libprotobuf ERROR C:\protobuf-3.21.12\protobuf\src\google\protobuf\wire_format_lite.cc:618] String field 'HDMetricDBGroup.name' contains invalid UTF-8 data when parsing a protocol buffer. Use the 'bytes' type if you intend to send raw bytes. 
 INFO: [Device 21-403] Loading part xc7s25csga225-1
 INFO: [Device 21-9227] Part: xc7s25csga225-1 does not have CEAM library.
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 30252
+INFO: [Synth 8-7075] Helper process launched with PID 25100
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1542.441 ; gain = 448.664
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1543.156 ; gain = 448.238
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-11241] undeclared symbol 'reset', assumed default net type 'wire' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v:34]
-INFO: [Synth 8-11241] undeclared symbol 'clk_250M', assumed default net type 'wire' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v:35]
-INFO: [Synth 8-11241] undeclared symbol 'clk_10M', assumed default net type 'wire' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v:36]
-INFO: [Synth 8-11241] undeclared symbol 'locked', assumed default net type 'wire' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v:37]
-INFO: [Synth 8-6157] synthesizing module 'top' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v:23]
-INFO: [Synth 8-6157] synthesizing module 'clocking_wizard' [c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clocking_wizard/synth/clocking_wizard.v:13]
-INFO: [Synth 8-6157] synthesizing module 'clocking_wizard_clk_wiz_0_0' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/synth_1/.Xil/Vivado-43732-Tim-Workstation/realtime/clocking_wizard_clk_wiz_0_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'clocking_wizard_clk_wiz_0_0' (0#1) [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/synth_1/.Xil/Vivado-43732-Tim-Workstation/realtime/clocking_wizard_clk_wiz_0_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'clocking_wizard' (0#1) [c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clocking_wizard/synth/clocking_wizard.v:13]
-INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v:23]
-WARNING: [Synth 8-3848] Net reset in module/entity top does not have driver. [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v:34]
+INFO: [Synth 8-6157] synthesizing module 'top' [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/new/top.v:23]
+INFO: [Synth 8-6157] synthesizing module 'clock_wizard_wrapper' [c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/hdl/clock_wizard_wrapper.v:13]
+INFO: [Synth 8-6157] synthesizing module 'clock_wizard' [c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/synth/clock_wizard.v:13]
+INFO: [Synth 8-6157] synthesizing module 'clock_wizard_clk_wiz_0_0' [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.runs/synth_1/.Xil/Vivado-10900-Tim-Workstation/realtime/clock_wizard_clk_wiz_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'clock_wizard_clk_wiz_0_0' (0#1) [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.runs/synth_1/.Xil/Vivado-10900-Tim-Workstation/realtime/clock_wizard_clk_wiz_0_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'clock_wizard' (0#1) [c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/synth/clock_wizard.v:13]
+INFO: [Synth 8-6155] done synthesizing module 'clock_wizard_wrapper' (0#1) [c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/hdl/clock_wizard_wrapper.v:13]
+WARNING: [Synth 8-7071] port 'locked' of module 'clock_wizard_wrapper' is unconnected for instance 'u_clock_wizard_wrapper' [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/new/top.v:31]
+WARNING: [Synth 8-7071] port 'reset' of module 'clock_wizard_wrapper' is unconnected for instance 'u_clock_wizard_wrapper' [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/new/top.v:31]
+WARNING: [Synth 8-7023] instance 'u_clock_wizard_wrapper' of module 'clock_wizard_wrapper' has 4 connections declared, but only 2 given [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/new/top.v:31]
+INFO: [Synth 8-6157] synthesizing module 'uart_rx' [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/imports/UART/uart_rx.v:23]
+	Parameter TICKS_PER_BIT bound to: 2170 - type: integer 
+INFO: [Synth 8-226] default block is never used [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/imports/UART/uart_rx.v:51]
+INFO: [Synth 8-6155] done synthesizing module 'uart_rx' (0#1) [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/imports/UART/uart_rx.v:23]
+INFO: [Synth 8-6157] synthesizing module 'inst_shift_reg' [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/imports/shift register/inst_shift_reg.v:23]
+	Parameter BITS bound to: 8 - type: integer 
+	Parameter WORDS bound to: 2 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'inst_shift_reg' (0#1) [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/imports/shift register/inst_shift_reg.v:23]
+INFO: [Synth 8-6157] synthesizing module 'RAM_1Port' [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/imports/memory/RAM_1Port.v:12]
+	Parameter WIDTH bound to: 8 - type: integer 
+	Parameter DEPTH bound to: 128 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'RAM_1Port' (0#1) [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/imports/memory/RAM_1Port.v:12]
+INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/new/top.v:23]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1652.848 ; gain = 559.070
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1655.996 ; gain = 561.078
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1652.848 ; gain = 559.070
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1655.996 ; gain = 561.078
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1652.848 ; gain = 559.070
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:05 . Memory (MB): peak = 1655.996 ; gain = 561.078
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1652.848 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1655.996 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clocking_wizard/ip/clocking_wizard_clk_wiz_0_0/clocking_wizard_clk_wiz_0_0/clocking_wizard_clk_wiz_0_0_in_context.xdc] for cell 'u_clocking_wizard/clk_wiz_0'
-Finished Parsing XDC File [c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clocking_wizard/ip/clocking_wizard_clk_wiz_0_0/clocking_wizard_clk_wiz_0_0/clocking_wizard_clk_wiz_0_0_in_context.xdc] for cell 'u_clocking_wizard/clk_wiz_0'
-Parsing XDC File [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc]
-Finished Parsing XDC File [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc]
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
+Parsing XDC File [c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_in_context.xdc] for cell 'u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0'
+Finished Parsing XDC File [c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_in_context.xdc] for cell 'u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0'
+Parsing XDC File [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc]
+Finished Parsing XDC File [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
-Parsing XDC File [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/synth_1/dont_touch.xdc]
-Finished Parsing XDC File [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/synth_1/dont_touch.xdc]
+Parsing XDC File [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.runs/synth_1/dont_touch.xdc]
+Finished Parsing XDC File [C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.runs/synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1660.035 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1746.527 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1660.035 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1746.527 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7s25csga225-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
-Applied set_property IO_BUFFER_TYPE = NONE for clk. (constraint file  c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clocking_wizard/ip/clocking_wizard_clk_wiz_0_0/clocking_wizard_clk_wiz_0_0/clocking_wizard_clk_wiz_0_0_in_context.xdc, line 4).
-Applied set_property CLOCK_BUFFER_TYPE = NONE for clk. (constraint file  c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clocking_wizard/ip/clocking_wizard_clk_wiz_0_0/clocking_wizard_clk_wiz_0_0/clocking_wizard_clk_wiz_0_0_in_context.xdc, line 5).
-Applied set_property KEEP_HIERARCHY = SOFT for u_clocking_wizard. (constraint file  auto generated constraint).
-Applied set_property KEEP_HIERARCHY = SOFT for u_clocking_wizard/clk_wiz_0. (constraint file  auto generated constraint).
+Applied set_property IO_BUFFER_TYPE = NONE for clk_12MHz. (constraint file  c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_in_context.xdc, line 3).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for clk_12MHz. (constraint file  c:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_in_context.xdc, line 4).
+Applied set_property KEEP_HIERARCHY = SOFT for u_clock_wizard_wrapper/clock_wizard_i. (constraint file  auto generated constraint).
+Applied set_property KEEP_HIERARCHY = SOFT for u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'MODE_reg' in module 'uart_rx'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 RX_IDLE |                               00 |                               00
+                RX_START |                               01 |                               01
+                 RX_DATA |                               10 |                               10
+                 RX_STOP |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'MODE_reg' using encoding 'sequential' in module 'uart_rx'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   13 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 1     
+	   2 Input    2 Bit       Adders := 1     
++---Registers : 
+	               16 Bit    Registers := 1     
+	               13 Bit    Registers := 1     
+	                8 Bit    Registers := 4     
+	                7 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 5     
++---RAMs : 
+	             1024 Bit	(128 X 8 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input   13 Bit        Muxes := 2     
+	   3 Input   13 Bit        Muxes := 1     
+	   4 Input    8 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 1     
+	   4 Input    4 Bit        Muxes := 1     
+	   4 Input    2 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 3     
+	   3 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 4     
+	   4 Input    1 Bit        Muxes := 4     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -122,26 +168,56 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-3917] design top has port led[3] driven by constant 0
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:09 ; elapsed = 00:00:11 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:09 ; elapsed = 00:00:11 . Memory (MB): peak = 1746.527 ; gain = 651.609
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping Report (see note below)
++------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name | RTL Object            | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|top         | u_RAM_1Port/r_Mem_reg | 128 x 8(READ_FIRST)    | W | R |                        |   |   | Port A           | 1      | 0      | 
++------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Timing Optimization : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1746.527 ; gain = 651.609
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping Report
++------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|Module Name | RTL Object            | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | 
++------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+|top         | u_RAM_1Port/r_Mem_reg | 128 x 8(READ_FIRST)    | W | R |                        |   |   | Port A           | 1      | 0      | 
++------------+-----------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Technology Mapping : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -159,76 +235,89 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished IO Insertion : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
 ---------------------------------------------------------------------------------
 
 Report BlackBoxes: 
-+------+----------------------------+----------+
-|      |BlackBox name               |Instances |
-+------+----------------------------+----------+
-|1     |clocking_wizard_clk_wiz_0_0 |         1|
-+------+----------------------------+----------+
++------+-------------------------+----------+
+|      |BlackBox name            |Instances |
++------+-------------------------+----------+
+|1     |clock_wizard_clk_wiz_0_0 |         1|
++------+-------------------------+----------+
 
 Report Cell Usage: 
-+------+--------------------------+------+
-|      |Cell                      |Count |
-+------+--------------------------+------+
-|1     |clocking_wizard_clk_wiz_0 |     1|
-|2     |OBUF                      |     2|
-+------+--------------------------+------+
++------+-----------------------+------+
+|      |Cell                   |Count |
++------+-----------------------+------+
+|1     |clock_wizard_clk_wiz_0 |     1|
+|2     |CARRY4                 |     3|
+|3     |LUT1                   |     1|
+|4     |LUT2                   |     5|
+|5     |LUT3                   |    11|
+|6     |LUT4                   |    18|
+|7     |LUT5                   |     4|
+|8     |LUT6                   |     5|
+|9     |RAMB18E1               |     1|
+|10    |FDRE                   |    66|
+|11    |FDSE                   |     1|
+|12    |IBUF                   |     1|
+|13    |OBUF                   |    12|
++------+-----------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1746.527 ; gain = 651.609
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:10 ; elapsed = 00:00:16 . Memory (MB): peak = 1660.035 ; gain = 559.070
-Synthesis Optimization Complete : Time (s): cpu = 00:00:15 ; elapsed = 00:00:17 . Memory (MB): peak = 1660.035 ; gain = 566.258
+Synthesis finished with 0 errors, 0 critical warnings and 2 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:10 ; elapsed = 00:00:15 . Memory (MB): peak = 1746.527 ; gain = 561.078
+Synthesis Optimization Complete : Time (s): cpu = 00:00:14 ; elapsed = 00:00:16 . Memory (MB): peak = 1746.527 ; gain = 651.609
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1660.035 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1746.527 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 4 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1660.035 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1746.527 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: 71a41f73
+Synth Design complete | Checksum: a455a76a
 INFO: [Common 17-83] Releasing license: Synthesis
-33 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+42 Infos, 5 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:18 ; elapsed = 00:00:20 . Memory (MB): peak = 1660.035 ; gain = 938.832
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1660.035 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/synth_1/top.dcp' has been generated.
+synth_design: Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 1746.527 ; gain = 1024.160
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1746.527 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.runs/synth_1/top.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Nov 28 10:16:48 2024...
+INFO: [Common 17-206] Exiting Vivado at Fri Dec 13 19:27:33 2024...

@@ -1,9 +1,0 @@
-{
-	"version": "1.0",
-	"modules": {
-		"clocking_wizard": {
-			"proto_instances": {
-			}
-		}
-	}
-}

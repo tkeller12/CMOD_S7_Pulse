@@ -1,5 +1,5 @@
 namespace eval ::optrace {
-  variable script "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/impl_1/top.tcl"
+  variable script "C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.runs/impl_1/top.tcl"
   variable category "vivado_impl"
 }
 
@@ -114,20 +114,20 @@ OPTRACE "create in-memory project" START { }
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
-  set_property webtalk.parent_dir C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.cache/wt [current_project]
-  set_property parent.project_path C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.xpr [current_project]
-  set_property ip_output_repo C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.cache/ip [current_project]
+  set_property webtalk.parent_dir C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.cache/wt [current_project]
+  set_property parent.project_path C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.xpr [current_project]
+  set_property ip_output_repo C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES XPM_CDC [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
-  add_files -quiet C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/synth_1/top.dcp
+  add_files -quiet C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.runs/synth_1/top.dcp
   set_msg_config -source 4 -id {BD 41-1661} -limit 0
   set_param project.isImplRun true
-  add_files C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/bd/clocking_wizard/clocking_wizard.bd
+  add_files C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/sources_1/bd/clock_wizard/clock_wizard.bd
   set_param project.isImplRun false
 OPTRACE "read constraints: implementation" START { }
-  read_xdc C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc
+  read_xdc C:/Users/jkell/Repositories/FPGA_CMOD_S7/uart_rx_pmod/uart_rx_pmod.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "read constraints: implementation_pre" START { }
 OPTRACE "read constraints: implementation_pre" END { }
