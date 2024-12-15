@@ -75,7 +75,7 @@ module ppc_tb;
     reg [7:0] wr_pulse = 8'haa;
     reg [19:0] wr_data = 20'b0;
     reg [3:0] wr_op_code = 4'b0001;
-    reg [31:0] wr_delay = 32'b110;
+    reg [31:0] wr_delay = 32'b0;
     
     always @(posedge clk)
     begin

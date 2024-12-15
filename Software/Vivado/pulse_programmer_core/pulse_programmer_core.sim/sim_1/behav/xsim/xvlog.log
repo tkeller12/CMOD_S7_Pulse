@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/pulse_programmer_core/pulse_programmer_core.srcs/sources_1/new/PP_RAM_2Port.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module PP_RAM_2Port
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/pulse_programmer_core/pulse_programmer_core.srcs/sources_1/imports/pulse programmer/pulse_programmer_core.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pulse_programmer_core
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/pulse_programmer_core/pulse_programmer_core.srcs/sim_1/new/ppc_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ppc_tb

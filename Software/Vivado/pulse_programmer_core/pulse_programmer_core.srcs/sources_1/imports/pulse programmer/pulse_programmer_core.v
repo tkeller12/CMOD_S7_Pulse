@@ -52,7 +52,7 @@ module pulse_programmer_core (
                 end
                 DELAY:
                 begin
-                    if (count == delay)
+                    if (count >= delay)
                     begin
                         count <= 0;
                         addr <= addr + 1;
