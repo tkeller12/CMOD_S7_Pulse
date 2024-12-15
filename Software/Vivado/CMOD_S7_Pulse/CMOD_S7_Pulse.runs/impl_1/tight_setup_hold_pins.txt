@@ -1,7 +1,19 @@
-+===================================+=====================================+================================+
-| Launch Setup Clock                | Launch Hold Clock                   | Pin                            |
-+===================================+=====================================+================================+
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[10]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[6]/D  |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[7]/D  |
-+-----------------------------------+-------------------------------------+--------------------------------+
++===================================+=====================================+========================================+
+| Launch Setup Clock                | Launch Hold Clock                   | Pin                                    |
++===================================+=====================================+========================================+
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[12]/D         |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[3]/D          |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[1]/D          |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[11]/D         |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[10]/D         |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[7]/D          |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[6]/D          |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[9]/D          |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[8]/D          |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[5]/D          |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[0]/D          |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[4]/D          |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/FSM_sequential_MODE_reg[0]/D |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/tick_count_reg[2]/D          |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0_1 | u_uart_rx/FSM_sequential_MODE_reg[1]/D |
++-----------------------------------+-------------------------------------+----------------------------------------+

@@ -9,4 +9,4 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==clock_wizar
 # IP: bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==clock_wizard_clk_wiz_0_0 || ORIG_REF_NAME==clock_wizard_clk_wiz_0_0} -quiet] -quiet
 
-# XDC: C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/clock_wizard_ooc.xdc
+# XDC: c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/clock_wizard_ooc.xdc

@@ -23,58 +23,54 @@
 module pulse_programmer_core (
     input rst,
     input clk,
-    input [63:0] instruction,
-    output addr,
-    output [7:0] pulse
+    output reg [7:0] addr = 0,
+    input [3:0] op_code,
+    input [31:0] delay,
+    input [19:0] data
+    //input trig
     );
     
-    
-    reg [31:0] r_delay = 0;
-    reg [7:0] r_pulse = 0;
-    
-    reg [31:0] r_count = 0;
-    reg [12:0] r_addr = 0;
-    
-    reg [3:0] OP_CODE = 0;
+    reg [31:0] count = 0;
     
     reg [3:0] NO_OP = 4'b0000;
     reg [3:0] DELAY = 4'b0001;
-    //reg [3:0] LONG_DELAY = 4'b0010;
+    reg [3:0] WAIT =  4'b1000;
     
     always @(posedge clk)
     begin
         if (rst)
         begin
-        
+            addr <= 0;
+            count <= 0;
         end
         else
         begin
-            case (OP_CODE)
+            case (op_code)
                 NO_OP:
                 begin
-                    r_addr <= r_addr+1;
+                    addr <= addr+1;
                 end
                 DELAY:
                 begin
-                    if (r_count == r_delay)
+                    if (count >= delay)
                     begin
-                        r_count <= 0;
-                        r_addr <= r_addr + 1;
+                        count <= 0;
+                        addr <= addr + 1;
                     end
                     
                     else
                     begin
-                        r_count <= r_count + 1;
+                        count <= count + 1;
                     end
+                end                
+                default:
+                begin
+                    addr <= addr+1;
                 end
             endcase
         end
         
     
     end
-    
-    assign pulse = r_pulse;
-    assign addr = r_addr;
-    
     
 endmodule
