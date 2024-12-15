@@ -39,8 +39,8 @@ def delay(addr, pulse, delay):
 #        write_inst1 = delay(ix,0x55,delay_s)
 #    ser.write(write_inst1)
 
-p90 = 10e-9
-p180 = 20e-9
+p90 = 40e-9
+p180 = 80e-9
 pdelay = 200e-9
 reptime = 200e-6
 
