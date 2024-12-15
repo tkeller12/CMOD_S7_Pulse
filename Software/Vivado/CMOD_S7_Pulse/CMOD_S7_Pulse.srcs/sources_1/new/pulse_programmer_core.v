@@ -23,7 +23,7 @@
 module pulse_programmer_core (
     input rst,
     input clk,
-    output reg [7:0] addr = 0,
+    output reg [7:0] addr,
     input [3:0] op_code,
     input [31:0] delay,
     input [19:0] data

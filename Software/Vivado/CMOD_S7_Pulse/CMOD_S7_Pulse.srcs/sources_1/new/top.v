@@ -37,7 +37,7 @@ module top(
     );
 
     reg [7:0] r_ja = 0;    
-    reg [3:0] r_led = 0;
+    //reg [3:0] r_led = 0;
     
     // 250 000 000 / 115 200 = 2170.1388 ~ 2170
     parameter TICKS_PER_BIT = 2170;
@@ -72,7 +72,7 @@ module top(
     );
     
     reg [7:0] wr_addr = 0;
-    wire [7:0] addr = 0;
+    wire [7:0] addr;
     reg i_Wr_DV = 0;
     reg [63:0] i_Wr_Data = 0;
     reg i_Rd_En = 1;
@@ -107,6 +107,7 @@ module top(
     pulse_programmer_core u_ppc (
      .rst(pp_rst),
      .clk(clk),
+     .addr(addr),     
      .op_code(op_code),
      .delay(delay),
      .data(data)
@@ -141,7 +142,7 @@ module top(
             wr_addr <= shift_reg_data[71:64];        
             if (shift_reg_data[72] == 1) // write operation
             begin
-                r_led[0] <= 1;
+                //r_led[0] <= 1;
                 i_Wr_Data <= shift_reg_data[63:0];
                 //i_Wr_Data <= 8'haa; // troubleshooting, this doesn't work
                 i_Wr_DV <= 1;
@@ -149,7 +150,7 @@ module top(
             end
             else // read operation
             begin
-                r_led[1] <= 1;
+                //r_led[1] <= 1;
                 //i_Rd_En <= 1;
                 i_Wr_DV <= 0;
             end
@@ -162,18 +163,18 @@ module top(
         end
     end
     
-    always @(posedge clk)
-    begin
-        if (o_Rd_DV)
-        begin
-            //r_ja <= o_Rd_Data; // it does get to this line when writing RX
-            r_led[2] <= 1;
-        end
-    end
+//    always @(posedge clk)
+//    begin
+//        if (o_Rd_DV)
+//        begin
+//            //r_ja <= o_Rd_Data; // it does get to this line when writing RX
+//            //r_led[2] <= 1;
+//        end
+//    end
     
     
     assign ja = pulse;
-    assign led = r_led;
+    assign led[3:0] = addr[3:0];
     
     
 endmodule
