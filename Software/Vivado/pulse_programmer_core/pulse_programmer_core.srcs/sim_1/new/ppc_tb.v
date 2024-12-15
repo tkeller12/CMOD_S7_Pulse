@@ -36,7 +36,6 @@ module ppc_tb;
     pulse_programmer_core u_ppc (
         .rst(rst),
         .clk(clk),
-        .instruction(instruction),
         .addr(addr),
         .op_code(op_code),
         .delay(delay),
@@ -73,7 +72,6 @@ module ppc_tb;
     end
     
     reg init = 1;
-    //reg [63:0] test_data = 0;
     reg [7:0] wr_pulse = 8'haa;
     reg [19:0] wr_data = 20'b0;
     reg [3:0] wr_op_code = 4'b0001;
@@ -82,8 +80,7 @@ module ppc_tb;
     always @(posedge clk)
     begin
         if (init)
-        begin
-            //test_data <= {46'b0,wr_addr};      
+        begin      
             wr_addr <= wr_addr+1;
 //            wr_data <= {wr_addr+1,56'b0};
             wr_instruction <= {wr_pulse, wr_data, wr_op_code, wr_delay};
