@@ -2,3 +2,6 @@ Running: xsim.dir/simple_dds_core_tb_behav/xsimk.exe -simmode gui -wdb simple_dd
 Design successfully loaded
 Design Loading Memory Usage: 8400 KB (Peak: 8400 KB)
 Design Loading CPU Usage: 0 ms
+Simulation completed
+Simulation Memory Usage: 9096 KB (Peak: 9096 KB)
+Simulation CPU Usage: 0 ms
