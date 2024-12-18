@@ -78,13 +78,13 @@ module top(
     reg i_Rd_En = 1;
     
     wire o_Rd_DV;
-    //wire [7:0] o_Rd_Data;
+    wire [63:0] o_Rd_Data;
     wire [7:0] pulse;
     wire [19:0] data;
     wire [3:0] op_code;
     wire [31:0] delay;
         
-    PP_RAM_2Port #(.WIDTH(64), .DEPTH(256)) u_PP_RAM_2Port (
+    RAM_2Port #(.WIDTH(64), .DEPTH(256)) u_RAM_2Port (
     // Write Interface
     .i_Wr_Clk(clk),    
     .i_Wr_Addr(wr_addr),    
@@ -95,12 +95,19 @@ module top(
     .i_Rd_Addr(addr),
     .i_Rd_En(i_Rd_En),
     .o_Rd_DV(o_Rd_DV),
-    //.o_Rd_Data(o_Rd_Data),
-    .pulse(pulse),
-    .data(data),
-    .op_code(op_code),
-    .delay(delay)
+    .o_Rd_Data(o_Rd_Data)
+    //.pulse(pulse),
+    //.data(data),
+    //.op_code(op_code),
+    //.delay(delay)
     );
+    
+    // TESTING
+    
+    assign pulse = o_Rd_Data[63:56];
+    assign data = o_Rd_Data[55:36];
+    assign op_code = o_Rd_Data[35:32];
+    assign delay = o_Rd_Data[31:0];  
     
     reg pp_rst = 1;
     
