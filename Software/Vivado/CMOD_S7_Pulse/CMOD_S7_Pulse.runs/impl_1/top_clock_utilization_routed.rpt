@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date         : Tue Dec 17 22:13:22 2024
+| Date         : Wed Dec 18 20:40:26 2024
 | Host         : Tim-Workstation running 64-bit major release  (build 9200)
 | Command      : report_clock_utilization -file top_clock_utilization_routed.rpt
 | Design       : top
@@ -46,7 +46,7 @@ Table of Contents
 +-----------+-----------+-----------------+------------+---------------+--------------+-------------------+-------------+-----------------+--------------+-----------------------------------+--------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
 | Global Id | Source Id | Driver Type/Pin | Constraint | Site          | Clock Region | Load Clock Region | Clock Loads | Non-Clock Loads | Clock Period | Clock                             | Driver Pin                                                         | Net                                                                                        |
 +-----------+-----------+-----------------+------------+---------------+--------------+-------------------+-------------+-----------------+--------------+-----------------------------------+--------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
-| g0        | src0      | BUFG/O          | None       | BUFGCTRL_X0Y0 | n/a          |                 1 |         304 |               0 |        4.000 | clk_out1_clock_wizard_clk_wiz_0_0 | u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clkout1_buf/O | u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1                              |
+| g0        | src0      | BUFG/O          | None       | BUFGCTRL_X0Y0 | n/a          |                 1 |         215 |               0 |        4.000 | clk_out1_clock_wizard_clk_wiz_0_0 | u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clkout1_buf/O | u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1                              |
 | g1        | src1      | BUFG/O          | None       | BUFGCTRL_X0Y1 | n/a          |                 1 |           1 |               0 |       83.333 | clkfbout_clock_wizard_clk_wiz_0_0 | u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clkf_buf/O    | u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clkfbout_buf_clock_wizard_clk_wiz_0_0 |
 +-----------+-----------+-----------------+------------+---------------+--------------+-------------------+-------------+-----------------+--------------+-----------------------------------+--------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
 * Clock Loads column represents cell count of net connects that connect to a clock pin. Internal cell leaf pins are not considered
@@ -75,7 +75,7 @@ Table of Contents
 | Clock Region Name | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail |
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
 | X0Y0              |    1 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |    0 |   800 |    0 |   300 |    0 |    20 |    0 |    10 |    0 |    20 |
-| X1Y0              |    1 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  232 |  1300 |   28 |   400 |    0 |    40 |    0 |    20 |    0 |    20 |
+| X1Y0              |    1 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  201 |  1300 |   70 |   400 |    0 |    40 |    5 |    20 |    0 |    20 |
 | X0Y1              |    0 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |    0 |   800 |    0 |   300 |    0 |    20 |    0 |    10 |    0 |    20 |
 | X1Y1              |    0 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     4 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |   750 |    0 |   250 |    0 |    10 |    0 |     5 |    0 |    20 |
 +-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
@@ -100,7 +100,7 @@ All Modules
 +-----------+-----------------+-------------------+-----------------------------------+-------------+---------------+-------------+----------+----------------+----------+---------------------------------------------------------------+
 | Global Id | Driver Type/Pin | Driver Region (D) | Clock                             | Period (ns) | Waveform (ns) | Slice Loads | IO Loads | Clocking Loads | GT Loads | Net                                                           |
 +-----------+-----------------+-------------------+-----------------------------------+-------------+---------------+-------------+----------+----------------+----------+---------------------------------------------------------------+
-| g0        | BUFG/O          | n/a               | clk_out1_clock_wizard_clk_wiz_0_0 |       4.000 | {0.000 2.000} |         240 |        0 |              0 |        0 | u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |
+| g0        | BUFG/O          | n/a               | clk_out1_clock_wizard_clk_wiz_0_0 |       4.000 | {0.000 2.000} |         215 |        0 |              0 |        0 | u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |
 +-----------+-----------------+-------------------+-----------------------------------+-------------+---------------+-------------+----------+----------------+----------+---------------------------------------------------------------+
 * Slice Loads column represents load cell count of all cell types other than IO, GT and clock resources
 ** IO Loads column represents load cell count of IO types
@@ -112,7 +112,7 @@ All Modules
 |    | X0 | X1   | HORIZONTAL PROG DELAY |
 +----+----+------+-----------------------+
 | Y1 |  0 |    0 |                     - |
-| Y0 |  0 |  240 |                     0 |
+| Y0 |  0 |  215 |                     0 |
 +----+----+------+-----------------------+
 
 
@@ -157,7 +157,7 @@ All Modules
 +-----------+-------+-----------------+------------+-------------+-----------------+-----+-------------+------+-----+----+------+-----+---------+---------------------------------------------------------------+
 | Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF  | Memory LUTs | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                                                           |
 +-----------+-------+-----------------+------------+-------------+-----------------+-----+-------------+------+-----+----+------+-----+---------+---------------------------------------------------------------+
-| g0        | n/a   | BUFG/O          | None       |         240 |               0 | 232 |           8 |    0 |   0 |  0 |    0 |   0 |       0 | u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |
+| g0        | n/a   | BUFG/O          | None       |         215 |               0 | 201 |           8 |    5 |   0 |  0 |    0 |   0 |       0 | u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |
 +-----------+-------+-----------------+------------+-------------+-----------------+-----+-------------+------+-----+----+------+-----+---------+---------------------------------------------------------------+
 * Clock Loads column represents cell count of net connects that connect to a clock pin. Internal cell leaf pins are not considered
 ** Non-Clock Loads column represents cell count of non-clock pin loads

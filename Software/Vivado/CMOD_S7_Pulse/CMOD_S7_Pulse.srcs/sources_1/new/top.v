@@ -23,11 +23,16 @@
 module top(
     input clk_12MHz,
     input wire uart_rx_pin,
+    input [1:0] btn,
     output wire [7:0] ja,
     output wire [3:0] led
     );
     
     wire clk;
+    wire trig;
+    
+    assign trig = btn[0];
+    
     clock_wizard_wrapper u_clock_wizard_wrapper
    (
     .clk_in1(clk_12MHz),
@@ -71,8 +76,8 @@ module top(
     .o_DV(o_DV)
     );
     
-    reg [7:0] wr_addr = 0;
-    wire [7:0] addr;
+    reg [11:0] wr_addr = 0;
+    wire [11:0] addr;
     reg i_Wr_DV = 0;
     reg [63:0] i_Wr_Data = 0;
     reg i_Rd_En = 1;
@@ -84,7 +89,7 @@ module top(
     wire [3:0] op_code;
     wire [31:0] delay;
         
-    RAM_2Port #(.WIDTH(64), .DEPTH(256)) u_RAM_2Port (
+    RAM_2Port #(.WIDTH(64), .DEPTH(4096)) u_RAM_2Port (
     // Write Interface
     .i_Wr_Clk(clk),    
     .i_Wr_Addr(wr_addr),    
@@ -117,8 +122,8 @@ module top(
      .addr(addr),     
      .op_code(op_code),
      .delay(delay),
-     .data(data)
-//     .trig(trig)
+     .data(data),
+     .trig(trig)
     );
     
     reg init = 1; // high when initializing
@@ -129,7 +134,7 @@ module top(
         if (init)  // initialize memory
         begin
             wr_addr <= wr_addr + 1;            
-            if (wr_addr == 255)
+            if (wr_addr == 4095)
             begin
                 wr_addr <= 0;
                 i_Wr_DV <= 0;
@@ -146,8 +151,8 @@ module top(
     
         else if (o_DV)
         begin
-            wr_addr <= shift_reg_data[71:64];        
-            if (shift_reg_data[72] == 1) // write operation
+            wr_addr <= shift_reg_data[75:64];        
+            if (shift_reg_data[76] == 1) // write operation
             begin
                 //r_led[0] <= 1;
                 i_Wr_Data <= shift_reg_data[63:0];

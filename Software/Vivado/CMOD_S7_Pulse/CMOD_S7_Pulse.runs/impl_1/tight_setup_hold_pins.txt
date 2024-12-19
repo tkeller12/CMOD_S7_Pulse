@@ -12,6 +12,8 @@
 | clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[15]/D |
 | clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[12]/D |
 | clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[11]/D |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[8]/D  |
 | clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[7]/D  |
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[4]/D  |
 | clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[3]/D  |
 +-----------------------------------+-----------------------------------+-----------------------+
