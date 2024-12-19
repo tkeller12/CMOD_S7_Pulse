@@ -25,10 +25,20 @@ def delay_inst(pulse, delay):
 
 def delay(addr, pulse, delay):
     inst = delay_inst(pulse, delay)
-    addr = addr.to_bytes(1, byteorder = 'big')
-    write = (1).to_bytes(1, byteorder = 'big')
+#    addr = addr.to_bytes(1, byteorder = 'big')
+#    write = (1).to_bytes(1, byteorder = 'big')
+    if addr > 4095:
+        raise ValueError('Address must be less than 4096')
+#    addr = addr.to_bytes(2, byteorder = 'big')
+#    write = (1).to_bytes(1, byteorder = 'big')
 
-    return write + addr + inst
+    write_addr = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
+    return write_addr + inst
+
+def wait(addr):
+    inst = convert_to_inst(0, 0, 4, 0)
+    write_addr = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
+    return write_addr + inst
 
 
 #delay_s = 100e-9
@@ -39,12 +49,12 @@ def delay(addr, pulse, delay):
 #        write_inst1 = delay(ix,0x55,delay_s)
 #    ser.write(write_inst1)
 
-p90 = 40e-9
-p180 = 80e-9
+p90 = 16e-9
+p180 = 32e-9
 pdelay = 200e-9
 reptime = 200e-6
 
-for ix in range(255):
+for ix in range(4095):
     if ix == 1:
         write_inst = delay(ix,0xff,p90)
     elif ix == 2:
@@ -53,6 +63,8 @@ for ix in range(255):
         write_inst = delay(ix,0xff,p180)
     elif ix == 4:
         write_inst = delay(ix,0x00,reptime)
+    elif ix == 5:
+        write_inst = wait(ix)
     else:
         write_inst = delay(ix,0,10e-9)
 
