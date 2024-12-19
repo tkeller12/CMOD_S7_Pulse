@@ -40,6 +40,13 @@ def wait(addr):
     write_addr = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
     return write_addr + inst
 
+def goto(addr, goto_addr):
+    if (addr > 4095) or (goto_addr > 4095):
+        raise ValueError('Address must be less than 4096')
+    inst = convert_to_inst(0, goto_addr, 3, 0)
+    write_addr = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
+    return write_addr + inst
+
 
 #delay_s = 100e-9
 #for ix in range(255):
@@ -52,7 +59,8 @@ def wait(addr):
 p90 = 16e-9
 p180 = 32e-9
 pdelay = 200e-9
-reptime = 200e-6
+reptime = 1e-6
+reptime_long = 0.1
 
 for ix in range(4095):
     if ix == 1:
@@ -63,8 +71,12 @@ for ix in range(4095):
         write_inst = delay(ix,0xff,p180)
     elif ix == 4:
         write_inst = delay(ix,0x00,reptime)
+#    elif ix == 5:
+#        write_inst = wait(ix)
     elif ix == 5:
-        write_inst = wait(ix)
+        write_inst = goto(ix, 1)
+    elif ix == 6:
+        write_inst = delay(ix,0x00,reptime_long)
     else:
         write_inst = delay(ix,0,10e-9)
 

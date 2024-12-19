@@ -1,19 +1,5 @@
-+===================================+===================================+=======================+
-| Launch Setup Clock                | Launch Hold Clock                 | Pin                   |
-+===================================+===================================+=======================+
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[31]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[28]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[27]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[24]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[23]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[20]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[19]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[16]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[15]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[12]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[11]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[8]/D  |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[7]/D  |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[4]/D  |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[3]/D  |
-+-----------------------------------+-----------------------------------+-----------------------+
++===================================+===================================+=====================+
+| Launch Setup Clock                | Launch Hold Clock                 | Pin                 |
++===================================+===================================+=====================+
+| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/addr_reg[0]/D |
++-----------------------------------+-----------------------------------+---------------------+

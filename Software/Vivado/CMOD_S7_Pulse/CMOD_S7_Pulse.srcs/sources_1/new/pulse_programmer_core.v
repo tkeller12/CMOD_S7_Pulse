@@ -35,7 +35,7 @@ module pulse_programmer_core (
     reg [3:0] NO_OP = 4'b0000;
     reg [3:0] DELAY = 4'b0001;
     //reg [3:0] LONG_DELAY =  4'b0010; // NOT IMPLEMENTED YET
-    //reg [3:0] GOTO = 4'b0011; // NOT IMPLEMENTED YET
+    reg [3:0] GOTO = 4'b0011;
     reg [3:0] WAIT = 4'b0100;
     
     always @(posedge clk)
@@ -64,6 +64,10 @@ module pulse_programmer_core (
                     begin
                         count <= count + 1;
                     end
+                end
+                GOTO:
+                begin
+                    addr <= data[11:0];
                 end
                 WAIT:
                 begin
