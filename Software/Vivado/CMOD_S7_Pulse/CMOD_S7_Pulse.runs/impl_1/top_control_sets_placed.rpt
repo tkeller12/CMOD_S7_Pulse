@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date         : Tue Dec 17 21:18:21 2024
+| Date         : Tue Dec 17 22:13:11 2024
 | Host         : Tim-Workstation running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
 | Design       : top
@@ -58,12 +58,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              51 |           27 |
+| No           | No                    | No                     |              51 |           25 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |              13 |            6 |
-| Yes          | No                    | No                     |              80 |           24 |
+| No           | Yes                   | No                     |              13 |            5 |
+| Yes          | No                    | No                     |              80 |           19 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |              87 |           23 |
+| Yes          | Yes                   | No                     |              87 |           21 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -74,18 +74,18 @@ Table of Contents
 |                          Clock Signal                          |                  Enable Signal                 |    Set/Reset Signal   | Slice Load Count | Bel Load Count | Bels / Slice |
 +----------------------------------------------------------------+------------------------------------------------+-----------------------+------------------+----------------+--------------+
 |  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/index[3]_i_1_n_0                     |                       |                2 |              4 |         2.00 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_inst_shift_reg/E[0]                          |                       |                5 |              8 |         1.60 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_inst_shift_reg/E[0]                          |                       |                2 |              8 |         4.00 |
 |  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/r_data                               |                       |                2 |              8 |         4.00 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/E[0]                               | pp_rst                |                5 |              9 |         1.80 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                                                | u_uart_rx/tick_count0 |                6 |             13 |         2.17 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/E[0]                               | pp_rst                |                3 |              9 |         3.00 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                                                | u_uart_rx/tick_count0 |                5 |             13 |         2.60 |
 |  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/o_Rd_Data_reg[32]_0                | pp_rst                |               11 |             32 |         2.91 |
 |  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_inst_shift_reg/r_shift_reg_data_reg[72]_0[0] | i_Wr_Data[63]_i_1_n_0 |                7 |             46 |         6.57 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                                                |                       |               27 |             51 |         1.89 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/r_Mem_reg_0_63_0_2_i_1_n_0         |                       |               16 |             62 |         3.88 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                                                |                       |               25 |             51 |         2.04 |
 |  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/r_Mem_reg_128_191_0_2_i_1_n_0      |                       |               16 |             62 |         3.88 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/r_Mem_reg_0_63_0_2_i_1_n_0         |                       |               16 |             62 |         3.88 |
 |  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/r_Mem_reg_192_255_0_2_i_1_n_0      |                       |               16 |             62 |         3.88 |
 |  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/r_Mem_reg_64_127_0_2_i_1_n_0       |                       |               16 |             62 |         3.88 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/uart_rx_done                         |                       |               15 |             68 |         4.53 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/uart_rx_done                         |                       |               13 |             68 |         5.23 |
 +----------------------------------------------------------------+------------------------------------------------+-----------------------+------------------+----------------+--------------+
 
 
