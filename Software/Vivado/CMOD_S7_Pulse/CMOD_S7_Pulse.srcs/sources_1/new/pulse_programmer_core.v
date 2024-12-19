@@ -23,18 +23,20 @@
 module pulse_programmer_core (
     input rst,
     input clk,
-    output reg [7:0] addr,
+    output reg [11:0] addr,
     input [3:0] op_code,
     input [31:0] delay,
-    input [19:0] data
-    //input trig
+    input [19:0] data,
+    input trig
     );
     
     reg [31:0] count = 0;
     
     reg [3:0] NO_OP = 4'b0000;
     reg [3:0] DELAY = 4'b0001;
-    reg [3:0] WAIT =  4'b1000;
+    //reg [3:0] LONG_DELAY =  4'b0010; // NOT IMPLEMENTED YET
+    //reg [3:0] GOTO = 4'b0011; // NOT IMPLEMENTED YET
+    reg [3:0] WAIT = 4'b0100;
     
     always @(posedge clk)
     begin
@@ -61,6 +63,13 @@ module pulse_programmer_core (
                     else
                     begin
                         count <= count + 1;
+                    end
+                end
+                WAIT:
+                begin
+                    if (trig)
+                    begin
+                        addr <= addr + 1;
                     end
                 end                
                 default:

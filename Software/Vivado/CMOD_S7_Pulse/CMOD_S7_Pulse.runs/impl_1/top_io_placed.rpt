@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version              : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date                      : Sun Dec 15 12:25:06 2024
+| Date                      : Wed Dec 18 20:40:14 2024
 | Host                      : Tim-Workstation running 64-bit major release  (build 9200)
 | Command                   : report_io -file top_io_placed.rpt
 | Design                    : top
@@ -25,7 +25,7 @@ Table of Contents
 +---------------+
 | Total User IO |
 +---------------+
-|            14 |
+|            16 |
 +---------------+
 
 
@@ -80,8 +80,8 @@ Table of Contents
 | C13        |             | High Range | IO_L15P_T2_DQS_15            | User IO     |             |      15 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | C14        |             | High Range | IO_L15N_T2_DQS_15            | User IO     |             |      15 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | C15        |             | High Range | IO_L14P_T2_SRCC_15           | User IO     |             |      15 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
-| D1         |             | High Range | IO_L6N_T0_VREF_34            | User IO     |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
-| D2         |             | High Range | IO_L6P_T0_34                 | User IO     |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
+| D1         | btn[1]      | High Range | IO_L6N_T0_VREF_34            | INPUT       | LVCMOS33    |      34 |            |      |                     |                 NONE |         | FIXED      |           |          |      | NONE             |              |                   |              |
+| D2         | btn[0]      | High Range | IO_L6P_T0_34                 | INPUT       | LVCMOS33    |      34 |            |      |                     |                 NONE |         | FIXED      |           |          |      | NONE             |              |                   |              |
 | D3         |             | High Range | IO_L9N_T1_DQS_34             | User IO     |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | D4         |             | High Range | IO_L7P_T1_34                 | User IO     |             |      34 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | D5         |             | Dedicated  | VCCBATT_0                    | Config      |             |       0 |            |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
