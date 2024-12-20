@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date         : Wed Dec 18 22:07:18 2024
+| Date         : Thu Dec 19 19:46:55 2024
 | Host         : Tim-Workstation running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
 | Design       : top
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |     9 |
-|    Minimum number of control sets                        |     9 |
+| Total control sets                                       |    10 |
+|    Minimum number of control sets                        |    10 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    20 |
+| Unused register locations in slices containing registers |    23 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,15 +39,15 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |     9 |
+| Total control sets |    10 |
 | >= 0 to < 4        |     0 |
 | >= 4 to < 6        |     1 |
 | >= 6 to < 8        |     0 |
 | >= 8 to < 10       |     1 |
 | >= 10 to < 12      |     0 |
-| >= 12 to < 14      |     2 |
-| >= 14 to < 16      |     2 |
-| >= 16              |     3 |
+| >= 12 to < 14      |     3 |
+| >= 14 to < 16      |     1 |
+| >= 16              |     4 |
 +--------------------+-------+
 * Control sets can be remapped at either synth_design or opt_design
 
@@ -58,30 +58,31 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              14 |            7 |
+| No           | No                    | No                     |              14 |            6 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |              13 |            5 |
-| Yes          | No                    | No                     |             109 |           32 |
+| No           | Yes                   | No                     |              13 |            7 |
+| Yes          | No                    | No                     |             118 |           34 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |             108 |           30 |
+| Yes          | Yes                   | No                     |             120 |           49 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
 4. Detailed Control Set Information
 -----------------------------------
 
-+----------------------------------------------------------------+--------------------------------+---------------------------------+------------------+----------------+--------------+
-|                          Clock Signal                          |          Enable Signal         |         Set/Reset Signal        | Slice Load Count | Bel Load Count | Bels / Slice |
-+----------------------------------------------------------------+--------------------------------+---------------------------------+------------------+----------------+--------------+
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/index[3]_i_1_n_0     |                                 |                1 |              4 |         4.00 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/r_data               |                                 |                3 |              8 |         2.67 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_ppc/__0/i__n_0               | pp_rst                          |                4 |             12 |         3.00 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                                | u_uart_rx/tick_count0           |                5 |             13 |         2.60 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                                |                                 |                7 |             14 |         2.00 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_inst_shift_reg/E[0]          |                                 |                6 |             15 |         2.50 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/r_Mem_reg_3_0      | pp_rst                          |                8 |             32 |         4.00 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_inst_shift_reg/init_reg_0[0] | u_inst_shift_reg/wr_addr_reg[8] |               18 |             64 |         3.56 |
-|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/uart_rx_done         |                                 |               22 |             82 |         3.73 |
-+----------------------------------------------------------------+--------------------------------+---------------------------------+------------------+----------------+--------------+
++----------------------------------------------------------------+------------------------------+-----------------------+------------------+----------------+--------------+
+|                          Clock Signal                          |         Enable Signal        |    Set/Reset Signal   | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------------------------------------------------------+------------------------------+-----------------------+------------------+----------------+--------------+
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/index[3]_i_1_n_0   |                       |                2 |              4 |         2.00 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/r_data             |                       |                1 |              8 |         8.00 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/r_Mem_reg_3_0[0] | pp_rst                |                5 |             12 |         2.40 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/E[0]             | pp_rst                |                3 |             12 |         4.00 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                              | u_uart_rx/tick_count0 |                7 |             13 |         1.86 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 |                              |                       |                6 |             14 |         2.33 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_inst_shift_reg/E[0]        |                       |                6 |             24 |         4.00 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_RAM_2Port/r_Mem_reg_3_1[0] | pp_rst                |               15 |             32 |         2.13 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_inst_shift_reg/init_reg[0] | i_Wr_Data[63]_i_1_n_0 |               26 |             64 |         2.46 |
+|  u_clock_wizard_wrapper/clock_wizard_i/clk_wiz_0/inst/clk_out1 | u_uart_rx/uart_rx_done       |                       |               25 |             82 |         3.28 |
++----------------------------------------------------------------+------------------------------+-----------------------+------------------+----------------+--------------+
 
 

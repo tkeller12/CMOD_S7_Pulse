@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-| Date             : Wed Dec 18 22:07:29 2024
+| Date             : Thu Dec 19 19:47:07 2024
 | Host             : Tim-Workstation running 64-bit major release  (build 9200)
 | Command          : report_power -file top_power_routed.rpt -pb top_power_summary_routed.pb -rpx top_power_routed.rpx
 | Design           : top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.323        |
+| Total On-Chip Power (W)  | 0.329        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.261        |
+| Dynamic (W)              | 0.267        |
 | Device Static (W)        | 0.062        |
 | Effective TJA (C/W)      | 3.7          |
 | Max Ambient (C)          | 83.8         |
@@ -52,18 +52,18 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Clocks         |     0.003 |        5 |       --- |             --- |
-| Slice Logic    |     0.002 |      436 |       --- |             --- |
-|   LUT as Logic |     0.001 |      129 |     14600 |            0.88 |
-|   CARRY4       |    <0.001 |       21 |      3650 |            0.58 |
-|   Register     |    <0.001 |      244 |     29200 |            0.84 |
+| Clocks         |     0.004 |        5 |       --- |             --- |
+| Slice Logic    |     0.002 |      490 |       --- |             --- |
+|   LUT as Logic |     0.002 |      153 |     14600 |            1.05 |
+|   CARRY4       |    <0.001 |       26 |      3650 |            0.71 |
+|   Register     |    <0.001 |      265 |     29200 |            0.91 |
 |   Others       |     0.000 |       14 |       --- |             --- |
-| Signals        |     0.003 |      381 |       --- |             --- |
+| Signals        |     0.005 |      472 |       --- |             --- |
 | Block RAM      |     0.061 |      7.5 |        45 |           16.67 |
 | MMCM           |     0.105 |        1 |         3 |           33.33 |
-| I/O            |     0.087 |       15 |       150 |           10.00 |
+| I/O            |     0.090 |       15 |       150 |           10.00 |
 | Static Power   |     0.062 |          |           |                 |
-| Total          |     0.323 |          |           |                 |
+| Total          |     0.329 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,8 +73,8 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.071 |       0.065 |      0.005 |       NA    | Unspecified | NA         |
-| Vccaux    |       1.800 |     0.070 |       0.061 |      0.009 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.074 |       0.069 |      0.005 |       NA    | Unspecified | NA         |
+| Vccaux    |       1.800 |     0.071 |       0.061 |      0.009 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.026 |       0.025 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -142,12 +142,12 @@ Table of Contents
 +--------------------------+-----------+
 | Name                     | Power (W) |
 +--------------------------+-----------+
-| top                      |     0.261 |
-|   u_RAM_2Port            |     0.063 |
+| top                      |     0.267 |
+|   u_RAM_2Port            |     0.065 |
 |   u_clock_wizard_wrapper |     0.105 |
 |     clock_wizard_i       |     0.105 |
 |       clk_wiz_0          |     0.105 |
-|   u_inst_shift_reg       |     0.001 |
+|   u_inst_shift_reg       |     0.002 |
 |   u_ppc                  |     0.003 |
 |   u_uart_rx              |     0.001 |
 +--------------------------+-----------+

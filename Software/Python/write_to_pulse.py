@@ -25,13 +25,23 @@ def delay_inst(pulse, delay):
 
 def delay(addr, pulse, delay):
     inst = delay_inst(pulse, delay)
-#    addr = addr.to_bytes(1, byteorder = 'big')
-#    write = (1).to_bytes(1, byteorder = 'big')
     if addr > 4095:
         raise ValueError('Address must be less than 4096')
-#    addr = addr.to_bytes(2, byteorder = 'big')
-#    write = (1).to_bytes(1, byteorder = 'big')
 
+    write_addr = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
+    return write_addr + inst
+
+def long_delay(addr, pulse, n, delay):
+    '''NEEDS WORK
+    '''
+    inst = delay_inst(pulse, delay)
+    if addr > 4095:
+        raise ValueError('Address must be less than 4096')
+    if n > 4096:
+        raise ValueError('n must be less than 4096')
+
+    int_delay = int(np.round(delay / 4e-9 - 1))
+    inst = convert_to_inst(pulse, n, 2, int_delay)
     write_addr = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
     return write_addr + inst
 
@@ -59,7 +69,7 @@ def goto(addr, goto_addr):
 p90 = 16e-9
 p180 = 32e-9
 pdelay = 200e-9
-reptime = 1e-6
+reptime = 100e-6
 reptime_long = 0.1
 
 for ix in range(4095):
@@ -71,6 +81,7 @@ for ix in range(4095):
         write_inst = delay(ix,0xff,p180)
     elif ix == 4:
         write_inst = delay(ix,0x00,reptime)
+#        write_inst = long_delay(ix,0x00, 1,reptime)
 #    elif ix == 5:
 #        write_inst = wait(ix)
     elif ix == 5:

@@ -31,10 +31,11 @@ module pulse_programmer_core (
     );
     
     reg [31:0] count = 0;
+    reg [11:0] long_count = 0;
     
     reg [3:0] NO_OP = 4'b0000;
     reg [3:0] DELAY = 4'b0001;
-    //reg [3:0] LONG_DELAY =  4'b0010; // NOT IMPLEMENTED YET
+    reg [3:0] LONG_DELAY =  4'b0010; // NOT IMPLEMENTED YET
     reg [3:0] GOTO = 4'b0011;
     reg [3:0] WAIT = 4'b0100;
     
@@ -44,13 +45,16 @@ module pulse_programmer_core (
         begin
             addr <= 0;
             count <= 0;
+            long_count <= 0;
         end
         else
         begin
             case (op_code)
                 NO_OP:
                 begin
-                    addr <= addr+1;
+                    addr <= addr + 1;
+                    count <= 0;
+                    long_count <= 0;
                 end
                 DELAY:
                 begin
@@ -65,20 +69,48 @@ module pulse_programmer_core (
                         count <= count + 1;
                     end
                 end
+                LONG_DELAY:
+                begin
+                    if (long_count >= data[11:0]) // end condition
+                    begin
+                        long_count <= 0;
+                        count <= 0;
+                        addr <= addr + 1;
+                    end
+                    else
+                    begin
+                        if (count >= delay)
+                        begin
+                            long_count <= long_count + 1;
+                            count <= 0;
+                        end
+                        else
+                        begin
+                            count <= count + 1;
+                        end
+                    end
+                end
+                
                 GOTO:
                 begin
                     addr <= data[11:0];
+                    count <= 0;
+                    long_count <= 0;
                 end
                 WAIT:
                 begin
                     if (trig)
                     begin
                         addr <= addr + 1;
+                        count <= 0;
+                        long_count <= 0;
                     end
                 end                
                 default:
                 begin
-                    addr <= addr+1;
+                    addr <= addr + 1;
+                    count <= 0;
+                    long_count <= 0;
                 end
             endcase
         end
