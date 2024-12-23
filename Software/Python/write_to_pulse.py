@@ -2,7 +2,8 @@ import serial
 import numpy as np
 import time
 
-ser = serial.Serial(port = 'COM7', baudrate = 115200, timeout = 1.)
+#ser = serial.Serial(port = 'COM7', baudrate = 115200, timeout = 1.)
+ser = serial.Serial(port = 'COM4', baudrate = 115200, timeout = 1.)
 
 pulse = 0b0001111
 data = 1024
@@ -66,10 +67,10 @@ def goto(addr, goto_addr):
 #        write_inst1 = delay(ix,0x55,delay_s)
 #    ser.write(write_inst1)
 
-p90 = 16e-9
-p180 = 32e-9
-pdelay = 200e-9
-reptime = 100e-6
+p90 = 0.1
+p180 = 0.1
+pdelay = 0.1
+reptime = 0.1
 reptime_long = 0.1
 
 for ix in range(4095):

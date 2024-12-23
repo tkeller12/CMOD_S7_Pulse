@@ -2,7 +2,8 @@ import serial
 import numpy as np
 import time
 
-ser = serial.Serial(port = 'COM7', baudrate = 115200, timeout = 1.)
+#ser = serial.Serial(port = 'COM7', baudrate = 115200, timeout = 1.)
+ser = serial.Serial(port = 'COM4', baudrate = 115200, timeout = 1.)
 
 pulse = 0b0001111
 data = 1024
