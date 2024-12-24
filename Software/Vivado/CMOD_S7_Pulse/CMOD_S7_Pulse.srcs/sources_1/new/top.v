@@ -128,7 +128,15 @@ module top(
     
     reg init = 1; // high when initializing
 
-
+    wire [3:0] COMMAND;
+    
+    reg [3:0] READ = 4'b0000;
+    reg [3:0] WRITE = 4'b0001;
+    reg [3:0] START = 4'b0010;
+    reg [3:0] STOP = 4'b0011;
+    
+    assign COMMAND = shift_reg_data[79:76];
+    
     always @(posedge clk)
     begin
         if (init)  // initialize memory
@@ -151,21 +159,30 @@ module top(
     
         else if (o_DV)
         begin
-            wr_addr <= shift_reg_data[75:64];        
-            if (shift_reg_data[76] == 1) // write operation
-            begin
-                //r_led[0] <= 1;
-                i_Wr_Data <= shift_reg_data[63:0];
-                //i_Wr_Data <= 8'haa; // troubleshooting, this doesn't work
-                i_Wr_DV <= 1;
-                //i_Rd_En <= 0;
-            end
-            else // read operation
-            begin
-                //r_led[1] <= 1;
-                //i_Rd_En <= 1;
-                i_Wr_DV <= 0;
-            end
+            wr_addr <= shift_reg_data[75:64];
+            case (COMMAND)
+                WRITE:
+                      
+//            if (shift_reg_data[76] == 1) // write operation
+                begin
+                    i_Wr_Data <= shift_reg_data[63:0];
+                    i_Wr_DV <= 1;
+                end
+                
+                START:
+                begin
+                    pp_rst <= 0;
+                end
+                STOP:
+                begin
+                    pp_rst <= 1;
+                end
+                default:
+            //else // read operation
+                begin
+                    i_Wr_DV <= 0;
+                end
+            endcase
 
         end
         else
@@ -174,15 +191,6 @@ module top(
             i_Wr_DV <= 0;
         end
     end
-    
-//    always @(posedge clk)
-//    begin
-//        if (o_Rd_DV)
-//        begin
-//            //r_ja <= o_Rd_Data; // it does get to this line when writing RX
-//            //r_led[2] <= 1;
-//        end
-//    end
     
     
     assign ja = pulse;

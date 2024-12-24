@@ -1,6 +1,6 @@
 -------------------------------------
 | Tool Version : Vivado v.2024.2
-| Date         : Sun Dec 22 08:38:22 2024
+| Date         : Mon Dec 23 14:25:47 2024
 | Host         : DESKTOP-MUKGN1D
 | Design       : design_1
 | Device       : xc7s25-csga225-1--
