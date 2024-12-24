@@ -161,8 +161,7 @@ module top(
         begin
             wr_addr <= shift_reg_data[75:64];
             case (COMMAND)
-                WRITE:
-                      
+                WRITE: 
 //            if (shift_reg_data[76] == 1) // write operation
                 begin
                     i_Wr_Data <= shift_reg_data[63:0];

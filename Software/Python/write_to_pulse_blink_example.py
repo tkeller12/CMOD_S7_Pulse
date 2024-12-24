@@ -51,7 +51,8 @@ for ix in range(256):
     print(format(pulse, '08b'))
 #    print(pulse)
 #    print(pulse.to_bytes(1,byteorder = 'big'))
-    write_inst = delay(ix, ix, 0.1)
+#    write_inst = delay(ix, (ix+2)%255, 0.1)
+    write_inst = delay(ix, pulse, 0.1)
 #    print(write_inst)
     ser.write(write_inst)
 
