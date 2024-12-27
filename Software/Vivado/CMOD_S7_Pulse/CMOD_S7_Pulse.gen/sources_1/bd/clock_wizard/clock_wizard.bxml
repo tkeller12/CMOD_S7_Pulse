@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="43">
   <CompositeFile CompositeFileTopName="clock_wizard" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1734135975"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1734135975"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1734135975"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1734135975"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1735329362"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1735329362"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1735329362"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1735329362"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="synth\clock_wizard.v" Type="Verilog">
         <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
@@ -18,6 +18,20 @@
         <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SIMULATION"/>
+        <ProcessingOrder Val="NORMAL"/>
+      </File>
+      <File Name="clock_wizard.bmj" Type="BMJ">
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="PRE_SYNTHESIS"/>
+        <UsedIn Val="PRE_SIMULATION"/>
+        <ProcessingOrder Val="NORMAL"/>
+      </File>
+      <File Name="clock_wizard_bmstub.v" Type="Verilog">
+        <Properties IsEditable="false" IsVisible="true" IsNetlistSimulation="false" Timestamp="0" IsTrackable="false" IsStatusTracked="false"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="PRE_SYNTHESIS"/>
+        <UsedIn Val="PRE_SIMULATION"/>
         <ProcessingOrder Val="NORMAL"/>
       </File>
       <File Name="clock_wizard_ooc.xdc" Type="XDC">

@@ -1,9 +1,9 @@
 //Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 //Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
-//Tool Version: Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-//Date        : Fri Dec 13 19:26:14 2024
-//Host        : Tim-Workstation running 64-bit major release  (build 9200)
+//Tool Version: Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
+//Date        : Fri Dec 27 13:56:01 2024
+//Host        : DESKTOP-MUKGN1D running 64-bit major release  (build 9200)
 //Command     : generate_target clock_wizard.bd
 //Design      : clock_wizard
 //Purpose     : IP block netlist
@@ -21,18 +21,14 @@ module clock_wizard
   output locked;
   input reset;
 
-  wire clk_in1_1;
-  wire clk_wiz_0_clk_out1;
-  wire clk_wiz_0_locked;
-  wire reset_1;
+  wire clk_in1;
+  wire clk_out1;
+  wire locked;
+  wire reset;
 
-  assign clk_in1_1 = clk_in1;
-  assign clk_out1 = clk_wiz_0_clk_out1;
-  assign locked = clk_wiz_0_locked;
-  assign reset_1 = reset;
   clock_wizard_clk_wiz_0_0 clk_wiz_0
-       (.clk_in1(clk_in1_1),
-        .clk_out1(clk_wiz_0_clk_out1),
-        .locked(clk_wiz_0_locked),
-        .reset(reset_1));
+       (.clk_in1(clk_in1),
+        .clk_out1(clk_out1),
+        .locked(locked),
+        .reset(reset));
 endmodule

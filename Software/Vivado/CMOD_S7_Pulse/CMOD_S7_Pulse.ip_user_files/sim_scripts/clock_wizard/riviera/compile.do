@@ -1,0 +1,26 @@
+transcript off
+onbreak {quit -force}
+onerror {quit -force}
+transcript on
+
+vlib work
+vlib riviera/xpm
+vlib riviera/xil_defaultlib
+
+vmap xpm riviera/xpm
+vmap xil_defaultlib riviera/xil_defaultlib
+
+vlog -work xpm  -incr "+incdir+../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3cbc" -l xpm -l xil_defaultlib \
+"C:/Xilinx/Vivado/2024.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
+
+vcom -work xpm -93  -incr \
+"C:/Xilinx/Vivado/2024.2/data/ip/xpm/xpm_VCOMP.vhd" \
+
+vlog -work xil_defaultlib  -incr -v2k5 "+incdir+../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3cbc" -l xpm -l xil_defaultlib \
+"../../../bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_clk_wiz.v" \
+"../../../bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0.v" \
+"../../../bd/clock_wizard/sim/clock_wizard.v" \
+
+vlog -work xil_defaultlib \
+"glbl.v"
+

@@ -7,7 +7,7 @@
       "name": "clock_wizard",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2024.1.2",
+      "tool_version": "2024.2",
       "validated": "true"
     },
     "design_tree": {
@@ -53,7 +53,7 @@
     "components": {
       "clk_wiz_0": {
         "vlnv": "xilinx.com:ip:clk_wiz:6.0",
-        "ip_revision": "14",
+        "ip_revision": "15",
         "xci_name": "clock_wizard_clk_wiz_0_0",
         "xci_path": "ip\\clock_wizard_clk_wiz_0_0\\clock_wizard_clk_wiz_0_0.xci",
         "inst_hier_path": "clk_wiz_0",

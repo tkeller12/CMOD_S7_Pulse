@@ -1,0 +1,4 @@
+clock_wizard_clk_wiz_0_0_clk_wiz.v,verilog,xil_defaultlib,../../../bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_clk_wiz.v,incdir="../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3cbc"incdir="../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3cbc"
+clock_wizard_clk_wiz_0_0.v,verilog,xil_defaultlib,../../../bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0.v,incdir="../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3cbc"incdir="../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3cbc"
+clock_wizard.v,verilog,xil_defaultlib,../../../bd/clock_wizard/sim/clock_wizard.v,incdir="../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3cbc"incdir="../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3cbc"
+glbl.v,Verilog,xil_defaultlib,glbl.v
