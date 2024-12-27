@@ -194,6 +194,7 @@ module top(
     
     assign ja = pulse;
     assign led[3:0] = addr[3:0];
-    
+//    assign led[3:0] = delay[3:0]; 
+//    assign led[3:0] = op_code[3:0];
     
 endmodule

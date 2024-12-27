@@ -1,0 +1,8 @@
+0.7
+2020.2
+Nov  8 2024
+22:36:57
+C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.sim/sim_1/behav/xsim/glbl.v,1724786425,verilog,,,,glbl,,,,,,,,
+C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_1/new/ppc_tb.v,1735327977,verilog,,,,ppc_tb,,,../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3242,,,,,
+C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/imports/memory/RAM_2Port.v,1734740701,verilog,,C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/pulse_programmer_core.v,,RAM_2Port,,,../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3242,,,,,
+C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/pulse_programmer_core.v,1734740753,verilog,,C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_1/new/ppc_tb.v,,pulse_programmer_core,,,../../../../CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ipshared/3242,,,,,

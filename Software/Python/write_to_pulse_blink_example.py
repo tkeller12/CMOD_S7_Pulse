@@ -34,18 +34,35 @@ def delay(addr, pulse, delay):
     write_addr = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
     return write_addr + inst
 
+def wait(addr):
+    inst = convert_to_inst(0, 0, 4, 0)
+    write_addr = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
+    return write_addr + inst
 
-for ix in range(256):
+def goto(addr, goto_addr):
+    if (addr > 4095) or (goto_addr > 4095):
+        raise ValueError('Address must be less than 4096')
+    inst = convert_to_inst(0, goto_addr, 3, 0)
+    write_addr = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
+    return write_addr + inst
+
+
+
+pulse = 0
+for ix in range(8):
+    print(ix)
 #    print('-'*50)
 #    print(ix)
 #    print(bin(0xff - 2**ix))
 #    pulse = 0xff - 2**ix
 #    pulse = 2**ix
+#    pulse = 0xff
 
 #    pulse = ~(2**ix) & 0xff # most correct
+#    pulse += 2**ix
     pulse = 2**ix
 #    pulse = 0xff
-    pulse = 0x00
+#    pulse = 0x00
 
 #    print(bin(pulse))
     print(format(pulse, '08b'))
@@ -56,5 +73,12 @@ for ix in range(256):
 #    print(write_inst)
     ser.write(write_inst)
 
-#ser.close()
+write_inst = goto(8, 0)
+
+ser.write(stop())
+time.sleep(5)
+ser.write(start())
+time.sleep(5)
+ser.write(stop())
+ser.close()
 

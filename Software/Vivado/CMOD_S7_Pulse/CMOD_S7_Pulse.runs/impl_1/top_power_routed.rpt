@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-| Date             : Mon Dec 23 14:26:39 2024
+| Date             : Fri Dec 27 13:39:53 2024
 | Host             : DESKTOP-MUKGN1D running 64-bit major release  (build 9200)
 | Command          : report_power -file top_power_routed.rpt -pb top_power_summary_routed.pb -rpx top_power_routed.rpx
 | Design           : top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.327        |
+| Total On-Chip Power (W)  | 0.328        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.265        |
+| Dynamic (W)              | 0.266        |
 | Device Static (W)        | 0.062        |
 | Effective TJA (C/W)      | 3.7          |
 | Max Ambient (C)          | 83.8         |
@@ -52,18 +52,18 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Clocks         |     0.003 |        5 |       --- |             --- |
-| Slice Logic    |     0.002 |      477 |       --- |             --- |
+| Clocks         |     0.004 |        5 |       --- |             --- |
+| Slice Logic    |     0.002 |      474 |       --- |             --- |
 |   LUT as Logic |     0.002 |      146 |     14600 |            1.00 |
 |   CARRY4       |    <0.001 |       26 |      3650 |            0.71 |
-|   Register     |    <0.001 |      259 |     29200 |            0.89 |
+|   Register     |    <0.001 |      257 |     29200 |            0.88 |
 |   Others       |     0.000 |       14 |       --- |             --- |
-| Signals        |     0.004 |      466 |       --- |             --- |
+| Signals        |     0.004 |      461 |       --- |             --- |
 | Block RAM      |     0.061 |      7.5 |        45 |           16.67 |
 | MMCM           |     0.105 |        1 |         3 |           33.33 |
 | I/O            |     0.090 |       15 |       150 |           10.00 |
 | Static Power   |     0.062 |          |           |                 |
-| Total          |     0.327 |          |           |                 |
+| Total          |     0.328 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -75,7 +75,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Vccint    |       1.000 |     0.072 |       0.067 |      0.005 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.071 |       0.061 |      0.009 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.026 |       0.025 |      0.001 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.027 |       0.026 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -142,7 +142,7 @@ Table of Contents
 +--------------------------+-----------+
 | Name                     | Power (W) |
 +--------------------------+-----------+
-| top                      |     0.265 |
+| top                      |     0.266 |
 |   u_RAM_2Port            |     0.064 |
 |   u_clock_wizard_wrapper |     0.105 |
 |     clock_wizard_i       |     0.105 |
