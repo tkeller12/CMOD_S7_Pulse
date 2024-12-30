@@ -46,6 +46,9 @@ module top(
     
     // 250 000 000 / 115 200 = 2170.1388 ~ 2170
     parameter TICKS_PER_BIT = 2170;
+    //100 000 000 / 115 200 = 868
+    //parameter TICKS_PER_BIT = 868;
+    
     parameter UART_BITS = 8;
     parameter UART_WORDS = 10;
     
@@ -78,7 +81,7 @@ module top(
     
     reg [11:0] wr_addr = 0;
     wire [11:0] addr;
-    reg i_Wr_DV = 0;
+    reg i_Wr_DV = 1;
     reg [63:0] i_Wr_Data = 0;
     reg i_Rd_En = 1;
     
@@ -101,13 +104,7 @@ module top(
     .i_Rd_En(i_Rd_En),
     .o_Rd_DV(o_Rd_DV),
     .o_Rd_Data(o_Rd_Data)
-    //.pulse(pulse),
-    //.data(data),
-    //.op_code(op_code),
-    //.delay(delay)
     );
-    
-    // TESTING
     
     assign pulse = o_Rd_Data[63:56];
     assign data = o_Rd_Data[55:36];

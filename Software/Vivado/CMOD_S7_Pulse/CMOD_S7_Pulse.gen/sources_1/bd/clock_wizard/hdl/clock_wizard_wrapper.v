@@ -2,7 +2,7 @@
 //Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2024.2 (win64) Build 5239630 Fri Nov 08 22:35:27 MST 2024
-//Date        : Fri Dec 27 13:56:01 2024
+//Date        : Fri Dec 27 14:29:46 2024
 //Host        : DESKTOP-MUKGN1D running 64-bit major release  (build 9200)
 //Command     : generate_target clock_wizard_wrapper.bd
 //Design      : clock_wizard_wrapper

@@ -69,16 +69,18 @@ for ix in range(8):
 #    print(pulse)
 #    print(pulse.to_bytes(1,byteorder = 'big'))
 #    write_inst = delay(ix, (ix+2)%255, 0.1)
-    write_inst = delay(ix, pulse, 0.1)
+#    write_inst = delay(ix, pulse, 0.1)
+
+    write_inst = delay(ix+2, pulse, 0.1)
 #    print(write_inst)
     ser.write(write_inst)
 
 write_inst = goto(8, 0)
 
-ser.write(stop())
-time.sleep(5)
+#ser.write(stop())
+#time.sleep(5)
 ser.write(start())
-time.sleep(5)
-ser.write(stop())
+#time.sleep(5)
+#ser.write(stop())
 ser.close()
 
