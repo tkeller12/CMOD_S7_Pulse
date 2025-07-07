@@ -3,7 +3,7 @@ import numpy as np
 import time
 
 #ser = serial.Serial(port = 'COM7', baudrate = 115200, timeout = 1.)
-ser = serial.Serial(port = 'COM4', baudrate = 115200, timeout = 1.)
+ser = serial.Serial(port = 'COM7', baudrate = 115200, timeout = 1.)
 
 pulse = 0b0001111
 data = 1024
@@ -75,11 +75,12 @@ reptime_long = 0.1
 
 for ix in range(4095):
     if ix == 1:
-        write_inst = delay(ix,0xff,p90)
+        write_inst = delay(ix,0x00,p90)
     elif ix == 2:
         write_inst = delay(ix,0x00,pdelay)
     elif ix == 3:
-        write_inst = delay(ix,0xff,p180)
+#        write_inst = delay(ix,0xff,p180)
+        write_inst = delay(ix,0xaa,p180)
     elif ix == 4:
         write_inst = delay(ix,0x00,reptime)
 #        write_inst = long_delay(ix,0x00, 1,reptime)

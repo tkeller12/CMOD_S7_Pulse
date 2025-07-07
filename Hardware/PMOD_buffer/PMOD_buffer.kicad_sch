@@ -1758,6 +1758,12 @@
 		(uuid "89c54ff7-4d7a-455c-a840-47b3248dba5c")
 	)
 	(junction
+		(at 55.88 54.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "911cefa6-b69a-4aa9-b66d-a959760b51fd")
+	)
+	(junction
 		(at 172.72 101.6)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1806,7 +1812,7 @@
 		(uuid "afb50076-64e7-4675-9f5b-a13c9c3ab6a6")
 	)
 	(junction
-		(at 33.02 63.5)
+		(at 33.02 54.61)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b507e797-c3f6-4c66-aa60-a9da7351c4fd")
@@ -1828,12 +1834,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d9242830-1fe3-4f10-82a8-c8868e5a7969")
-	)
-	(junction
-		(at 55.88 63.5)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e053eca2-5ec8-4cb0-9f45-29fb612258d1")
 	)
 	(junction
 		(at 86.36 101.6)
@@ -1919,7 +1919,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 54.61) (xy 55.88 63.5)
+			(xy 55.88 54.61) (xy 55.88 72.39)
 		)
 		(stroke
 			(width 0)
@@ -2519,7 +2519,7 @@
 	)
 	(wire
 		(pts
-			(xy 34.29 63.5) (xy 33.02 63.5)
+			(xy 34.29 54.61) (xy 33.02 54.61)
 		)
 		(stroke
 			(width 0)
@@ -3119,7 +3119,7 @@
 	)
 	(wire
 		(pts
-			(xy 27.94 63.5) (xy 33.02 63.5)
+			(xy 27.94 54.61) (xy 33.02 54.61)
 		)
 		(stroke
 			(width 0)
@@ -3269,7 +3269,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.02 63.5) (xy 33.02 64.77)
+			(xy 33.02 54.61) (xy 33.02 55.88)
 		)
 		(stroke
 			(width 0)
@@ -3386,16 +3386,6 @@
 			(type default)
 		)
 		(uuid "d2c18ea7-2833-4339-9a6c-48e4743fe47f")
-	)
-	(wire
-		(pts
-			(xy 55.88 63.5) (xy 55.88 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3747631-9fdf-45d2-ad8f-9e8af69391c3")
 	)
 	(wire
 		(pts
@@ -3579,7 +3569,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.02 69.85) (xy 33.02 71.12)
+			(xy 33.02 60.96) (xy 33.02 62.23)
 		)
 		(stroke
 			(width 0)
@@ -3629,7 +3619,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 63.5) (xy 55.88 63.5)
+			(xy 49.53 54.61) (xy 55.88 54.61)
 		)
 		(stroke
 			(width 0)
@@ -3755,7 +3745,7 @@
 	)
 	(global_label "PMOD_ja_2"
 		(shape input)
-		(at 27.94 63.5 180)
+		(at 27.94 54.61 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3765,7 +3755,7 @@
 		)
 		(uuid "2113b063-703a-413d-a4f7-6ba3fa8eeafb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 14.7344 63.5 0)
+			(at 14.7344 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5255,7 +5245,7 @@
 	)
 	(symbol
 		(lib_id "74xx:74LS04")
-		(at 41.91 63.5 0)
+		(at 41.91 54.61 0)
 		(unit 4)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5264,7 +5254,7 @@
 		(fields_autoplaced yes)
 		(uuid "1e1dbe2c-9270-4e0e-ab61-c257f25a6f69")
 		(property "Reference" "U1"
-			(at 41.91 54.61 0)
+			(at 41.91 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5272,7 +5262,7 @@
 			)
 		)
 		(property "Value" "74LVC04AT14-13"
-			(at 41.91 57.15 0)
+			(at 41.91 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5280,7 +5270,7 @@
 			)
 		)
 		(property "Footprint" "Package_SO:TSSOP-14_4.4x5mm_P0.65mm"
-			(at 41.91 63.5 0)
+			(at 41.91 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5289,7 +5279,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS04"
-			(at 41.91 63.5 0)
+			(at 41.91 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5298,7 +5288,7 @@
 			)
 		)
 		(property "Description" "IC INVERTER 6CH 6-INP 14TSSOP"
-			(at 41.91 63.5 0)
+			(at 41.91 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5307,7 +5297,7 @@
 			)
 		)
 		(property "Digikey" "31-74LVC04AT14-13CT-ND"
-			(at 41.91 63.5 0)
+			(at 41.91 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5316,7 +5306,7 @@
 			)
 		)
 		(property "MPN" "74LVC04AT14-13"
-			(at 41.91 63.5 0)
+			(at 41.91 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5325,7 +5315,7 @@
 			)
 		)
 		(property "Manufacturer" "Diodes Incorporated"
-			(at 41.91 63.5 0)
+			(at 41.91 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8476,7 +8466,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 33.02 71.12 0)
+		(at 33.02 62.23 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8484,7 +8474,7 @@
 		(dnp no)
 		(uuid "6544d2b9-df60-402d-b93d-a5ffced1afa1")
 		(property "Reference" "#PWR01"
-			(at 33.02 77.47 0)
+			(at 33.02 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8493,7 +8483,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 33.02 74.93 0)
+			(at 33.02 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8501,7 +8491,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 33.02 71.12 0)
+			(at 33.02 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8510,7 +8500,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 33.02 71.12 0)
+			(at 33.02 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8519,7 +8509,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 33.02 71.12 0)
+			(at 33.02 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8992,7 +8982,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Small_US")
-		(at 33.02 67.31 0)
+		(at 33.02 58.42 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9000,7 +8990,7 @@
 		(dnp no)
 		(uuid "74f0a7a4-13cc-49bc-9f3f-f1859fe73472")
 		(property "Reference" "R1"
-			(at 28.194 66.04 0)
+			(at 28.194 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9009,7 +8999,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 27.94 68.58 0)
+			(at 27.94 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9018,7 +9008,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-			(at 33.02 67.31 0)
+			(at 33.02 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9027,7 +9017,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 33.02 67.31 0)
+			(at 33.02 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9036,7 +9026,7 @@
 			)
 		)
 		(property "Description" "RES 10K OHM 1% 1/8W 0805"
-			(at 33.02 67.31 0)
+			(at 33.02 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9045,7 +9035,7 @@
 			)
 		)
 		(property "Digikey" "541-3976-1-ND"
-			(at 33.02 67.31 0)
+			(at 33.02 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9054,7 +9044,7 @@
 			)
 		)
 		(property "MPN" "CRCW080510K0FKEAC"
-			(at 33.02 67.31 0)
+			(at 33.02 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9063,7 +9053,7 @@
 			)
 		)
 		(property "Manufacturer" "Vishay Dale"
-			(at 33.02 67.31 0)
+			(at 33.02 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
