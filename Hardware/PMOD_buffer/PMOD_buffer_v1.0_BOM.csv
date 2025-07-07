@@ -1,0 +1,8 @@
+"Reference","Value","Datasheet","Footprint","Qty","DNP","Digikey","MPN","Manufacturer","Description"
+"C1,C2,C3,C4","100nF","~","Capacitor_SMD:C_0805_2012Metric","4","","478-KGM21NR71H104KTCT-ND","KGM21NR71H104KT","KYOCERA AVX","CAP CER 0.1UF 50V X7R 0805"
+"C5","10uF","~","Capacitor_SMD:C_0805_2012Metric","1","","1276-6455-1-ND","CL21A106KOQNNNG","Samsung Electro-Mechanics","CAP CER 10UF 16V X5R 0805"
+"J1,J2,J3,J4,J5,J6,J7,J8","RF2-152-T-00-50-G-HDW","RF2-152-T-00-50-G-HDW","Connector_Coaxial:SMA_Amphenol_132291_Vertical","8","","2057-RF2-152-T-00-50-G-HDW-ND","RF2-152-T-00-50-G-HDW","Adam Tech","SMA JACK STR PCB 50OHM 18GHZ BRS"
+"J9","77313-101-12LF","~","_tim-Headers:PMOD_PinHeader_2x06_P2.54mm_Vertical","1","","609-5695-ND","77313-101-12LF","Amphenol ICC (FCI)","CONN HEADER VERT 12POS 2.54MM"
+"R1,R2,R7,R8,R13,R14,R19,R20","10k","~","Resistor_SMD:R_0805_2012Metric","8","","541-3976-1-ND","CRCW080510K0FKEAC","Vishay Dale","RES 10K OHM 1% 1/8W 0805"
+"R3,R4,R5,R6,R9,R10,R11,R12,R15,R16,R17,R18,R21,R22,R23,R24","100","~","Resistor_SMD:R_0805_2012Metric","16","","RMCF0805FT100RCT-ND","RMCF0805FT100R","Stackpole Electronics Inc","RES 100 OHM 1% 1/8W 0805"
+"U1,U2,U3,U4","74LVC04AT14-13","http://www.ti.com/lit/gpn/sn74LS04","Package_SO:TSSOP-14_4.4x5mm_P0.65mm","4","","31-74LVC04AT14-13CT-ND","74LVC04AT14-13","Diodes Incorporated","IC INVERTER 6CH 6-INP 14TSSOP"
