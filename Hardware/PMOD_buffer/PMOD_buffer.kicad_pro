@@ -505,7 +505,7 @@
       "idf": "",
       "netlist": "",
       "plot": "${PROJECTNAME}_${REVISION}_Gerbers/",
-      "pos_files": "",
+      "pos_files": "CPL",
       "specctra_dsn": "",
       "step": "",
       "svg": "",
