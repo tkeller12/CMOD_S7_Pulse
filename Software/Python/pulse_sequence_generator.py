@@ -298,7 +298,7 @@ if __name__ == "__main__":
     # Define global lead and lag timings (positive lead = gate starts before MW)
     global_leads = {
         'MW': 0,
-        'AMP': 0,  # 20ns before MW
+        'AMP': 200e-9,  # 20ns before MW
         'RX': 0,  # 10ns after MW
         'CH3': 0,     # Align with MW
         'CH4': 0,     # Align with MW
@@ -308,7 +308,7 @@ if __name__ == "__main__":
     }
     global_lags = {
         'MW': 0,
-        'AMP': 0,  # 15ns after MW
+        'AMP': 10e-9,  # 15ns after MW
         'RX':  0,     # 5ns after MW
         'CH3': 0,       # Align with MW
         'CH4': 0,       # Align with MW
@@ -333,13 +333,6 @@ if __name__ == "__main__":
 #    enabled_channels = {'MW'}  # Enable TRIG
     # Example sequence
     sequence = """
-    pulse 100e-9
-    delay 100e-9
-    pulse 100e-9
-    delay 100e-9
-    pulse 100e-9
-    delay 100e-9
-    pulse 100e-9
     delay 100e-9
     pulse 100e-9
     delay 10e-3
@@ -367,7 +360,7 @@ if __name__ == "__main__":
     for inst in instructions:
         print(inst)
 
-    try:
+    try: #If FPGA Pulse Programmer connected, upload sequence
         import serial
         import time
         from serial.serialutil import SerialException
