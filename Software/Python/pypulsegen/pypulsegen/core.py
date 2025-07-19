@@ -5,8 +5,8 @@ import copy
 import math
 import json
 
-RESOLUTION = 8e-9 # pulse programmer time resolution
-START_ADDR = 1
+#RESOLUTION = 8e-9 # pulse programmer time resolution
+#START_ADDR = 1
 CHANNELS = [f'CH{ix}' for ix in range(8)]
 
 def parse_pulse_program(pulse_program):
@@ -157,10 +157,12 @@ def compile_states(sorted_edges, inverted_channels, rep_time):
 
     return compiled_states_fixed
 
-def generate_instructions(states):
+def generate_instructions(states, config):
     ''' Create instruction list from states
     '''
-    START_ADDR = 1
+#    START_ADDR = 1
+    START_ADDR = config.start_addr
+    RESOLUTION = config.resolution
     addr = START_ADDR
 
     instructions = []
@@ -213,15 +215,15 @@ def load_config_from_json(file_path: str) -> Config:
         start_addr=int(data.get('start_addr', 1))
     )
 
-def complile_pulse_program(pulse_program: str):
+def compile_pulse_program(pulse_program: str, config: Config):
 
     commands = parse_pulse_program(pulse_program)
     master_edges = locate_master_edges(commands)
-    edges = locate_edges(master_edges, active_channels, leads, lags)
-    updated_edges = merge_edges_connectivity(edges, connectivity)#, active_channels, leads, lags)
+    edges = locate_edges(master_edges, config.active_channels, config.leads, config.lags)
+    updated_edges = merge_edges_connectivity(edges, config.connectivity)#, active_channels, leads, lags)
     sorted_edges = sort_edges(updated_edges)
-    all_states = compile_states(sorted_edges, inverted_channels, rep_time)
-    instructions = generate_instructions(all_states)
+    all_states = compile_states(sorted_edges, config.inverted_channels, config.rep_time)
+    instructions = generate_instructions(all_states, config)
     inst_bytes = instructions_to_bytes(instructions)
 
     return inst_bytes
@@ -234,7 +236,7 @@ def main(config: Config, pulse_program: str):
     updated_edges = merge_edges_connectivity(edges, config.connectivity)
     sorted_edges = sort_edges(updated_edges)
     all_states = compile_states(sorted_edges, config.inverted_channels, config.rep_time)
-    instructions = generate_instructions(all_states)
+    instructions = generate_instructions(all_states, config)
     inst_bytes = instructions_to_bytes(instructions)
 
 #def main():
