@@ -82,7 +82,8 @@ else:
 for ix in range(max_addr):
     print('index:', ix)
     if ix % 2 == 0:
-        write_inst = delay(ix,0b00010000,p90)
+#        write_inst = delay(ix,0b00010000,p90)
+        write_inst = delay(ix,0xff,p90)
     else:
         write_inst = delay(ix,0b0,p90)
 #    if ix == 1:
@@ -111,6 +112,8 @@ for ix in range(max_addr):
     print(write_inst.hex())
     ser.write(write_inst)
 
+write_inst = delay(101,0b0,10e-3)
+ser.write(write_inst)
 #write_inst2 = delay(1,0x55,.2)
 #write_inst3 = delay(3,0xaa,10e-9)
 #print(write_inst)
