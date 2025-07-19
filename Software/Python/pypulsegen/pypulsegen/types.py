@@ -61,3 +61,43 @@ class Config:
                 raise ValueError(f"Negative connectivity time for {channel}")
         if self.rep_time <= 0:
             raise ValueError("Repetition time must be positive")
+
+    def __repr__(self) -> str:
+        """
+        Return a human-readable string representation of the Config object, with attributes displayed line by line.
+
+        Returns:
+            str: Formatted string with each attribute and its values.
+        """
+        lines = ["Config:"]
+
+        # Format dictionary attributes
+        for attr, label in [
+            (self.leads, "leads"),
+            (self.lags, "lags"),
+            (self.connectivity, "connectivity")
+        ]:
+            lines.append(f"  {label}:")
+            for channel, value in sorted(attr.items()):
+                lines.append(f"    {channel}: {value * 1e9:.1f} ns")
+
+        # Format list attributes
+        lines.append(f"  active_channels: {', '.join(self.active_channels) if self.active_channels else '[]'}")
+        lines.append(f"  inverted_channels: {', '.join(self.inverted_channels) if self.inverted_channels else '[]'}")
+
+        # Format rep_time
+        lines.append(f"  rep_time: {self.rep_time * 1e9:.1f} ns")
+
+        # Format alias dictionary
+        lines.append("  alias:")
+        for channel, alias in sorted(self.alias.items()):
+            lines.append(f"    {channel}: {alias}")
+        if not self.alias:
+            lines.append("    {}")
+
+        # Format remaining attributes
+        lines.append(f"  resolution: {self.resolution * 1e9:.1f} ns")
+        lines.append(f"  channels: {', '.join(self.channels) if self.channels else '[]'}")
+        lines.append(f"  start_addr: {self.start_addr}")
+
+        return "\n".join(lines)

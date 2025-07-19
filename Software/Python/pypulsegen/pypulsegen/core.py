@@ -7,7 +7,7 @@ import json
 
 #RESOLUTION = 8e-9 # pulse programmer time resolution
 #START_ADDR = 1
-CHANNELS = [f'CH{ix}' for ix in range(8)]
+#CHANNELS = [f'CH{ix}' for ix in range(8)]
 
 def parse_pulse_program(pulse_program):
     '''convert pulse program into list of commands with delays
@@ -38,15 +38,15 @@ def locate_master_edges(commands:List[Command]) -> List[Edge]:
             master_edges.append(Edge(time = time+command.duration, channel = -1, state = 0)) #-1 is master channel
     return master_edges
 
-def locate_edges(master_edges:List[Edge], active_channels:List[str], leads, lags) -> List[Edge]:
+def locate_edges(master_edges:List[Edge], active_channels:List[str], leads, lags, config) -> List[Edge]:
     edges = {}
     for channel in active_channels:
         edges[channel] = []
         for master_edge in master_edges:
             if master_edge.state == 1:
-                edges[channel].append(Edge(time = master_edge.time - leads[channel], channel = CHANNELS.index(channel), state = 1))
+                edges[channel].append(Edge(time = master_edge.time - leads[channel], channel = config.channels.index(channel), state = 1))
             if master_edge.state == 0:
-                edges[channel].append(Edge(time = master_edge.time + lags[channel], channel = CHANNELS.index(channel), state = 0))
+                edges[channel].append(Edge(time = master_edge.time + lags[channel], channel = config.channels.index(channel), state = 0))
 
     return edges
 
@@ -79,7 +79,7 @@ def sort_edges(updated_channel_edges):
     sorted_edges = sorted(all_edges, key = lambda x: x.time)
     return sorted_edges
 
-def compile_states(sorted_edges, inverted_channels, rep_time):
+def compile_states(sorted_edges, inverted_channels, rep_time, config):
     '''Edges must be converted to states
     '''
     initial_state = 0
@@ -146,7 +146,7 @@ def compile_states(sorted_edges, inverted_channels, rep_time):
     #This loop is a crazy hack for inverting 
     for ix in range(len(pulse_patterns)):
         for channel in inverted_channels:
-            channel_ix = CHANNELS.index(channel)
+            channel_ix = config.channels.index(channel)
             mask = 1<<channel_ix
             pulse_patterns[ix] = pulse_patterns[ix] ^ mask
 
@@ -218,10 +218,10 @@ def compile_pulse_program(pulse_program: str, config: Config):
 
     commands = parse_pulse_program(pulse_program)
     master_edges = locate_master_edges(commands)
-    edges = locate_edges(master_edges, config.active_channels, config.leads, config.lags)
+    edges = locate_edges(master_edges, config.active_channels, config.leads, config.lags, config)
     updated_edges = merge_edges_connectivity(edges, config.connectivity)
     sorted_edges = sort_edges(updated_edges)
-    all_states = compile_states(sorted_edges, config.inverted_channels, config.rep_time)
+    all_states = compile_states(sorted_edges, config.inverted_channels, config.rep_time, config)
     instructions = generate_instructions(all_states, config)
     inst_bytes = instructions_to_bytes(instructions)
 

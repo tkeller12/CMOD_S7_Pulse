@@ -8,8 +8,12 @@ pulse 80e-9
 '''
 
 config = pg.load_config_from_json('config.json')
-#print(config)
 config.rep_time = 0.1
+config.start_addr = 1
+print('-'*50)
+print('CONFIG')
+print('-'*50)
+print(config)
 
 inst_bytes = pg.compile_pulse_program(pulse_program, config)
 #inst_bytes = pg.core.compile_pulse_program(pulse_program, config)
