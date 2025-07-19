@@ -11,7 +11,7 @@ class Edge:
 @dataclass
 class Instruction: # 80-bit programming word of FPGA
     addr: int
-    pulse_pattern: str
+    pulse_pattern: int
     data: int # used for goto, long_delay, etc.
     op_code: int # e.g., NOOP, DELAY, LONG_DELAY, GOTO, WAIT
     delay: int # clock cycles to delay (0 -> 1 clock cycle)

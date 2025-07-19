@@ -38,19 +38,19 @@ def locate_master_edges(commands:List[Command]) -> List[Edge]:
             master_edges.append(Edge(time = time+command.duration, channel = -1, state = 0)) #-1 is master channel
     return master_edges
 
-def locate_edges(master_edges:List[Edge], active_channels:List[str], leads, lags, config) -> List[Edge]:
+def locate_edges(master_edges:List[Edge], config:Config) -> List[Edge]:
     edges = {}
-    for channel in active_channels:
+    for channel in config.active_channels:
         edges[channel] = []
         for master_edge in master_edges:
             if master_edge.state == 1:
-                edges[channel].append(Edge(time = master_edge.time - leads[channel], channel = config.channels.index(channel), state = 1))
+                edges[channel].append(Edge(time = master_edge.time - config.leads[channel], channel = config.channels.index(channel), state = 1))
             if master_edge.state == 0:
-                edges[channel].append(Edge(time = master_edge.time + lags[channel], channel = config.channels.index(channel), state = 0))
+                edges[channel].append(Edge(time = master_edge.time + config.lags[channel], channel = config.channels.index(channel), state = 0))
 
     return edges
 
-def merge_edges_connectivity(channel_edges:Dict[str,Edge], connectivity):
+def merge_edges_connectivity(channel_edges:Dict[str,Edge], config:Config) -> Dict[str,Edge]:
 
     edges = {}
     for channel in channel_edges:
@@ -61,7 +61,7 @@ def merge_edges_connectivity(channel_edges:Dict[str,Edge], connectivity):
                 last_falling_edge_time = edge.time
                 updated_channel_edges.append(edge)
             if edge.state == 1:
-                if (edge.time - last_falling_edge_time) < connectivity[channel]:
+                if (edge.time - last_falling_edge_time) < config.connectivity[channel]:
                     junk = updated_channel_edges.pop()
                 else:
                     updated_channel_edges.append(edge)
@@ -79,7 +79,7 @@ def sort_edges(updated_channel_edges):
     sorted_edges = sorted(all_edges, key = lambda x: x.time)
     return sorted_edges
 
-def compile_states(sorted_edges, inverted_channels, rep_time, config):
+def compile_states(sorted_edges:List[Edge], config:Config) -> List[Edge]:
     '''Edges must be converted to states
     '''
     initial_state = 0
@@ -141,11 +141,11 @@ def compile_states(sorted_edges, inverted_channels, rep_time, config):
 
 
 
-    durations.append(rep_time - total_time)
+    durations.append(config.rep_time - total_time)
 
     #This loop is a crazy hack for inverting 
     for ix in range(len(pulse_patterns)):
-        for channel in inverted_channels:
+        for channel in config.inverted_channels:
             channel_ix = config.channels.index(channel)
             mask = 1<<channel_ix
             pulse_patterns[ix] = pulse_patterns[ix] ^ mask
@@ -218,10 +218,10 @@ def compile_pulse_program(pulse_program: str, config: Config):
 
     commands = parse_pulse_program(pulse_program)
     master_edges = locate_master_edges(commands)
-    edges = locate_edges(master_edges, config.active_channels, config.leads, config.lags, config)
-    updated_edges = merge_edges_connectivity(edges, config.connectivity)
+    edges = locate_edges(master_edges, config)
+    updated_edges = merge_edges_connectivity(edges, config)
     sorted_edges = sort_edges(updated_edges)
-    all_states = compile_states(sorted_edges, config.inverted_channels, config.rep_time, config)
+    all_states = compile_states(sorted_edges, config)
     instructions = generate_instructions(all_states, config)
     inst_bytes = instructions_to_bytes(instructions)
 
