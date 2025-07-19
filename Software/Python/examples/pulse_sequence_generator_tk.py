@@ -98,7 +98,7 @@ def sort_edges(updated_channel_edges):
     sorted_edges = sorted(all_edges, key = lambda x: x.time)
     return sorted_edges
 
-def compile_states(sorted_edges, inverted_channels):
+def compile_states(sorted_edges, inverted_channels, rep_time):
     '''Edges must be converted to states
     '''
     initial_state = 0
@@ -129,13 +129,17 @@ def compile_states(sorted_edges, inverted_channels):
         else:
             print('Old Time: ', time)
             popped_line = compiled_states.pop()
+#            popped_time = popped_line.time
+            print('popped line', popped_line)
+
             if edge.state == 1: # Rising Edge, need OR with bitmask
                 bitmask = 1<<edge.channel
                 state = previous_state | bitmask
             else: # falling edge, need AND with ~bitmask
                 bitmask = ~(1<<edge.channel)
                 state = previous_state & bitmask
-            line = Edge(time = time-previous_time, channel = -1, state = state)
+            line = Edge(time = popped_line.time, channel = -1, state = state)
+            print('updated line', line)
 #            line = Edge(time = delta_time, channel = -1, state = state)
 
 #            line = Edge(time = previous_time, channel = -1, state = state)
@@ -147,7 +151,6 @@ def compile_states(sorted_edges, inverted_channels):
     durations = []
     pulse_patterns = [0]
     total_time = 0
-    rep_time = 10e-3
     for state in compiled_states:
         durations.append(state.time)
         total_time += state.time
@@ -241,7 +244,7 @@ def main():
     lags = {
             'CH0': 0,
             'CH1': -100e-9,
-            'CH2': 200e-9,
+            'CH2': 100e-9,
             'CH3': 0,
             'CH4': 0,
             'CH5': 0,
@@ -260,17 +263,18 @@ def main():
             'CH7': 0,
             }
 
-    active_channels = ['CH0', 'CH1', 'CH2']
+    active_channels = ['CH0', 'CH1', 'CH2', 'CH3']
 
     inverted_channels = ['CH2'] 
 
+    rep_time = 10e-3
 
     commands = parse_pulse_program(pulse_program)
     master_edges = locate_master_edges(commands)
     edges = locate_edges(master_edges, active_channels, leads, lags)
     updated_edges = merge_edges_connectivity(edges, connectivity)#, active_channels, leads, lags)
     sorted_edges = sort_edges(updated_edges)
-    all_states = compile_states(sorted_edges, inverted_channels)
+    all_states = compile_states(sorted_edges, inverted_channels, rep_time)
     instructions = generate_instructions(all_states)
     inst_bytes = instructions_to_bytes(instructions)
     
@@ -318,8 +322,6 @@ def main():
     print('-'*50)
     for edge in sorted_edges:
         print(edge)
-#        print(edge, edge.time.)
-#        print(f'{edge.time:0{4}e}', f'{edge.state:0{8}b}')
 
     print('-'*50)
     print('ALL EDGES')
