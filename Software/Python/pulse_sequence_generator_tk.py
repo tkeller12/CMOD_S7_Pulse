@@ -15,10 +15,8 @@ class Edge:
 
 @dataclass
 class Instruction: # 80-bit programming word of FPGA
-    command: int
     addr: int
     pulse_pattern: str
-    DDS: int # specifies DDS Pulse Phase
     data: int # used for goto, long_delay, etc.
     op_code: int # e.g., NOOP, DELAY, LONG_DELAY, GOTO, WAIT
     delay: int # clock cycles to delay (0 -> 1 clock cycle)
@@ -95,22 +93,18 @@ def sort_edges(updated_channel_edges):
     all_edges = []
     for channel in updated_channel_edges:
         for edge in updated_channel_edges[channel]:
-#            edge.channel = 1 << edge.channel
-#            new_edge = Edge(time = edge.time, channel = 1<<edge.channel, state = edge.state<<edge.channel)
-#            new_edge = Edge(time = edge.time, channel = -1, state = edge.state<<edge.channel)
-#            new_edge = Edge(time = edge.time, channel = edge.channel, state = edge.state<<edge.channel)
-#            all_edges.append(new_edge)
             all_edges.append(edge)
 
     sorted_edges = sorted(all_edges, key = lambda x: x.time)
     return sorted_edges
 
-def compile_states(sorted_edges):
+def compile_states(sorted_edges, inverted_channels):
     '''Edges must be converted to states
     '''
-    initial_state = 0b0000000
+    initial_state = 0
+    final_state = 0
     previous_state = initial_state
-    sorted_edges = copy.deepcopy(sorted_edges) # why? because I do: edge.channel = 1 << edge.channel
+    sorted_edges = copy.deepcopy(sorted_edges) # why?
     compiled_states = []
     previous_time = 0
     for edge in sorted_edges:
@@ -123,7 +117,9 @@ def compile_states(sorted_edges):
             else: # falling edge, need AND
                 bitmask = ~(1<<edge.channel)
                 state = previous_state & bitmask
-            line = Edge(time = time, channel = -1, state = state)
+#            line = Edge(time = time, channel = -1, state = state)
+            line = Edge(time = time-previous_time, channel = -1, state = state)
+#            line = Edge(time = previous_time, channel = -1, state = state)
             compiled_states.append(line)
             previous_time = time
             previous_state = state
@@ -132,29 +128,89 @@ def compile_states(sorted_edges):
             if edge.state == 1: # Rising Edge, need OR with bitmask
                 bitmask = 1<<edge.channel
                 state = previous_state | bitmask
-#                compiled_states.append(edge)
-            else: # falling edge, need AND
+            else: # falling edge, need AND with ~bitmask
                 bitmask = ~(1<<edge.channel)
                 state = previous_state & bitmask
-            line = Edge(time = time, channel = -1, state = state)
+            line = Edge(time = time-previous_time, channel = -1, state = state)
+#            line = Edge(time = previous_time, channel = -1, state = state)
             compiled_states.append(line)
             previous_time = time
             previous_state = state
 
-#            current_state = edge.state + popped_edge.state
-#            compiled_edges.append(Edge(time = edge.time, channel = -1, state = current_state))
+    # ugly hack
+    durations = []
+    pulse_patterns = [0]
+    total_time = 0
+    rep_time = 10e-3
+    for state in compiled_states:
+        durations.append(state.time)
+        total_time += state.time
+        pulse_patterns.append(state.state)
 
-    return compiled_states
 
-def instructions_to_bytes(instruction: Instruction) -> List[bytes]:
-    print('')
+
+
+    durations.append(rep_time - total_time)
+
+    #This loop is a crazy hack for inverting 
+    for ix in range(len(pulse_patterns)):
+        for channel in inverted_channels:
+            channel_ix = CHANNELS.index(channel)
+            mask = 1<<channel_ix
+            pulse_patterns[ix] = pulse_patterns[ix] ^ mask
+
+
+    compiled_states_fixed = []
+    for ix in range(len(durations)):
+        compiled_states_fixed.append(Edge(time = durations[ix], channel = -1, state = pulse_patterns[ix]))
+
+    return compiled_states_fixed
+
+def generate_instructions(states):
+    ''' Create instruction list from states
+    '''
+    START_ADDR = 1
+    addr = START_ADDR
+
+    instructions = []
+
+    for state in states:
+        delay = state.time
+        cycles = round((delay)/4e-9) - 1
+        inst = Instruction(addr = addr, pulse_pattern = state.state, data = 0, op_code = 1, delay = cycles)
+        instructions.append(inst)
+        addr += 1
+
+    # add goto
+    instructions.append(Instruction(addr = addr, pulse_pattern = 0, data = 1, op_code = 3, delay = 0))
+
+    return instructions
+
+def instructions_to_bytes(instructions: List[Instruction]) -> List[bytes]:
+
+    inst_bytes = []
+
+    for inst in instructions:
+        addr = inst.addr
+        pulse = inst.pulse_pattern
+        data = inst.data
+        op_code = inst.op_code
+        delay = inst.delay
+
+        inst_data = (pulse << 56) + (data << 36) + (op_code << 32) + delay
+        inst_data_bytes = inst_data.to_bytes(8, byteorder = 'big')
+        inst_addr_bytes = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
+
+        inst_word = inst_addr_bytes + inst_data_bytes
+        
+        inst_bytes.append(inst_word)
 
     return inst_bytes
 
 def main():
     pulse_program = '''
     delay 1000e-9
-    pulse 100e-9
+    pulse 200e-9
     delay 1000e-9
     pulse 200e-9
     delay 10e-6
@@ -167,8 +223,8 @@ def main():
 
     leads = {
             'CH0': 0,
-            'CH1': 100e-9,
-            'CH2': 200e-9,
+            'CH1': 300e-9,
+            'CH2': 500e-9,
             'CH3': 0,
             'CH4': 0,
             'CH5': 0,
@@ -178,8 +234,8 @@ def main():
 
     lags = {
             'CH0': 0,
-            'CH1': 100e-9,
-            'CH2': 200e-9,
+            'CH1': -100e-9,
+            'CH2': 120e-9,
             'CH3': 0,
             'CH4': 0,
             'CH5': 0,
@@ -189,8 +245,8 @@ def main():
 
     connectivity = {
             'CH0': 0,
-            'CH1': 0e-9,
-            'CH2': 0e-9,
+            'CH1': 1000e-9,
+            'CH2': 2000e-9,
             'CH3': 0,
             'CH4': 0,
             'CH5': 0,
@@ -200,7 +256,7 @@ def main():
 
     active_channels = ['CH0', 'CH1', 'CH2']
 
-    inverted_channels = ['RX'] # Not implemented
+    inverted_channels = ['CH2'] 
 
 
     commands = parse_pulse_program(pulse_program)
@@ -208,7 +264,10 @@ def main():
     edges = locate_edges(master_edges, active_channels, leads, lags)
     updated_edges = merge_edges_connectivity(edges, connectivity)#, active_channels, leads, lags)
     sorted_edges = sort_edges(updated_edges)
-    all_states = compile_states(sorted_edges)
+    all_states = compile_states(sorted_edges, inverted_channels)
+    instructions = generate_instructions(all_states)
+    inst_bytes = instructions_to_bytes(instructions)
+    
 
 
     print('-'*50)
@@ -261,6 +320,33 @@ def main():
     print('-'*50)
     for states in all_states:
         print(f'{states.time:0{4}e}', f'{states.state:0{8}b}')
+
+    print('-'*50)
+    print('INSTRUCTIONS')
+    print('-'*50)
+    for inst in instructions:
+        print(inst)
+
+    print('-'*50)
+    print('INSTRUCTION BYTES')
+    print('-'*50)
+    for inst in inst_bytes:
+#        print(f'{inst:0{8}b}')
+        binary_string = ' '.join(f"{byte:08b}" for byte in inst)
+        print(binary_string)
+
+
+    try: #If FPGA Pulse Programmer connected, upload sequence
+        import serial
+        import time
+        from serial.serialutil import SerialException
+        ser = serial.Serial(port = 'COM7', baudrate = 115200, timeout = 1.)
+
+        for this_byte in inst_bytes:
+            ser.write(this_byte)
+        ser.close()
+    except SerialException as e:
+        print(f"Error opening serial port: {e}")
 
 if __name__ == '__main__':
     main()

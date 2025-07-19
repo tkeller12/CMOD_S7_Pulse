@@ -80,7 +80,7 @@ else:
     max_addr = 100
 
 for ix in range(max_addr):
-    print('index:', ix)
+#    print('index:', ix)
     if ix % 2 == 0:
 #        write_inst = delay(ix,0b00010000,p90)
         write_inst = delay(ix,0xff,p90)
@@ -109,7 +109,10 @@ for ix in range(max_addr):
 #    else:
 #        write_inst = delay(ix,0,10e-9)
 #
-    print(write_inst.hex())
+#    print(write_inst.hex())
+    binary_string = ' '.join(f"{byte:08b}" for byte in write_inst)
+    print(binary_string)
+
     ser.write(write_inst)
 
 write_inst = delay(101,0b0,10e-3)
