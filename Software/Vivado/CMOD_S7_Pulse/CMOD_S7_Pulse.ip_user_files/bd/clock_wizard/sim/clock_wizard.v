@@ -1,8 +1,8 @@
 //Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-//Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+//Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
-//Tool Version: Vivado v.2024.1.2 (win64) Build 5164865 Thu Sep  5 14:37:11 MDT 2024
-//Date        : Fri Dec 13 19:26:14 2024
+//Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+//Date        : Sat Jul 19 09:04:30 2025
 //Host        : Tim-Workstation running 64-bit major release  (build 9200)
 //Command     : generate_target clock_wizard.bd
 //Design      : clock_wizard
@@ -21,18 +21,14 @@ module clock_wizard
   output locked;
   input reset;
 
-  wire clk_in1_1;
-  wire clk_wiz_0_clk_out1;
-  wire clk_wiz_0_locked;
-  wire reset_1;
+  wire clk_in1;
+  wire clk_out1;
+  wire locked;
+  wire reset;
 
-  assign clk_in1_1 = clk_in1;
-  assign clk_out1 = clk_wiz_0_clk_out1;
-  assign locked = clk_wiz_0_locked;
-  assign reset_1 = reset;
   clock_wizard_clk_wiz_0_0 clk_wiz_0
-       (.clk_in1(clk_in1_1),
-        .clk_out1(clk_wiz_0_clk_out1),
-        .locked(clk_wiz_0_locked),
-        .reset(reset_1));
+       (.clk_in1(clk_in1),
+        .clk_out1(clk_out1),
+        .locked(locked),
+        .reset(reset));
 endmodule

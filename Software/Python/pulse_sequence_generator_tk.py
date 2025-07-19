@@ -3,7 +3,7 @@ from typing import List, Dict, Tuple, Set
 import copy
 
 
-RESOLUTION = 4e-9 # pulse programmer time resolution
+RESOLUTION = 8e-9 # pulse programmer time resolution
 START_ADDR = 1
 CHANNELS = [f'CH{ix}' for ix in range(8)]
 
@@ -176,7 +176,7 @@ def generate_instructions(states):
 
     for state in states:
         delay = state.time
-        cycles = round((delay)/4e-9) - 1
+        cycles = round((delay)/RESOLUTION) - 1
         inst = Instruction(addr = addr, pulse_pattern = state.state, data = 0, op_code = 1, delay = cycles)
         instructions.append(inst)
         addr += 1
@@ -211,7 +211,7 @@ def main():
     pulse_program = '''
     delay 1000e-9
     pulse 200e-9
-    delay 1000e-9
+    delay 400e-9
     pulse 200e-9
     delay 10e-6
     '''
