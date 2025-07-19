@@ -2,7 +2,7 @@ from typing import List, Optional
 import matplotlib.pyplot as plt
 from pypulsegen.types import Config, Instruction
 
-def plot_pulse_sequence(instructions: List[Instruction], config: Config, save_path: Optional[str] = None) -> None:
+def plot_pulse_sequence(instructions: List[Instruction], config: Config, save_path: Optional[str] = None, buffer_ns: float = 1000) -> None:
     """
     Plot the pulse sequence for each active channel using Matplotlib, based on Instruction objects.
 
@@ -10,6 +10,7 @@ def plot_pulse_sequence(instructions: List[Instruction], config: Config, save_pa
         instructions: List of Instruction objects with addr, pulse_pattern (int), data, op_code, and delay.
         config: Config object with channel settings, aliases, and resolution.
         save_path: Optional file path to save the plot (e.g., 'pulse_sequence.png').
+        buffer_ns: Extra time (in nanoseconds) to show after the last transition (default: 1000 ns).
 
     Raises:
         ImportError: If Matplotlib is not installed.
@@ -28,6 +29,7 @@ def plot_pulse_sequence(instructions: List[Instruction], config: Config, save_pa
     # Build timeline for each channel using raw instruction data
     channel_edges = {channel: [(0.0, 0)] for channel in config.active_channels}  # Start at t=0, state=0
     current_time = 0.0  # Time in seconds
+    last_transition_time = 0.0  # Track latest time a channel changes state
 
     for instruction in instructions:
         if instruction.op_code not in {1, 2}:  # Only handle DELAY (1) and PULSE (2)
@@ -44,6 +46,9 @@ def plot_pulse_sequence(instructions: List[Instruction], config: Config, save_pa
             channel_idx = config.channels.index(channel)
             state = 1 if pulse_bits & (1 << channel_idx) else 0
             channel_edges[channel].append((current_time, state))
+            # Update last transition time if state changes from previous
+            if channel_edges[channel][-2][1] != state:
+                last_transition_time = max(last_transition_time, current_time)
 
         current_time += duration
 
@@ -76,9 +81,9 @@ def plot_pulse_sequence(instructions: List[Instruction], config: Config, save_pa
         ax.set_ylabel(config.alias.get(channel, channel))
         ax.set_title(f"Pulse Sequence for {config.alias.get(channel, channel)}")
 
-    # Set x-axis label and limits
+    # Set x-axis label and limit to last transition time + buffer
     axes[-1].set_xlabel("Time (ns)")
-    axes[-1].set_xlim(0, current_time * 1e9)
+    axes[-1].set_xlim(0, last_transition_time * 1e9 + buffer_ns)
 
     # Adjust layout and display
     plt.tight_layout()
