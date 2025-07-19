@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Set
 import copy
+import math
 
 
 RESOLUTION = 8e-9 # pulse programmer time resolution
@@ -111,8 +112,11 @@ def compile_states(sorted_edges, inverted_channels, rep_time):
         print('-'*50)
         print(edge)
         time = edge.time
-        if time != previous_time:
-            print('New Time: ', time)
+#        if time != previous_time:
+#        if (time - previous_time) > RESOLUTION:#!= previous_time:
+        if not (math.isclose(time, previous_time)):
+            print('Adding New Edge')
+            print('Time: ', time)
             if edge.state == 1: # Rising Edge, need OR with bitmask
                 bitmask = 1<<edge.channel
                 state = previous_state | bitmask
@@ -127,7 +131,8 @@ def compile_states(sorted_edges, inverted_channels, rep_time):
             previous_state = state
             delta_time = time - previous_time
         else:
-            print('Old Time: ', time)
+            print('OVERLAPPING EDGE FOUND')
+            print('Time: ', time)
             popped_line = compiled_states.pop()
 #            popped_time = popped_line.time
             print('popped line', popped_line)
@@ -144,7 +149,7 @@ def compile_states(sorted_edges, inverted_channels, rep_time):
 
 #            line = Edge(time = previous_time, channel = -1, state = state)
             compiled_states.append(line)
-            previous_time = time
+#            previous_time = time
             previous_state = state
 
     # ugly hack
@@ -221,7 +226,6 @@ def main():
     delay 1000e-9
     pulse 100e-9
     delay 400e-9
-    pulse 200e-9
     delay 10e-6
     '''
 

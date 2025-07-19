@@ -1,7 +1,9 @@
 #from dataclasses import dataclass
 from typing import List, Dict, Tuple, Set
-from .types import Edge, Instruction, Command
+from .types import Edge, Instruction, Command, Config
 import copy
+import math
+import json
 
 RESOLUTION = 8e-9 # pulse programmer time resolution
 START_ADDR = 1
@@ -90,7 +92,8 @@ def compile_states(sorted_edges, inverted_channels, rep_time):
         print('-'*50)
         print(edge)
         time = edge.time
-        if time != previous_time:
+#        if time != previous_time:
+        if not math.isclose(time, previous_time):
             print('New Time: ', time)
             if edge.state == 1: # Rising Edge, need OR with bitmask
                 bitmask = 1<<edge.channel
@@ -195,7 +198,46 @@ def instructions_to_bytes(instructions: List[Instruction]) -> List[bytes]:
 
     return inst_bytes
 
-def main():
+def load_config_from_json(file_path: str) -> Config:
+    with open(file_path, 'r') as f:
+        data = json.load(f)
+    return Config(
+        leads={k: float(v) for k, v in data['leads'].items()},
+        lags={k: float(v) for k, v in data['lags'].items()},
+        connectivity={k: float(v) for k, v in data['connectivity'].items()},
+        active_channels=data['active_channels'],
+        inverted_channels=data['inverted_channels'],
+        rep_time=float(data['rep_time']),
+        alias=data.get('alias', {}),
+        resolution=float(data.get('resolution', 8e-9)),
+        start_addr=int(data.get('start_addr', 1))
+    )
+
+def complile_pulse_program(pulse_program: str):
+
+    commands = parse_pulse_program(pulse_program)
+    master_edges = locate_master_edges(commands)
+    edges = locate_edges(master_edges, active_channels, leads, lags)
+    updated_edges = merge_edges_connectivity(edges, connectivity)#, active_channels, leads, lags)
+    sorted_edges = sort_edges(updated_edges)
+    all_states = compile_states(sorted_edges, inverted_channels, rep_time)
+    instructions = generate_instructions(all_states)
+    inst_bytes = instructions_to_bytes(instructions)
+
+    return inst_bytes
+
+def main(config: Config, pulse_program: str):
+
+    commands = parse_pulse_program(pulse_program)
+    master_edges = locate_master_edges(commands)
+    edges = locate_edges(master_edges, config.active_channels, config.leads, config.lags)
+    updated_edges = merge_edges_connectivity(edges, config.connectivity)
+    sorted_edges = sort_edges(updated_edges)
+    all_states = compile_states(sorted_edges, config.inverted_channels, config.rep_time)
+    instructions = generate_instructions(all_states)
+    inst_bytes = instructions_to_bytes(instructions)
+
+#def main():
     pulse_program = '''
     delay 1000e-9
     pulse 100e-9
@@ -336,4 +378,13 @@ def main():
         print(f"Error opening serial port: {e}")
 
 if __name__ == '__main__':
+    pulse_program = '''
+    delay 1000e-9
+    pulse 100e-9
+    delay 400e-9
+    pulse 200e-9
+    delay 10e-6
+    '''
+    config = load_config_from_json('config.json')
+    print(config)
     main()
