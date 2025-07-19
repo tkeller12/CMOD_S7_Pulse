@@ -108,9 +108,11 @@ def compile_states(sorted_edges, inverted_channels):
     compiled_states = []
     previous_time = 0
     for edge in sorted_edges:
+        print('-'*50)
         print(edge)
         time = edge.time
         if time != previous_time:
+            print('New Time: ', time)
             if edge.state == 1: # Rising Edge, need OR with bitmask
                 bitmask = 1<<edge.channel
                 state = previous_state | bitmask
@@ -123,7 +125,9 @@ def compile_states(sorted_edges, inverted_channels):
             compiled_states.append(line)
             previous_time = time
             previous_state = state
+            delta_time = time - previous_time
         else:
+            print('Old Time: ', time)
             popped_line = compiled_states.pop()
             if edge.state == 1: # Rising Edge, need OR with bitmask
                 bitmask = 1<<edge.channel
@@ -132,6 +136,8 @@ def compile_states(sorted_edges, inverted_channels):
                 bitmask = ~(1<<edge.channel)
                 state = previous_state & bitmask
             line = Edge(time = time-previous_time, channel = -1, state = state)
+#            line = Edge(time = delta_time, channel = -1, state = state)
+
 #            line = Edge(time = previous_time, channel = -1, state = state)
             compiled_states.append(line)
             previous_time = time
@@ -210,7 +216,7 @@ def instructions_to_bytes(instructions: List[Instruction]) -> List[bytes]:
 def main():
     pulse_program = '''
     delay 1000e-9
-    pulse 200e-9
+    pulse 100e-9
     delay 400e-9
     pulse 200e-9
     delay 10e-6
@@ -235,7 +241,7 @@ def main():
     lags = {
             'CH0': 0,
             'CH1': -100e-9,
-            'CH2': 120e-9,
+            'CH2': 200e-9,
             'CH3': 0,
             'CH4': 0,
             'CH5': 0,
