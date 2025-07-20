@@ -36,7 +36,7 @@ def plot_pulse_sequence(instructions: List[Instruction], config: Config, save_pa
             continue
 
         # Calculate duration in seconds
-        duration = instruction.delay * config.resolution
+        duration = (instruction.delay+1) * config.resolution
 
         # Extract channel states from pulse_pattern (int)
         pulse_bits = instruction.pulse_pattern

@@ -1,7 +1,7 @@
 {
     "leads": {"CH0": 0, "CH1": 200e-9, "CH2": 500e-9, "CH3": 0, "CH4": 0, "CH5": 0, "CH6": 0, "CH7": 0},
     "lags": {"CH0": 0, "CH1": -100e-9, "CH2": 40e-9, "CH3": 0, "CH4": 0, "CH5": 0, "CH6": 0, "CH7": 0},
-    "connectivity": {"CH0": 0, "CH1": 0, "CH2": 2000e-9, "CH3": 0, "CH4": 0, "CH5": 0, "CH6": 0, "CH7": 0},
+    "connectivity": {"CH0": 0, "CH1": 1000e-9, "CH2": 2000e-9, "CH3": 0, "CH4": 0, "CH5": 0, "CH6": 0, "CH7": 0},
     "active_channels": ["CH0", "CH1", "CH2", "CH3"],
     "inverted_channels": ["CH2"],
     "rep_time": 10e-3,
