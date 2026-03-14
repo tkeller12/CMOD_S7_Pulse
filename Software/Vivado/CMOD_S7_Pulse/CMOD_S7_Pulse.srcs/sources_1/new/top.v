@@ -44,10 +44,10 @@ module top(
     reg [7:0] r_ja = 0;    
     //reg [3:0] r_led = 0;
     
-    // 250 000 000 / 115 200 = 2170.1388 ~ 2170
-    //parameter TICKS_PER_BIT = 2170;
     
-    parameter TICKS_PER_BIT = 1085; // 125 000 000 / 115 200 = 1085.07 ~ 1085
+    parameter TICKS_PER_BIT = 2170; // 250 000 000 / 115 200 = 2170.1388 ~ 2170
+    
+    //parameter TICKS_PER_BIT = 1085; // 125 000 000 / 115 200 = 1085.07 ~ 1085
     parameter UART_BITS = 8;
     parameter UART_WORDS = 10;
     
