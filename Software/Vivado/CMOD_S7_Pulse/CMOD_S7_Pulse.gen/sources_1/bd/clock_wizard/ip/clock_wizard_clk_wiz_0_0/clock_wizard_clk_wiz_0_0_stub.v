@@ -2,10 +2,10 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-// Date        : Sat Jul 19 09:09:52 2025
+// Date        : Sat Jul 19 09:04:55 2025
 // Host        : Tim-Workstation running 64-bit major release  (build 9200)
-// Command     : write_verilog -force -mode synth_stub
-//               c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top clock_wizard_clk_wiz_0_0 -prefix
+//               clock_wizard_clk_wiz_0_0_ clock_wizard_clk_wiz_0_0_stub.v
 // Design      : clock_wizard_clk_wiz_0_0
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7s25csga225-1

@@ -2,10 +2,10 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
--- Date        : Sat Jul 19 09:09:52 2025
+-- Date        : Sat Jul 19 09:04:55 2025
 -- Host        : Tim-Workstation running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top clock_wizard_clk_wiz_0_0 -prefix
+--               clock_wizard_clk_wiz_0_0_ clock_wizard_clk_wiz_0_0_sim_netlist.vhdl
 -- Design      : clock_wizard_clk_wiz_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -15,16 +15,16 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity clock_wizard_clk_wiz_0_0_clk_wiz is
+entity clock_wizard_clk_wiz_0_0_clock_wizard_clk_wiz_0_0_clk_wiz is
   port (
     clk_out1 : out STD_LOGIC;
     reset : in STD_LOGIC;
     locked : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
   );
-end clock_wizard_clk_wiz_0_0_clk_wiz;
+end clock_wizard_clk_wiz_0_0_clock_wizard_clk_wiz_0_0_clk_wiz;
 
-architecture STRUCTURE of clock_wizard_clk_wiz_0_0_clk_wiz is
+architecture STRUCTURE of clock_wizard_clk_wiz_0_0_clock_wizard_clk_wiz_0_0_clk_wiz is
   signal clk_in1_clock_wizard_clk_wiz_0_0 : STD_LOGIC;
   signal clk_out1_clock_wizard_clk_wiz_0_0 : STD_LOGIC;
   signal clkfbout_buf_clock_wizard_clk_wiz_0_0 : STD_LOGIC;
@@ -83,7 +83,7 @@ mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
       CLKFBOUT_USE_FINE_PS => false,
       CLKIN1_PERIOD => 83.333000,
       CLKIN2_PERIOD => 0.000000,
-      CLKOUT0_DIVIDE_F => 6.000000,
+      CLKOUT0_DIVIDE_F => 3.000000,
       CLKOUT0_DUTY_CYCLE => 0.500000,
       CLKOUT0_PHASE => 0.000000,
       CLKOUT0_USE_FINE_PS => false,
@@ -179,7 +179,7 @@ end clock_wizard_clk_wiz_0_0;
 
 architecture STRUCTURE of clock_wizard_clk_wiz_0_0 is
 begin
-inst: entity work.clock_wizard_clk_wiz_0_0_clk_wiz
+inst: entity work.clock_wizard_clk_wiz_0_0_clock_wizard_clk_wiz_0_0_clk_wiz
      port map (
       clk_in1 => clk_in1,
       clk_out1 => clk_out1,
