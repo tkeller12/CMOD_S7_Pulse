@@ -1,22 +1,20 @@
 import pypulsegen as pg
 
 pulse_program = '''
-delay 5000e-9
-pulse 200e-9
-delay 800e-9
-pulse 200e-9
+delay 4000e-9
+pulse 100e-9
 '''
 
 config = pg.load_config_from_json('config.json')
-config.rep_time = 1e-3
+config.rep_time = 10e-6
 config.inverted_channels = ['CH3']
 #config.inverted_channels = []
 
 inst_bytes = pg.compile_pulse_program(pulse_program, config)
 
-print('-'*50)
+print('-'*89)
 print('INSTRUCTION BYTES')
-print('-'*50)
+print('-'*89)
 print('COM||ADD R------| |PULSE-| |DATA--- -------- ---||OP| |DELAY->')
 for inst in inst_bytes:
     binary_string = ' '.join(f"{byte:08b}" for byte in inst)
