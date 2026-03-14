@@ -17,6 +17,7 @@ inst_bytes = pg.compile_pulse_program(pulse_program, config)
 print('-'*50)
 print('INSTRUCTION BYTES')
 print('-'*50)
+print('COM||ADD R------| |PULSE-| |DATA--- -------- ---||OP| |DELAY->')
 for inst in inst_bytes:
     binary_string = ' '.join(f"{byte:08b}" for byte in inst)
     print(binary_string)
@@ -24,4 +25,4 @@ for inst in inst_bytes:
 pg.stop()
 pg.upload_sequence(inst_bytes)
 pg.start()
-pg.stop()
+#pg.stop()

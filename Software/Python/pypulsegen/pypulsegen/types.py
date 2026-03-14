@@ -31,7 +31,7 @@ class Config:
     inverted_channels: List[str]   # List of inverted channels
     rep_time: float               # Repetition time (seconds)
     alias: Dict[str, str]         # Channel aliases for display
-    resolution: float = 8e-9      # Pulse programmer time resolution
+    resolution: float = 4e-9      # Pulse programmer time resolution
     channels: List[str] = None    # Available channels
     start_addr: int = 1           # Starting address for instructions
 

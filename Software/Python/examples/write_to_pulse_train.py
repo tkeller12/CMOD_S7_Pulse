@@ -67,7 +67,9 @@ def goto(addr, goto_addr):
 #        write_inst1 = delay(ix,0x55,delay_s)
 #    ser.write(write_inst1)
 
-p90 = 100e-9
+p0 = 8e-9
+d0 = 16e-9
+
 p180 = 200e-9
 pdelay = 200e-9
 reptime = 10e-3
@@ -78,14 +80,15 @@ if write_all:
     max_addr = 4095
 else:
     max_addr = 100
-
+ix2 = 0
 for ix in range(max_addr):
 #    print('index:', ix)
+    ix+=1
     if ix % 2 == 0:
 #        write_inst = delay(ix,0b00010000,p90)
-        write_inst = delay(ix,0xff,p90)
+        write_inst = delay(ix,0xff,p0)
     else:
-        write_inst = delay(ix,0b0,p90)
+        write_inst = delay(ix,0b0,d0)
 #    if ix == 1:
 ##        write_inst = delay(ix,0b00000001,p90)
 #        write_inst = delay(ix,0b00010000,p90)
@@ -115,7 +118,7 @@ for ix in range(max_addr):
 
     ser.write(write_inst)
 
-write_inst = delay(101,0b0,10e-3)
+write_inst = delay(ix2,0b0,10e-3)
 ser.write(write_inst)
 #write_inst2 = delay(1,0x55,.2)
 #write_inst3 = delay(3,0xaa,10e-9)
