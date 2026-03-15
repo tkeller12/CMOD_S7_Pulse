@@ -59,66 +59,33 @@ def goto(addr, goto_addr):
     return write_addr + inst
 
 
-#delay_s = 100e-9
-#for ix in range(255):
-#    if ix % 2 == 0:
-#        write_inst1 = delay(ix,0xaa,delay_s)
-#    else:
-#        write_inst1 = delay(ix,0x55,delay_s)
-#    ser.write(write_inst1)
+p0 = 4e-9
+d0 = 4e-9
 
-p0 = 8e-9
-d0 = 16e-9
-
-p180 = 200e-9
-pdelay = 200e-9
-reptime = 10e-3
-reptime_long = 0.1
 write_all = False
 
 if write_all:
     max_addr = 4095
 else:
-    max_addr = 100
+    max_addr = 10
 ix2 = 0
 for ix in range(max_addr):
 #    print('index:', ix)
-    ix+=1
+    ix2+=1
+
     if ix % 2 == 0:
-#        write_inst = delay(ix,0b00010000,p90)
         write_inst = delay(ix,0xff,p0)
     else:
         write_inst = delay(ix,0b0,d0)
-#    if ix == 1:
-##        write_inst = delay(ix,0b00000001,p90)
-#        write_inst = delay(ix,0b00010000,p90)
-#    elif ix == 2:
-#        write_inst = delay(ix,0x00,pdelay)
-#    elif ix == 3:
-##        write_inst = delay(ix,0b00000001,p180)
-##        write_inst = delay(ix,0xff,p180)
-#        write_inst = delay(ix,0b00010000,p180)
-##        write_inst = delay(ix,0xaa,p180)
-##        write_inst = delay(ix,0xaa,p180)
-#    elif ix == 4:
-#        write_inst = delay(ix,0x00,reptime)
-##        write_inst = long_delay(ix,0x00, 1,reptime)
-##    elif ix == 5:
-##        write_inst = wait(ix)
-#    elif ix == 5:
-#        write_inst = goto(ix, 1)
-##    elif ix == 6:
-##        write_inst = delay(ix,0x00,reptime_long)
-#    else:
-#        write_inst = delay(ix,0,10e-9)
-#
-#    print(write_inst.hex())
+
     binary_string = ' '.join(f"{byte:08b}" for byte in write_inst)
     print(binary_string)
 
     ser.write(write_inst)
 
-write_inst = delay(ix2,0b0,10e-3)
+write_inst = delay(ix2,0b0,120e-9)
+ser.write(write_inst)
+write_inst = goto(ix2+1, 0)
 ser.write(write_inst)
 #write_inst2 = delay(1,0x55,.2)
 #write_inst3 = delay(3,0xaa,10e-9)

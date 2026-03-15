@@ -2,7 +2,7 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
--- Date        : Sat Jul 19 09:04:55 2025
+-- Date        : Sat Jul 19 09:09:52 2025
 -- Host        : Tim-Workstation running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub -rename_top clock_wizard_clk_wiz_0_0 -prefix
 --               clock_wizard_clk_wiz_0_0_ clock_wizard_clk_wiz_0_0_stub.vhdl

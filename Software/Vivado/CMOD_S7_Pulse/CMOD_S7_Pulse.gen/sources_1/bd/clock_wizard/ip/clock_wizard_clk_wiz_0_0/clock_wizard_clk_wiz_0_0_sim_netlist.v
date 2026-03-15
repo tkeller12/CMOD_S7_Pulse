@@ -2,7 +2,7 @@
 // Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-// Date        : Sat Jul 19 09:04:55 2025
+// Date        : Sat Jul 19 09:09:52 2025
 // Host        : Tim-Workstation running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim -rename_top clock_wizard_clk_wiz_0_0 -prefix
 //               clock_wizard_clk_wiz_0_0_ clock_wizard_clk_wiz_0_0_sim_netlist.v
@@ -96,7 +96,7 @@ module clock_wizard_clk_wiz_0_0_clock_wizard_clk_wiz_0_0_clk_wiz
     .CLKFBOUT_USE_FINE_PS("FALSE"),
     .CLKIN1_PERIOD(83.333000),
     .CLKIN2_PERIOD(0.000000),
-    .CLKOUT0_DIVIDE_F(3.000000),
+    .CLKOUT0_DIVIDE_F(6.000000),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
     .CLKOUT0_USE_FINE_PS("FALSE"),

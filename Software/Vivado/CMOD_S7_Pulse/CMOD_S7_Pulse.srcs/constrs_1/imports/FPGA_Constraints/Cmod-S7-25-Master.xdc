@@ -5,11 +5,13 @@
 
 ## 12 MHz System Clock
 set_property -dict { PACKAGE_PIN M9    IOSTANDARD LVCMOS33 } [get_ports { clk_12MHz }]; #IO_L13P_T2_MRCC_14 Sch=gclk
-#create_clock -add -name sys_clk_pin -period 83.33 -waveform {0 41.66} [get_ports { clk_12MHz }];
+create_clock -add -name sys_clk_pin -period 83.33 -waveform {0 41.66} [get_ports { clk_12MHz }];
+#set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_nets clk_12MHz];
 
 ## 10 MHz System Clock
-set_property -dict { PACKAGE_PIN P14    IOSTANDARD LVCMOS33 } [get_ports { clk_10MHz }]; #IO_L13P_T2_MRCC_14 Sch=gclk
-set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_nets clk_10MHz];
+#set_property -dict { PACKAGE_PIN P14    IOSTANDARD LVCMOS33 } [get_ports { clk_10MHz }]; #IO_L13P_T2_MRCC_14 Sch=gclk
+#set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_nets clk_10MHz];
+#create_clock -add -name sys_clk_pin -period 100 -waveform {0 50} [get_ports { clk_10MHz }];
 #set_property -dict { PACKAGE_PIN P14   IOSTANDARD LVCMOS33 } [get_ports { pio16 }]; #IO_L11P_T1_SRCC_14 Sch=pio[16]
 # Important: Use dedicated low-jitter routing path to MMCM/PLL
 #set_property CLOCK_DEDICATED_ROUTE TRUE [get_nets ext_clk_10mhz_IBUF];

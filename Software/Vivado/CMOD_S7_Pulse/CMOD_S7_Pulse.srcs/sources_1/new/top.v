@@ -2,7 +2,7 @@
 
 module top(
     input clk_12MHz,
-    input clk_10MHz,
+//    input clk_10MHz,
     input wire uart_rx_pin,
     input [1:0] btn,
     output wire [7:0] ja,
@@ -10,13 +10,14 @@ module top(
     );
     
     wire clk;
-    wire clk_ext;
+//    wire clk_int;
+//    wire clk_ext;
     wire trig;
     wire pll_locked;
     wire pll_locked_ext;
+    wire use_external_clk;
     
     assign reset = 0;
-    
     
     assign trig = btn[0];
     
@@ -28,21 +29,42 @@ module top(
     //.reset()
     );
     
-    clk_wiz_ext u_clock_wizard_ext
-   (
-    .clk_in1(clk_10MHz),
-    .clk_out1(clk_ext),
-    .locked(pll_locked_ext),
-    .reset(reset)
-    );
+//    clk_wiz_ext u_clock_wizard_ext
+//   (
+//    .clk_in1(clk_10MHz),
+//    .clk_out1(clk),
+//    .locked(pll_locked_ext),
+//    .reset(reset)
+//    );
+    
+//    wire use_ext;
+//    assign use_ext = pll_locked_ext;
+    
+//    BUFGCTRL #(
+//    .INIT_OUT(0)   // optional initial value
+//) clk_mux (
+//    .I0(clk_int),   // fallback clock
+//    .I1(clk_ext),   // primary clock
+//    .S0(~use_ext),      // selects I0 when 1
+//    .S1(use_ext),       // selects I1 when 1
+//    .CE0(1'b1),
+//    .CE1(1'b1),
+//    .IGNORE0(1'b0),
+//    .IGNORE1(1'b0),
+//    .O(clk)
+//);
+    
+    
+    
+    
 
     reg [7:0] r_ja = 0;    
     //reg [3:0] r_led = 0;
     
     
-    parameter TICKS_PER_BIT = 2170; // 250 000 000 / 115 200 = 2170.1388 ~ 2170
+//    parameter TICKS_PER_BIT = 2170; // 250 000 000 / 115 200 = 2170.1388 ~ 2170
     
-    //parameter TICKS_PER_BIT = 1085; // 125 000 000 / 115 200 = 1085.07 ~ 1085
+    parameter TICKS_PER_BIT = 1085; // 125 000 000 / 115 200 = 1085.07 ~ 1085
     parameter UART_BITS = 8;
     parameter UART_WORDS = 10;
     
@@ -191,9 +213,9 @@ module top(
     
     assign ja = pulse;
     assign led[0] = pll_locked;
-    assign led[1] = pll_locked_ext;
-    assign led[2] = 0;
-    assign led[3] = 0;
+    assign led[1] = ~pp_rst;
+    assign led[2] = ~pll_locked;
+    assign led[3] = ~pll_locked;
     //assign led[3:0] = addr[3:0];
 //    assign led[3:0] = delay[3:0]; 
 //    assign led[3:0] = op_code[3:0];

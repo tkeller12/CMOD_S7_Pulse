@@ -2,11 +2,11 @@ import pypulsegen as pg
 
 pulse_program = '''
 delay 4000e-9
-pulse 100e-9
+pulse 12e-9
 '''
 
 config = pg.load_config_from_json('config.json')
-config.rep_time = 10e-6
+config.rep_time = 10e-6-12e-9
 config.inverted_channels = ['CH3']
 #config.inverted_channels = []
 
