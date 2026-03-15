@@ -1,27 +1,8 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 12/10/2024 08:40:29 PM
-// Design Name: 
-// Module Name: top
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module top(
     input clk_12MHz,
+    input clk_10MHz,
     input wire uart_rx_pin,
     input [1:0] btn,
     output wire [7:0] ja,
@@ -29,16 +10,30 @@ module top(
     );
     
     wire clk;
+    wire clk_ext;
     wire trig;
+    wire pll_locked;
+    wire pll_locked_ext;
+    
+    assign reset = 0;
+    
     
     assign trig = btn[0];
     
-    clock_wizard_wrapper u_clock_wizard_wrapper
+    clock_wizard_wrapper u_clock_wizard_wrapper_int
    (
     .clk_in1(clk_12MHz),
-    .clk_out1(clk)
-    //.locked()
+    .clk_out1(clk),
+    .locked(pll_locked)
     //.reset()
+    );
+    
+    clk_wiz_ext u_clock_wizard_ext
+   (
+    .clk_in1(clk_10MHz),
+    .clk_out1(clk_ext),
+    .locked(pll_locked_ext),
+    .reset(reset)
     );
 
     reg [7:0] r_ja = 0;    
@@ -195,7 +190,11 @@ module top(
     
     
     assign ja = pulse;
-    assign led[3:0] = addr[3:0];
+    assign led[0] = pll_locked;
+    assign led[1] = pll_locked_ext;
+    assign led[2] = 0;
+    assign led[3] = 0;
+    //assign led[3:0] = addr[3:0];
 //    assign led[3:0] = delay[3:0]; 
 //    assign led[3:0] = op_code[3:0];
     
