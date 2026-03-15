@@ -3,7 +3,7 @@
 module pulse_programmer_core (
     input  rst,
     input  clk,
-    output reg [11:0] addr = 0,           // now 12 bits (0-4095)
+    output reg [11:0] addr = 0,           // 12 bits (0-4095)
     input  [3:0]  op_code,
     input  [31:0] delay,
     input  [19:0] data,

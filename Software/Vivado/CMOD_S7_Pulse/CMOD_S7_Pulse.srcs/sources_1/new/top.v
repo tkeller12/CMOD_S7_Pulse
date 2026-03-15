@@ -2,7 +2,6 @@
 
 module top(
     input clk_12MHz,
-//    input clk_10MHz,
     input wire uart_rx_pin,
     input [1:0] btn,
     output wire [7:0] ja,
@@ -10,8 +9,6 @@ module top(
     );
     
     wire clk;
-//    wire clk_int;
-//    wire clk_ext;
     wire trig;
     wire pll_locked;
     wire pll_locked_ext;
@@ -28,39 +25,8 @@ module top(
     .locked(pll_locked)
     //.reset()
     );
-    
-//    clk_wiz_ext u_clock_wizard_ext
-//   (
-//    .clk_in1(clk_10MHz),
-//    .clk_out1(clk),
-//    .locked(pll_locked_ext),
-//    .reset(reset)
-//    );
-    
-//    wire use_ext;
-//    assign use_ext = pll_locked_ext;
-    
-//    BUFGCTRL #(
-//    .INIT_OUT(0)   // optional initial value
-//) clk_mux (
-//    .I0(clk_int),   // fallback clock
-//    .I1(clk_ext),   // primary clock
-//    .S0(~use_ext),      // selects I0 when 1
-//    .S1(use_ext),       // selects I1 when 1
-//    .CE0(1'b1),
-//    .CE1(1'b1),
-//    .IGNORE0(1'b0),
-//    .IGNORE1(1'b0),
-//    .O(clk)
-//);
-    
-    
-    
-    
 
-    reg [7:0] r_ja = 0;    
-    //reg [3:0] r_led = 0;
-    
+    reg [7:0] r_ja = 0;       
     
 //    parameter TICKS_PER_BIT = 2170; // 250 000 000 / 115 200 = 2170.1388 ~ 2170
     
