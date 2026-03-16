@@ -14,5 +14,3 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7
 INFO: [VRFC 10-311] analyzing module uart_rx
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_1/new/tb_top.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module tb_top
-INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.sim/sim_top_1/behav/xsim/glbl.v" into library xil_defaultlib
-INFO: [VRFC 10-311] analyzing module glbl

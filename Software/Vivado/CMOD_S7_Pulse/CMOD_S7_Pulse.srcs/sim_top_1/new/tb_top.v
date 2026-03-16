@@ -7,6 +7,10 @@ module tb_top;
     reg         uart_rx_pin;
     reg  [1:0]  btn;
     
+    // Make internal DUT signals visible
+    wire        clk;           // 125 MHz clock
+    wire [11:0] addr;          // BRAM Address
+    
     // DUT outputs
     wire [7:0]  ja;
     wire [3:0]  led;
@@ -19,7 +23,11 @@ module tb_top;
         .ja          (ja),
         .led         (led)
     );
-
+    
+    // Connect internal clk to testbench wire
+    assign clk = DUT.clk;    
+    assign addr = DUT.addr;
+    
     // ------------------------------------------------------------------
     // 12 MHz clock generation (external input to PLL)
     // ------------------------------------------------------------------

@@ -38,7 +38,7 @@ module top(
     //reg uart_rx_pin;
     wire [7:0] uart_data;
     wire uart_rx_done;
-    wire busy;
+    wire uart_rx_busy;
     
     reg rst = 0;
     wire [(UART_BITS*UART_WORDS)-1:0] shift_reg_data;
@@ -50,7 +50,7 @@ module top(
     .uart_rx_pin(uart_rx_pin), // Input RX data pin    
     .data(uart_data), // output data
     .uart_rx_done(uart_rx_done), // Pull high for 1 clock cycle when transmission complete
-    .busy(busy) // high while receiving
+    .busy(uart_rx_busy) // high while receiving
     );
     
     inst_shift_reg #(.BITS(UART_BITS), .WORDS(UART_WORDS)) u_inst_shift_reg(
@@ -79,6 +79,32 @@ module top(
     reg [19:0] data_reg    = 20'b0;
     reg [3:0]  op_code_reg = 4'b0;
     reg [31:0] delay_reg   = 32'b0;
+    
+    // In top.v, after always @(posedge clk)
+    reg [3:0]  op_code_reg_d1;
+    reg [31:0] delay_reg_d1;
+    reg [19:0] data_reg_d1;
+    reg [7:0]  pulse_reg_d1;
+
+    always @(posedge clk) begin
+        pulse_reg_d1  <= pulse_reg;
+        op_code_reg_d1 <= op_code_reg;
+        delay_reg_d1  <= delay_reg;
+        data_reg_d1   <= data_reg;
+    end
+    
+    reg [3:0]  op_code_reg_d2;
+    reg [31:0] delay_reg_d2;
+    reg [19:0] data_reg_d2;
+    reg [7:0]  pulse_reg_d2;
+
+    always @(posedge clk) begin
+        pulse_reg_d2  <= pulse_reg_d1;
+        op_code_reg_d2 <= op_code_reg_d1;
+        delay_reg_d2  <= delay_reg_d1;
+        data_reg_d2   <= data_reg_d1;
+    end    
+    
 
     always @(posedge clk) begin
 //        pulse_reg <= o_Rd_Data[63:56];
@@ -117,9 +143,9 @@ module top(
      .rst(pp_rst),
      .clk(clk),
      .addr(addr),     
-     .op_code(op_code_reg),
-     .delay(delay_reg),
-     .data(data_reg),
+     .op_code(op_code_reg_d2),
+     .delay(delay_reg_d2),
+     .data(data_reg_d2),
      .trig(trig)
     );
     
@@ -192,7 +218,7 @@ module top(
     //assign ja = pulse;
     assign led[0] = pll_locked;
     assign led[1] = ~pp_rst;
-    assign led[2] = ~pll_locked;
+    assign led[2] = uart_rx_busy;
     assign led[3] = ~pll_locked;
     //assign led[3:0] = addr[3:0];
 //    assign led[3:0] = delay[3:0]; 
