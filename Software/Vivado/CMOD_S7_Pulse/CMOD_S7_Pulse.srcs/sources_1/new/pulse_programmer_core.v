@@ -10,8 +10,8 @@ module pulse_programmer_core (
     input  trig
 );
 
-    reg [31:0] count   = 0;
-    reg        startup = 1'b1;
+    reg [31:0] count      = 0;
+    reg        startup    = 1'b1;
     reg        trig_meta, trig_sync;
 
     localparam [3:0] NO_OP = 4'b0000;
@@ -21,14 +21,14 @@ module pulse_programmer_core (
 
     always @(posedge clk) begin
         if (rst) begin
-            addr      <= 12'd0;
-            count     <= 32'd0;
-            startup   <= 1'b1;
-            trig_meta <= 1'b0;
-            trig_sync <= 1'b0;
+            addr       <= 12'd0;
+            count      <= 32'd0;
+            startup    <= 1'b1;
+            trig_meta  <= 1'b0;
+            trig_sync  <= 1'b0;
         end
         else begin
-            // Synchronizer for external trigger (recommended)
+            // Synchronizer for external trigger
             trig_meta <= trig;
             trig_sync <= trig_meta;
 
@@ -40,6 +40,7 @@ module pulse_programmer_core (
                 case (op_code)
                     NO_OP: begin
                         addr <= addr + 1;
+                        count <= 0;
                     end
 
                     DELAY: begin
@@ -55,17 +56,19 @@ module pulse_programmer_core (
                     WAIT: begin
                         if (trig_sync) begin
                             addr <= addr + 1;
+                            count <= 0;
                         end
                         // else stay here
                     end
 
                     JUMP: begin
-                        addr  <= data[11:0];     // target address from lower 12 bits of data field
-                        count <= 0;              // reset delay counter on control-flow change
+                        addr       <= data[11:0];   // target address
+                        count      <= 0;
                     end
 
                     default: begin
                         addr <= addr + 1;
+                        count <= 0;
                     end
                 endcase
             end

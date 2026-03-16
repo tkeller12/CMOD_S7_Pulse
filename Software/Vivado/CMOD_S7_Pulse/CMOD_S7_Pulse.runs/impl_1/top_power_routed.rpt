@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date             : Sun Mar 15 12:00:27 2026
+| Date             : Sun Mar 15 15:21:50 2026
 | Host             : Tim-Workstation running 64-bit major release  (build 9200)
 | Command          : report_power -file top_power_routed.rpt -pb top_power_summary_routed.pb -rpx top_power_routed.rpx
 | Design           : top
@@ -53,8 +53,8 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.002 |        8 |       --- |             --- |
-| Slice Logic    |    <0.001 |      425 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      105 |     14600 |            0.72 |
+| Slice Logic    |     0.001 |      425 |       --- |             --- |
+|   LUT as Logic |     0.001 |      120 |     14600 |            0.82 |
 |   CARRY4       |    <0.001 |       21 |      3650 |            0.58 |
 |   Register     |    <0.001 |      239 |     29200 |            0.82 |
 |   Others       |     0.000 |       14 |       --- |             --- |
@@ -124,16 +124,16 @@ Table of Contents
 2.2 Clock Constraints
 ---------------------
 
-+-------------------------------------+--------------------------------------------------------------------------------------------+-----------------+
-| Clock                               | Domain                                                                                     | Constraint (ns) |
-+-------------------------------------+--------------------------------------------------------------------------------------------+-----------------+
-| clk_12MHz                           | clk_12MHz                                                                                  |            83.3 |
-| clk_out1_clock_wizard_clk_wiz_0_0   | u_clock_wizard_wrapper_int/clock_wizard_i/clk_wiz_0/inst/clk_out1_clock_wizard_clk_wiz_0_0 |             8.0 |
-| clk_out1_clock_wizard_clk_wiz_0_0_1 | u_clock_wizard_wrapper_int/clock_wizard_i/clk_wiz_0/inst/clk_out1_clock_wizard_clk_wiz_0_0 |             8.0 |
-| clkfbout_clock_wizard_clk_wiz_0_0   | u_clock_wizard_wrapper_int/clock_wizard_i/clk_wiz_0/inst/clkfbout_clock_wizard_clk_wiz_0_0 |            83.3 |
-| clkfbout_clock_wizard_clk_wiz_0_0_1 | u_clock_wizard_wrapper_int/clock_wizard_i/clk_wiz_0/inst/clkfbout_clock_wizard_clk_wiz_0_0 |            83.3 |
-| sys_clk_pin                         | clk_12MHz                                                                                  |            83.3 |
-+-------------------------------------+--------------------------------------------------------------------------------------------+-----------------+
++--------------------------+--------------------------------------------------------+-----------------+
+| Clock                    | Domain                                                 | Constraint (ns) |
++--------------------------+--------------------------------------------------------+-----------------+
+| clk_12MHz                | clk_12MHz                                              |            83.3 |
+| clk_out1_clk_wiz_0_new   | u_clock_wizard_wrapper_int/inst/clk_out1_clk_wiz_0_new |             8.0 |
+| clk_out1_clk_wiz_0_new_1 | u_clock_wizard_wrapper_int/inst/clk_out1_clk_wiz_0_new |             8.0 |
+| clkfbout_clk_wiz_0_new   | u_clock_wizard_wrapper_int/inst/clkfbout_clk_wiz_0_new |            83.3 |
+| clkfbout_clk_wiz_0_new_1 | u_clock_wizard_wrapper_int/inst/clkfbout_clk_wiz_0_new |            83.3 |
+| sys_clk_pin              | clk_12MHz                                              |            83.3 |
++--------------------------+--------------------------------------------------------+-----------------+
 
 
 3. Detailed Reports
@@ -148,8 +148,7 @@ Table of Contents
 | top                          |     0.169 |
 |   u_RAM_2Port                |     0.032 |
 |   u_clock_wizard_wrapper_int |     0.104 |
-|     clock_wizard_i           |     0.104 |
-|       clk_wiz_0              |     0.104 |
+|     inst                     |     0.104 |
 |   u_ppc                      |     0.001 |
 +------------------------------+-----------+
 

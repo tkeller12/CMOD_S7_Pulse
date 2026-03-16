@@ -56,7 +56,9 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 8
 set_param general.usePosixSpawnForFork 1
+set_param xicom.use_bs_reader 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7s25csga225-1
 
@@ -75,17 +77,15 @@ OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib {
   C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/imports/memory/RAM_2Port.v
-  C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/hdl/clock_wizard_wrapper.v
   {C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/imports/shift register/inst_shift_reg.v}
   C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/pulse_programmer_core.v
   C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/imports/UART/uart_rx.v
   C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v
 }
-add_files C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/bd/clock_wizard/clock_wizard.bd
-set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_board.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/clock_wizard_ooc.xdc]
+read_ip -quiet c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new.xci
+set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new_board.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -99,8 +99,6 @@ foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
 read_xdc C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc
 set_property used_in_implementation false [get_files C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc]
 
-read_xdc dont_touch.xdc
-set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 
 read_checkpoint -auto_incremental -incremental C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/utils_1/imports/synth_1/top.dcp

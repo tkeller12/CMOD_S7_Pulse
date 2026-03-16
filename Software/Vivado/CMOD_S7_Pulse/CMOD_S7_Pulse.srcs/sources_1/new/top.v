@@ -8,7 +8,7 @@ module top(
     output wire [3:0] led
     );
     
-    wire clk;
+    wire clk; // 125 MHz Clock
     wire trig;
     wire pll_locked;
     wire pll_locked_ext;
@@ -18,7 +18,8 @@ module top(
     
     assign trig = btn[0];
     
-    clock_wizard_wrapper u_clock_wizard_wrapper_int
+    //clock_wizard_wrapper u_clock_wizard_wrapper_int
+    clk_wiz_0_new u_clock_wizard_wrapper_int
    (
     .clk_in1(clk_12MHz),
     .clk_out1(clk),
@@ -73,6 +74,22 @@ module top(
     wire [19:0] data;
     wire [3:0] op_code;
     wire [31:0] delay;
+         
+    reg [7:0]  pulse_reg   = 8'b0;
+    reg [19:0] data_reg    = 20'b0;
+    reg [3:0]  op_code_reg = 4'b0;
+    reg [31:0] delay_reg   = 32'b0;
+
+    always @(posedge clk) begin
+//        pulse_reg <= o_Rd_Data[63:56];
+        pulse_reg   <= o_Rd_Data[63:56];
+        data_reg    <= o_Rd_Data[55:36];
+        op_code_reg <= o_Rd_Data[35:32];
+        delay_reg   <= o_Rd_Data[31:0];
+    end
+
+    assign ja = pulse_reg;
+    
         
     RAM_2Port #(.WIDTH(64), .DEPTH(4096)) u_RAM_2Port (
     // Write Interface
@@ -86,18 +103,13 @@ module top(
     .i_Rd_En(i_Rd_En),
     .o_Rd_DV(o_Rd_DV),
     .o_Rd_Data(o_Rd_Data)
-    //.pulse(pulse),
-    //.data(data),
-    //.op_code(op_code),
-    //.delay(delay)
     );
     
-    // TESTING
     
-    assign pulse = o_Rd_Data[63:56];
-    assign data = o_Rd_Data[55:36];
-    assign op_code = o_Rd_Data[35:32];
-    assign delay = o_Rd_Data[31:0];  
+//    assign pulse = o_Rd_Data[63:56];
+//    assign data = o_Rd_Data[55:36];
+//    assign op_code = o_Rd_Data[35:32];
+//    assign delay = o_Rd_Data[31:0];  
     
     reg pp_rst = 1;
     
@@ -105,9 +117,9 @@ module top(
      .rst(pp_rst),
      .clk(clk),
      .addr(addr),     
-     .op_code(op_code),
-     .delay(delay),
-     .data(data),
+     .op_code(op_code_reg),
+     .delay(delay_reg),
+     .data(data_reg),
      .trig(trig)
     );
     
@@ -177,7 +189,7 @@ module top(
     end
     
     
-    assign ja = pulse;
+    //assign ja = pulse;
     assign led[0] = pll_locked;
     assign led[1] = ~pp_rst;
     assign led[2] = ~pll_locked;
