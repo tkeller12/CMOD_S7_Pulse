@@ -1,8 +1,0 @@
-+===================================+===================================+==========================+
-| Launch Setup Clock                | Launch Hold Clock                 | Pin                      |
-+===================================+===================================+==========================+
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_ppc/count_reg[0]/D     |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_uart_rx/index_reg[1]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_uart_rx/index_reg[0]/D |
-| clk_out1_clock_wizard_clk_wiz_0_0 | clk_out1_clock_wizard_clk_wiz_0_0 | u_uart_rx/index_reg[3]/D |
-+-----------------------------------+-----------------------------------+--------------------------+

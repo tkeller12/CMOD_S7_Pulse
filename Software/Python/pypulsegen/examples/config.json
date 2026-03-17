@@ -6,6 +6,6 @@
     "inverted_channels": ["CH3"],
     "rep_time": 10e-3,
     "alias": {"CH0": "TX", "CH1": "AMP", "CH3": "RX"},
-    "resolution": 4e-9,
+    "resolution": 8e-9,
     "start_addr": 1
 }

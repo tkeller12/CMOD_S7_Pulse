@@ -1,0 +1,3 @@
+clk_wiz_0_new_clk_wiz.v,verilog,xil_defaultlib,../../../../CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new_clk_wiz.v,incdir="../../../ipstatic"incdir="../../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef"incdir="../../../ipstatic"
+clk_wiz_0_new.v,verilog,xil_defaultlib,../../../../CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new.v,incdir="../../../ipstatic"incdir="../../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef"incdir="../../../ipstatic"
+glbl.v,Verilog,xil_defaultlib,glbl.v

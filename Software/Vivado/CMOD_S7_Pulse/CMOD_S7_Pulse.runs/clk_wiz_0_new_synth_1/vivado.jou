@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.1 (64-bit)
+# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
+# SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
+# Start of session at: Sun Mar 15 13:12:13 2026
+# Process ID         : 4860
+# Current directory  : C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/clk_wiz_0_new_synth_1
+# Command line       : vivado.exe -log clk_wiz_0_new.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source clk_wiz_0_new.tcl
+# Log file           : C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/clk_wiz_0_new_synth_1/clk_wiz_0_new.vds
+# Journal file       : C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/clk_wiz_0_new_synth_1\vivado.jou
+# Running On         : Tim-Workstation
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : AMD Ryzen 9 7950X3D 16-Core Processor          
+# CPU Frequency      : 4200 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 32
+# Host memory        : 136475 MB
+# Swap memory        : 8589 MB
+# Total Virtual      : 145065 MB
+# Available Virtual  : 100198 MB
+#-----------------------------------------------------------
+source clk_wiz_0_new.tcl -notrace

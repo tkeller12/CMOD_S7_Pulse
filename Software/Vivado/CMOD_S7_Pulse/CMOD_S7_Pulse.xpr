@@ -225,7 +225,6 @@
     <FileSet Name="clk_wiz_0_new" Type="BlockSrcs" RelSrcDir="$PSRCDIR/clk_wiz_0_new" RelGenDir="$PGENDIR/clk_wiz_0_new">
       <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new.xci">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -240,7 +239,6 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_top_1/new/tb_top.v">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -248,7 +246,7 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="top"/>
+        <Option Name="TopModule" Val="tb_top"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="TopAutoSet" Val="TRUE"/>
         <Option Name="TransportPathDelay" Val="0"/>

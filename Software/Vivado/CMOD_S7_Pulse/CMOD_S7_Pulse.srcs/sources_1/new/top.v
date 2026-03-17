@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 12/10/2024 08:40:29 PM
-// Design Name: 
-// Module Name: top
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module top(
     input clk_12MHz,
@@ -28,33 +8,37 @@ module top(
     output wire [3:0] led
     );
     
-    wire clk;
+    wire clk; // 125 MHz Clock
     wire trig;
+    wire pll_locked;
+    wire pll_locked_ext;
+    wire use_external_clk;
+    
+    assign reset = 0;
     
     assign trig = btn[0];
     
-    clock_wizard_wrapper u_clock_wizard_wrapper
+    //clock_wizard_wrapper u_clock_wizard_wrapper_int
+    clk_wiz_0_new u_clock_wizard_wrapper_int
    (
     .clk_in1(clk_12MHz),
-    .clk_out1(clk)
-    //.locked()
-    //.reset()
+    .clk_out1(clk),
+    .locked(pll_locked),
+    .reset(reset)
     );
 
-    reg [7:0] r_ja = 0;    
-    //reg [3:0] r_led = 0;
+    //reg [7:0] r_ja = 0;       
     
+//    parameter TICKS_PER_BIT = 2170; // 250 000 000 / 115 200 = 2170.1388 ~ 2170
     
-    parameter TICKS_PER_BIT = 2170; // 250 000 000 / 115 200 = 2170.1388 ~ 2170
-    
-    //parameter TICKS_PER_BIT = 1085; // 125 000 000 / 115 200 = 1085.07 ~ 1085
+    parameter TICKS_PER_BIT = 1085; // 125 000 000 / 115 200 = 1085.07 ~ 1085
     parameter UART_BITS = 8;
     parameter UART_WORDS = 10;
     
     //reg uart_rx_pin;
     wire [7:0] uart_data;
     wire uart_rx_done;
-    wire busy;
+    wire uart_rx_busy;
     
     reg rst = 0;
     wire [(UART_BITS*UART_WORDS)-1:0] shift_reg_data;
@@ -66,7 +50,7 @@ module top(
     .uart_rx_pin(uart_rx_pin), // Input RX data pin    
     .data(uart_data), // output data
     .uart_rx_done(uart_rx_done), // Pull high for 1 clock cycle when transmission complete
-    .busy(busy) // high while receiving
+    .busy(uart_rx_busy) // high while receiving
     );
     
     inst_shift_reg #(.BITS(UART_BITS), .WORDS(UART_WORDS)) u_inst_shift_reg(
@@ -90,6 +74,18 @@ module top(
     wire [19:0] data;
     wire [3:0] op_code;
     wire [31:0] delay;
+
+    reg [11:0] addr_reg;
+    always @(posedge clk) begin
+        addr_reg <= addr;
+    end
+    
+    
+    assign pulse = o_Rd_Data[63:56];
+    assign data = o_Rd_Data[55:36];
+    assign op_code = o_Rd_Data[35:32];
+    assign delay = o_Rd_Data[31:0];   
+    
         
     RAM_2Port #(.WIDTH(64), .DEPTH(4096)) u_RAM_2Port (
     // Write Interface
@@ -103,18 +99,8 @@ module top(
     .i_Rd_En(i_Rd_En),
     .o_Rd_DV(o_Rd_DV),
     .o_Rd_Data(o_Rd_Data)
-    //.pulse(pulse),
-    //.data(data),
-    //.op_code(op_code),
-    //.delay(delay)
     );
     
-    // TESTING
-    
-    assign pulse = o_Rd_Data[63:56];
-    assign data = o_Rd_Data[55:36];
-    assign op_code = o_Rd_Data[35:32];
-    assign delay = o_Rd_Data[31:0];  
     
     reg pp_rst = 1;
     
@@ -125,7 +111,9 @@ module top(
      .op_code(op_code),
      .delay(delay),
      .data(data),
-     .trig(trig)
+     .pulse(pulse),
+     .trig(trig),
+     .pulse_out(ja)
     );
     
     reg init = 1; // high when initializing
@@ -139,11 +127,20 @@ module top(
     
     assign COMMAND = shift_reg_data[79:76];
     
+    reg start = 1'b1;
+    
     always @(posedge clk)
     begin
         if (init)  // initialize memory
         begin
-            wr_addr <= wr_addr + 1;            
+            if (~start) begin
+            wr_addr <= wr_addr + 1;
+            end
+            else begin
+            start <= 0;
+            end
+            
+            
             if (wr_addr == 4095)
             begin
                 wr_addr <= 0;
@@ -194,8 +191,12 @@ module top(
     end
     
     
-    assign ja = pulse;
-    assign led[3:0] = addr[3:0];
+    //assign ja = pulse;
+    assign led[0] = pll_locked;
+    assign led[1] = ~pp_rst;
+    assign led[2] = uart_rx_busy;
+    assign led[3] = ~pll_locked;
+    //assign led[3:0] = addr[3:0];
 //    assign led[3:0] = delay[3:0]; 
 //    assign led[3:0] = op_code[3:0];
     
