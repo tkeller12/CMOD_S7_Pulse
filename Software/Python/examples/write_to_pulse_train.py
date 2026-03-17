@@ -20,7 +20,7 @@ inst = convert_to_inst(pulse, data, op_code, delay)
 
 def delay_inst(pulse, delay):
 #    int_delay = int(np.round(delay / 8e-9 - 1))
-    int_delay = int(np.round(delay / 8e-9 - 2))
+    int_delay = int(np.round(delay / 4e-9 - 2))
     if int_delay < 0:
         int_delay = 0
     inst = convert_to_inst(pulse, 0, 1, int_delay)
@@ -44,7 +44,7 @@ def long_delay(addr, pulse, n, delay):
     if n > 4096:
         raise ValueError('n must be less than 4096')
 
-    int_delay = int(np.round(delay / 8e-9 - 1))
+    int_delay = int(np.round(delay / 4e-9 - 1))
     inst = convert_to_inst(pulse, n, 2, int_delay)
     write_addr = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
     return write_addr + inst
@@ -62,8 +62,8 @@ def goto(addr, goto_addr):
     return write_addr + inst
 
 
-p0 = 16e-9
-d0 = 16e-9
+p0 = 12e-9
+d0 = 8e-9
 
 write_all = False
 #write_all = True

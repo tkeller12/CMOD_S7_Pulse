@@ -2,7 +2,7 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
--- Date        : Sun Mar 15 13:12:35 2026
+-- Date        : Tue Mar 17 18:29:30 2026
 -- Host        : Tim-Workstation running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new_sim_netlist.vhdl
@@ -83,7 +83,7 @@ mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
       CLKFBOUT_USE_FINE_PS => false,
       CLKIN1_PERIOD => 83.333000,
       CLKIN2_PERIOD => 0.000000,
-      CLKOUT0_DIVIDE_F => 6.000000,
+      CLKOUT0_DIVIDE_F => 3.000000,
       CLKOUT0_DUTY_CYCLE => 0.500000,
       CLKOUT0_PHASE => 0.000000,
       CLKOUT0_USE_FINE_PS => false,

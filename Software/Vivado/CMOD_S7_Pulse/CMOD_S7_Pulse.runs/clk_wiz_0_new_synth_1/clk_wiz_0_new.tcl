@@ -56,9 +56,7 @@ if {$::dispatch::connected} {
 }
 
 OPTRACE "clk_wiz_0_new_synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 8
 set_param general.usePosixSpawnForFork 1
-set_param xicom.use_bs_reader 1
 set_param project.vivado.isBlockSynthRun true
 set_msg_config -msgmgr_mode ooc_run
 OPTRACE "Creating in-memory project" START { }
@@ -77,7 +75,7 @@ set_property ip_output_repo c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/V
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_ip -quiet c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new.xci
+read_ip -quiet C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new.xci
 set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new_board.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new_ooc.xdc]

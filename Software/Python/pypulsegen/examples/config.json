@@ -1,11 +1,11 @@
 {
-    "leads": {"CH0": 0, "CH1": 1000e-9, "CH2": 0, "CH3": 1000e-9, "CH4": 0, "CH5": 0, "CH6": 0, "CH7": 0},
-    "lags": {"CH0": 0, "CH1": -600e-9, "CH2": 0, "CH3": 40e-9, "CH4": 0, "CH5": 0, "CH6": 0, "CH7": 0},
+    "leads": {"CH0": 0, "CH1": 500e-9, "CH2": 0, "CH3": 1000e-9, "CH4": 0, "CH5": 0, "CH6": 0, "CH7": 0},
+    "lags": {"CH0": 0, "CH1": -4e-9, "CH2": 0, "CH3": 40e-9, "CH4": 0, "CH5": 0, "CH6": 0, "CH7": 0},
     "connectivity": {"CH0": 0, "CH1": 10e-6, "CH2": 0, "CH3": 20e-6, "CH4": 0, "CH5": 0, "CH6": 0, "CH7": 0},
     "active_channels": ["CH0", "CH1", "CH2", "CH3"],
     "inverted_channels": ["CH3"],
     "rep_time": 10e-3,
     "alias": {"CH0": "TX", "CH1": "AMP", "CH3": "RX"},
-    "resolution": 8e-9,
-    "start_addr": 1
+    "resolution": 4e-9,
+    "start_addr": 0
 }
