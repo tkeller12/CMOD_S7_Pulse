@@ -239,6 +239,7 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_top_1/new/tb_top.v">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>

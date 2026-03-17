@@ -23,8 +23,8 @@ module top(
    (
     .clk_in1(clk_12MHz),
     .clk_out1(clk),
-    .locked(pll_locked)
-    //.reset()
+    .locked(pll_locked),
+    .reset(reset)
     );
 
     //reg [7:0] r_ja = 0;       
