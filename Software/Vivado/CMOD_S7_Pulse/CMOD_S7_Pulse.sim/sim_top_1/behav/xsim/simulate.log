@@ -4,4 +4,4 @@ Time resolution is 1 ps
 [2436111000] INFO: WRITE to addr=0 completed (DELAY 10k cycles, pulse=0xAA)
 [3404167000] INFO: START command sent - execution begins at addr=0
 [3974167000] INFO: Test completed. Check waveform for ja[7:0] pulsing 0xAA for ~80 µs.
-$finish called at time : 3974166800 ps : File "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_1/new/tb_top.v" Line 173
+$finish called at time : 3974166800 ps : File "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_1/new/tb_top.v" Line 194

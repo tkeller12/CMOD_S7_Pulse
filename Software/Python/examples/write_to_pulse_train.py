@@ -19,7 +19,8 @@ inst = convert_to_inst(pulse, data, op_code, delay)
 #print(inst)
 
 def delay_inst(pulse, delay):
-    int_delay = int(np.round(delay / 8e-9 - 1))
+#    int_delay = int(np.round(delay / 8e-9 - 1))
+    int_delay = int(np.round(delay / 8e-9 - 2))
     if int_delay < 0:
         int_delay = 0
     inst = convert_to_inst(pulse, 0, 1, int_delay)
@@ -61,8 +62,8 @@ def goto(addr, goto_addr):
     return write_addr + inst
 
 
-p0 = 16e-9
-d0 = 16e-9
+p0 = 24e-9
+d0 = 8e-9
 
 write_all = False
 #write_all = True
@@ -93,24 +94,24 @@ for ix in range(max_addr):
 
     ser.write(write_inst)
 
-#write_inst = delay(ix2+1,0x00,2200e-9)
-#ser.write(write_inst)
-
-binary_string = ' '.join(f"{byte:08b}" for byte in write_inst)
-print(binary_string)
-
-write_inst = delay(2,0x00,1e-3)
+write_inst = delay(ix2+2,0xff,0e-9)
 ser.write(write_inst)
 
 binary_string = ' '.join(f"{byte:08b}" for byte in write_inst)
 print(binary_string)
 
-#write_inst = goto(ix2+2, 0)
+#write_inst = delay(2,0x00,1e-3)
 #ser.write(write_inst)
 
 #binary_string = ' '.join(f"{byte:08b}" for byte in write_inst)
 #print(binary_string)
 
-#print('total:',count_pulses)
+write_inst = goto(ix2+3, 0)
+ser.write(write_inst)
+
+#binary_string = ' '.join(f"{byte:08b}" for byte in write_inst)
+#print(binary_string)
+
+print('total:',count_pulses)
 ser.close()
 

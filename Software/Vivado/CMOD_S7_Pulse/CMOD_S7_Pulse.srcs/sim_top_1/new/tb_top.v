@@ -10,6 +10,17 @@ module tb_top;
     // Make internal DUT signals visible
     wire        clk;           // 125 MHz clock
     wire [11:0] addr;          // BRAM Address
+    wire [63:0] o_Rd_Data;
+    
+    wire [7:0] pulse;
+    wire [19:0] data;
+    wire [3:0] op_code;
+    wire [31:0] delay;
+    
+    wire [31:0] count;
+    
+    wire o_Rd_DV;
+    
     
     // DUT outputs
     wire [7:0]  ja;
@@ -27,6 +38,16 @@ module tb_top;
     // Connect internal clk to testbench wire
     assign clk = DUT.clk;    
     assign addr = DUT.addr;
+    
+    assign pulse = DUT.pulse;
+    assign data = DUT.data;
+    assign delay = DUT.delay;
+    
+    assign o_Rd_Data = DUT.o_Rd_Data;
+    assign op_code = DUT.u_ppc.op_code;
+    assign count = DUT.u_ppc.count;
+    
+    assign o_Rd_DV = DUT.o_Rd_DV;
     
     // ------------------------------------------------------------------
     // 12 MHz clock generation (external input to PLL)
@@ -149,7 +170,7 @@ module tb_top;
         //    data = 20'h0 (not used for DELAY)
         send_write_command(
             12'd0,
-            {8'hAA, 20'h00000, 4'b0001, 32'd10000}
+            {8'hAA, 20'h00000, 4'b0001, 32'd0}
         );
         #300_000;   // Wait for write to be processed
         $display("[%0t] INFO: WRITE to addr=0 completed (DELAY 10k cycles, pulse=0xAA)", $time);

@@ -27,7 +27,7 @@ module top(
     //.reset()
     );
 
-    reg [7:0] r_ja = 0;       
+    //reg [7:0] r_ja = 0;       
     
 //    parameter TICKS_PER_BIT = 2170; // 250 000 000 / 115 200 = 2170.1388 ~ 2170
     
@@ -74,47 +74,17 @@ module top(
     wire [19:0] data;
     wire [3:0] op_code;
     wire [31:0] delay;
-         
-    reg [7:0]  pulse_reg   = 8'b0;
-    reg [19:0] data_reg    = 20'b0;
-    reg [3:0]  op_code_reg = 4'b0;
-    reg [31:0] delay_reg   = 32'b0;
-    
-    // In top.v, after always @(posedge clk)
-    reg [3:0]  op_code_reg_d1;
-    reg [31:0] delay_reg_d1;
-    reg [19:0] data_reg_d1;
-    reg [7:0]  pulse_reg_d1;
 
+    reg [11:0] addr_reg;
     always @(posedge clk) begin
-        pulse_reg_d1  <= pulse_reg;
-        op_code_reg_d1 <= op_code_reg;
-        delay_reg_d1  <= delay_reg;
-        data_reg_d1   <= data_reg;
+        addr_reg <= addr;
     end
     
-    reg [3:0]  op_code_reg_d2;
-    reg [31:0] delay_reg_d2;
-    reg [19:0] data_reg_d2;
-    reg [7:0]  pulse_reg_d2;
-
-    always @(posedge clk) begin
-        pulse_reg_d2  <= pulse_reg_d1;
-        op_code_reg_d2 <= op_code_reg_d1;
-        delay_reg_d2  <= delay_reg_d1;
-        data_reg_d2   <= data_reg_d1;
-    end    
     
-
-    always @(posedge clk) begin
-//        pulse_reg <= o_Rd_Data[63:56];
-        pulse_reg   <= o_Rd_Data[63:56];
-        data_reg    <= o_Rd_Data[55:36];
-        op_code_reg <= o_Rd_Data[35:32];
-        delay_reg   <= o_Rd_Data[31:0];
-    end
-
-    assign ja = pulse_reg;
+    assign pulse = o_Rd_Data[63:56];
+    assign data = o_Rd_Data[55:36];
+    assign op_code = o_Rd_Data[35:32];
+    assign delay = o_Rd_Data[31:0];   
     
         
     RAM_2Port #(.WIDTH(64), .DEPTH(4096)) u_RAM_2Port (
@@ -132,21 +102,18 @@ module top(
     );
     
     
-//    assign pulse = o_Rd_Data[63:56];
-//    assign data = o_Rd_Data[55:36];
-//    assign op_code = o_Rd_Data[35:32];
-//    assign delay = o_Rd_Data[31:0];  
-    
     reg pp_rst = 1;
     
     pulse_programmer_core u_ppc (
      .rst(pp_rst),
      .clk(clk),
      .addr(addr),     
-     .op_code(op_code_reg_d2),
-     .delay(delay_reg_d2),
-     .data(data_reg_d2),
-     .trig(trig)
+     .op_code(op_code),
+     .delay(delay),
+     .data(data),
+     .pulse(pulse),
+     .trig(trig),
+     .pulse_out(ja)
     );
     
     reg init = 1; // high when initializing
@@ -160,11 +127,20 @@ module top(
     
     assign COMMAND = shift_reg_data[79:76];
     
+    reg start = 1'b1;
+    
     always @(posedge clk)
     begin
         if (init)  // initialize memory
         begin
-            wr_addr <= wr_addr + 1;            
+            if (~start) begin
+            wr_addr <= wr_addr + 1;
+            end
+            else begin
+            start <= 0;
+            end
+            
+            
             if (wr_addr == 4095)
             begin
                 wr_addr <= 0;

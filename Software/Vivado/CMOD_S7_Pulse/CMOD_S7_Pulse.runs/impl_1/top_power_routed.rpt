@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date             : Sun Mar 15 15:21:50 2026
+| Date             : Mon Mar 16 19:44:20 2026
 | Host             : Tim-Workstation running 64-bit major release  (build 9200)
 | Command          : report_power -file top_power_routed.rpt -pb top_power_summary_routed.pb -rpx top_power_routed.rpx
 | Design           : top
@@ -30,10 +30,10 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.231        |
+| Total On-Chip Power (W)  | 0.213        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.169        |
+| Dynamic (W)              | 0.152        |
 | Device Static (W)        | 0.062        |
 | Effective TJA (C/W)      | 3.7          |
 | Max Ambient (C)          | 84.2         |
@@ -53,17 +53,17 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.002 |        8 |       --- |             --- |
-| Slice Logic    |     0.001 |      425 |       --- |             --- |
-|   LUT as Logic |     0.001 |      120 |     14600 |            0.82 |
+| Slice Logic    |    <0.001 |      434 |       --- |             --- |
+|   LUT as Logic |    <0.001 |      122 |     14600 |            0.84 |
 |   CARRY4       |    <0.001 |       21 |      3650 |            0.58 |
-|   Register     |    <0.001 |      239 |     29200 |            0.82 |
+|   Register     |    <0.001 |      242 |     29200 |            0.83 |
 |   Others       |     0.000 |       14 |       --- |             --- |
-| Signals        |     0.002 |      406 |       --- |             --- |
-| Block RAM      |     0.031 |      7.5 |        45 |           16.67 |
+| Signals        |     0.002 |      413 |       --- |             --- |
+| Block RAM      |     0.029 |      7.5 |        45 |           16.67 |
 | MMCM           |     0.104 |        1 |         3 |           33.33 |
-| I/O            |     0.029 |       15 |       150 |           10.00 |
+| I/O            |     0.014 |       15 |       150 |           10.00 |
 | Static Power   |     0.062 |          |           |                 |
-| Total          |     0.231 |          |           |                 |
+| Total          |     0.213 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,9 +73,9 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.039 |       0.034 |      0.005 |       NA    | Unspecified | NA         |
-| Vccaux    |       1.800 |     0.068 |       0.059 |      0.009 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.009 |       0.008 |      0.001 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.037 |       0.032 |      0.005 |       NA    | Unspecified | NA         |
+| Vccaux    |       1.800 |     0.068 |       0.058 |      0.009 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.005 |       0.004 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
@@ -145,8 +145,8 @@ Table of Contents
 +------------------------------+-----------+
 | Name                         | Power (W) |
 +------------------------------+-----------+
-| top                          |     0.169 |
-|   u_RAM_2Port                |     0.032 |
+| top                          |     0.152 |
+|   u_RAM_2Port                |     0.030 |
 |   u_clock_wizard_wrapper_int |     0.104 |
 |     inst                     |     0.104 |
 |   u_ppc                      |     0.001 |

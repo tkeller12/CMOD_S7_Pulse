@@ -106,7 +106,6 @@ set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 8
   set_param general.usePosixSpawnForFork 1
-  set_param xicom.use_bs_reader 1
   set_param runs.launchOptions { -jobs 32  }
 OPTRACE "create in-memory project" START { }
   create_project -in_memory -part xc7s25csga225-1
@@ -122,7 +121,7 @@ OPTRACE "set parameters" START { }
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/synth_1/top.dcp
-  read_ip -quiet c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new.xci
+  read_ip -quiet C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/constrs_1/imports/FPGA_Constraints/Cmod-S7-25-Master.xdc
 OPTRACE "read constraints: implementation" END { }

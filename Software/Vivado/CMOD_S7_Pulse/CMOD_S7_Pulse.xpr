@@ -59,7 +59,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="cmod-s7-25"/>
-    <Option Name="WTXSimLaunchSim" Val="15"/>
+    <Option Name="WTXSimLaunchSim" Val="60"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -236,6 +236,7 @@
       </Config>
     </FileSet>
     <FileSet Name="sim_top_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_top_1" RelGenDir="$PGENDIR/sim_top_1">
+      <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/sim_top_1/new/tb_top.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -294,9 +295,7 @@
     </Run>
     <Run Id="clk_wiz_0_new_synth_1" Type="Ft3:Synth" SrcSet="clk_wiz_0_new" Part="xc7s25csga225-1" ConstrsSet="clk_wiz_0_new" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/clk_wiz_0_new_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/clk_wiz_0_new_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/clk_wiz_0_new_synth_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2025"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -324,9 +323,7 @@
     </Run>
     <Run Id="clk_wiz_0_new_impl_1" Type="Ft2:EntireDesign" Part="xc7s25csga225-1" ConstrsSet="clk_wiz_0_new" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="clk_wiz_0_new_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/clk_wiz_0_new_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/clk_wiz_0_new_impl_1" ParallelReportGen="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2025"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
