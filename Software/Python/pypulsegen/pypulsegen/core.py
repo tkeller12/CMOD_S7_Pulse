@@ -168,7 +168,7 @@ def generate_instructions(states, config):
 
     for state in states:
         delay = state.time
-        cycles = round((delay)/RESOLUTION) - 1
+        cycles = round((delay)/RESOLUTION) - 2 # Changed to 2 due to limitation of 2 clock cycle minimum pulse length
         inst = Instruction(addr = addr, pulse_pattern = state.state, data = 0, op_code = 1, delay = cycles)
         instructions.append(inst)
         addr += 1
@@ -210,7 +210,7 @@ def load_config_from_json(file_path: str) -> Config:
         inverted_channels=data['inverted_channels'],
         rep_time=float(data['rep_time']),
         alias=data.get('alias', {}),
-        resolution=float(data.get('resolution', 8e-9)),
+        resolution=float(data.get('resolution', 4e-9)),
         start_addr=int(data.get('start_addr', 1))
     )
 
