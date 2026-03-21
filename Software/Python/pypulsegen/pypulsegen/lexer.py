@@ -54,6 +54,14 @@ class Lexer:
             raise Exception(f"Invalid character: {self.current_char}")
         return Token('EOF', None)
 
+    def tokenize(self):
+        tokens = []
+        while True:
+            token = self.get_next_token()
+            tokens.append(token)
+            if token.type == 'EOF':
+                break
+        return tokens
 
 if __name__ == "__main__":
     pulse_program = \
@@ -62,8 +70,7 @@ pulse 1.0e-3us
 delay tau
 """
     lexer = Lexer(pulse_program)
-    token = lexer.get_next_token()
-    print(token)
-    while token.type != 'EOF':
-        token = lexer.get_next_token()
+
+    tokens = lexer.tokenize()
+    for token in tokens:
         print(token)
