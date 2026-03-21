@@ -5,8 +5,9 @@ import copy
 import math
 import json
 
-#RESOLUTION = 8e-9 # pulse programmer time resolution
-#START_ADDR = 1
+#RESOLUTION = 4e-9 # pulse programmer time resolution
+#START_ADDR = 0
+#MAX_ADDR = 4095
 #CHANNELS = [f'CH{ix}' for ix in range(8)]
 
 def parse_pulse_program(pulse_program):

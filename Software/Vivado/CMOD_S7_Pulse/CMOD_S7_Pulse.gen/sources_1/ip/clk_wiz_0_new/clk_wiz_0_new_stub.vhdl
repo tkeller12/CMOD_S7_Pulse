@@ -2,10 +2,10 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
--- Date        : Tue Mar 17 18:29:30 2026
+-- Date        : Tue Mar 17 18:29:29 2026
 -- Host        : Tim-Workstation running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub
---               c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top clk_wiz_0_new -prefix
+--               clk_wiz_0_new_ clk_wiz_0_new_stub.vhdl
 -- Design      : clk_wiz_0_new
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7s25csga225-1

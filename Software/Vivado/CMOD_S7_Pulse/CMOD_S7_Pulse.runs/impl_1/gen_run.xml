@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7s25csga225-1" LaunchTime="1773786584">
+<GenRun Id="impl_1" LaunchPart="xc7s25csga225-1" LaunchTime="1773965506">
   <File Type="PA-TCL" Name="top.tcl"/>
   <File Type="REPORTS-TCL" Name="top_reports.tcl"/>
   <File Type="INIT-TIMING" Name="top_timing_summary_init.rpt"/>
@@ -113,6 +113,13 @@
   <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/imports/memory/RAM_2Port.v">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../../../FPGA_Modules/memory/RAM_2Port.v"/>
@@ -230,5 +237,4 @@
     <Step Id="post_route_phys_opt_design"/>
     <Step Id="write_bitstream"/>
   </Strategy>
-  <BlockFileSet Type="BlockSrcs" Name="clk_wiz_0_new"/>
 </GenRun>

@@ -5,6 +5,8 @@ delay 4000e-9
 pulse 40e-9
 delay 200e-9
 pulse 80e-9
+delay 92e-9
+pulse 400e-9
 '''
 
 config = pg.load_config_from_json('config.json')
