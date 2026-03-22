@@ -1,3 +1,7 @@
+KEY_WORDS = {'pulse', 'delay', 'int', 'float', 'true', 'false', 'if', 'else', 'while', 'for', 'detect'}
+TIME_UNITS = {'s', 'ms', 'us', 'ns', 'ps', 'fs'}
+FREQ_UNITS = {'Hz', 'kHz', 'MHz', 'GHz', 'THz'}
+
 class Token:
     def __init__(self, type, value):
         self.type = type
@@ -46,8 +50,15 @@ class Lexer:
             if self.current_char.isdigit() or (self.current_char == '.' and (self.pos + 1 < len(self.text) and self.text[self.pos + 1].isdigit())):
                 return self.number()
             if self.current_char.isalpha() or self.current_char == '_':
-                return self.identifier()
-            if self.current_char in '+-*/()':
+                identifier = self.identifier()
+                if identifier.value in KEY_WORDS:
+                    return Token('KEYWORD', identifier.value)
+                elif identifier.value in TIME_UNITS:
+                    return Token('TIME_UNIT', identifier.value)
+                elif identifier.value in FREQ_UNITS:
+                    return Token('FREQ_UNIT', identifier.value)
+                return identifier
+            if self.current_char in r'+-*/\(\){},[]#':
                 char = self.current_char
                 self.advance()
                 return Token(char, char)
@@ -65,7 +76,7 @@ class Lexer:
 
 if __name__ == "__main__":
     pulse_program = \
-"""
+r"""
 pulse 1.0e-3us
 delay tau
 """
