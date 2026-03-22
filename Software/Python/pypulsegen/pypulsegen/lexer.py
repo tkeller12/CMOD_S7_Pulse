@@ -1,6 +1,8 @@
-KEY_WORDS = {'pulse', 'delay', 'int', 'float', 'true', 'false', 'if', 'else', 'while', 'for', 'detect'}
+KEYWORDS = {'delay', 'int', 'float', 'true', 'false', 'if', 'else', 'while', 'for', 'detect', 'time'}
+PULSE_KEYWORDS = {'pulse', 'detect'}
 TIME_UNITS = {'s', 'ms', 'us', 'ns', 'ps', 'fs'}
 FREQ_UNITS = {'Hz', 'kHz', 'MHz', 'GHz', 'THz'}
+COMMENTS = {'#'}
 
 class Token:
     def __init__(self, type, value):
@@ -42,8 +44,18 @@ class Lexer:
             self.advance()
         return Token('IDENTIFIER', result)
 
+    def comment(self):
+        result = ''
+        while self.current_char is not None and self.current_char != '\n':
+            result += self.current_char
+            self.advance()
+        return Token('COMMENT', result.strip())
+
     def get_next_token(self):
         while self.current_char is not None:
+            if self.current_char in COMMENTS:
+                self.advance()  # Skip the comment character
+                return self.comment()
             if self.current_char.isspace():
                 self.skip_whitespace()
                 continue
@@ -51,7 +63,9 @@ class Lexer:
                 return self.number()
             if self.current_char.isalpha() or self.current_char == '_':
                 identifier = self.identifier()
-                if identifier.value in KEY_WORDS:
+                if identifier.value in KEYWORDS:
+                    return Token('KEYWORD', identifier.value)
+                elif identifier.value in PULSE_KEYWORDS:
                     return Token('KEYWORD', identifier.value)
                 elif identifier.value in TIME_UNITS:
                     return Token('TIME_UNIT', identifier.value)
@@ -77,8 +91,14 @@ class Lexer:
 if __name__ == "__main__":
     pulse_program = \
 r"""
-pulse 1.0e-3us
+# this is a comment
+time p90, tau
+
+pulse p90
 delay tau
+pulse 2*p90
+delay tau
+detect 100 ns
 """
     lexer = Lexer(pulse_program)
 
