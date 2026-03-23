@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import numpy as np
+import matplotlib.pylab as plt
 
 try:
     from .lexer import Lexer
@@ -452,6 +453,33 @@ def instructions_to_bytes(instructions):
 
     return inst_bytes
 
+def plot_states(states, n_bits):
+    times = [0.0]
+    
+    # Build cumulative time axis
+    for s in states:
+        times.append(times[-1] + s.delay)
+
+    # For each bit, build waveform
+    for bit in range(n_bits):
+        y = []
+
+        for s in states:
+            val = (s.pulse_pattern >> bit) & 1
+            y.append(val + bit)  # offset by bit index
+
+        # Repeat last value for step plotting
+        y.append(y[-1])
+
+        plt.step(times, y, where='post')
+
+    plt.xlabel("Time")
+    plt.ylabel("Bit index (offset)")
+    plt.title("Pulse Pattern States")
+    plt.grid(True)
+
+    plt.show()
+
 if __name__ == "__main__":
     pulse_program = \
 """
@@ -492,6 +520,8 @@ delay 1 us
     states = edges_to_states(edges, PULSE_CONFIG)
     for state in states:
         print(f'{state.pulse_pattern:08b}', f'{state.delay*1e9:6.0f} ns')
+    
+    plot_states(states, 8)
 
     # instructions = edges_to_instructions(states, PULSE_CONFIG)
     instructions = generate_instructions(states, PULSE_CONFIG)
