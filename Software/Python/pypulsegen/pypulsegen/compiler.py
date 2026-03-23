@@ -20,8 +20,8 @@ PULSE_CONFIG = {
             'AMP GATE': {
             'channel': 'CH1',
             'bit': 1,
-            'lead': 80e-9,
-            'lag': 32e-9,
+            'lead': 120e-9,
+            'lag': -100e-9,
             'connectivity': 400e-9,
             'inverted': False
             },
@@ -292,7 +292,7 @@ def generate_instructions(states, config):
         addr += 1
 
     rep_delay_cycles = round((REP_TIME - total_time)/RESOLUTION) - 2
-    rep_inst = Instruction(addr=addr, pulse_pattern=0, data=1, op_code=1, delay=rep_delay_cycles)
+    rep_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=1, delay=rep_delay_cycles)
     instructions.append(rep_inst)
     # add jump
     jump_inst = Instruction(addr=addr+1, pulse_pattern=0, data=0, op_code=3, delay=0)
