@@ -11,39 +11,37 @@ except:
 
 PULSE_CONFIG = {
     'pulse': {
-        'channel': 'CH0',
+        'source': 'pulse',
         'bit': 0,
         'lead': 0e-9,
         'lag': 0e-9,
         'connectivity': 0e-9,
         'inverted': False,
-        'slave_channels': {
-            'AMP GATE': {
-            'channel': 'CH1',
-            'bit': 1,
-            'lead': 120e-9,
-            'lag': -100e-9,
-            'connectivity': 400e-9,
-            'inverted': False
-            },
-            'PROTECT': {
-            'channel': 'CH2',
-            'bit': 2,
-            'lead': 100e-9,
-            'lag': 100e-9,
-            'connectivity': 500e-9,
-            'inverted': True
-            }
-        }
-    },
-    'detect': {
-        'channel': 'CH3',
+        },
+    'AMP GATE': {
+        'source': 'pulse',
+        'bit': 1,
+        'lead': 120e-9,
+        'lag': -100e-9,
+        'connectivity': 1000e-9,
+        'inverted': False
+        },
+    'PROTECT':{
+        'source': 'pulse',
+        'bit': 2,
+        'lead': 100e-9,
+        'lag': 100e-9,
+        'connectivity': 500e-9,
+        'inverted': True
+        },
+    'detect':{
+        'source': 'detect',
         'bit': 3,
         'lead': 0e-9,
         'lag': 0e-9,
         'connectivity': 0e-9,
         'inverted': False
-    },
+        },
 }
 
 RESOLUTION = 4e-9
@@ -62,7 +60,6 @@ class Instruction: # 80-bit programming word of FPGA
 class Edge:
     name: str
     time: float
-    channel: str
     bit: int
     state: int # 1 for rising, 0 for falling
     inverted: bool
@@ -87,13 +84,13 @@ def locate_master_edges(ast, pulse_config, parameters):
                 duration_value = parameters.get(node.duration.duration, None)
                 if duration_value is None:
                     raise Exception(f"Undefined parameter: {node.duration.duration}")
-                edges.append(Edge(name = name, time=current_time, channel=pulse_config[name]['channel'], bit=pulse_config[name]['bit'], state=1, inverted=pulse_config[name]['inverted']))  # Rising edge
+                edges.append(Edge(name = name, time=current_time, bit=pulse_config[name]['bit'], state=1, inverted=pulse_config[name]['inverted']))  # Rising edge
                 current_time += duration_value
-                edges.append(Edge(name = name, time=current_time, channel=pulse_config[name]['channel'], bit=pulse_config[name]['bit'], state=0, inverted=pulse_config[name]['inverted']))  # Falling edge
+                edges.append(Edge(name = name, time=current_time, bit=pulse_config[name]['bit'], state=0, inverted=pulse_config[name]['inverted']))  # Falling edge
             elif isinstance(node.duration, NumberNode):
-                edges.append(Edge(name = name, time=current_time, channel=pulse_config[name]['channel'], bit=pulse_config[name]['bit'], state=1, inverted=pulse_config[name]['inverted']))  # Rising edge
+                edges.append(Edge(name = name, time=current_time, bit=pulse_config[name]['bit'], state=1, inverted=pulse_config[name]['inverted']))  # Rising edge
                 current_time += node.duration.duration
-                edges.append(Edge(name = name, time=current_time, channel=pulse_config[name]['channel'], bit=pulse_config[name]['bit'], state=0, inverted=pulse_config[name]['inverted']))  # Falling edge
+                edges.append(Edge(name = name, time=current_time, bit=pulse_config[name]['bit'], state=0, inverted=pulse_config[name]['inverted']))  # Falling edge
         elif isinstance(node, DelayNode):
             if isinstance(node.duration, IdentifierNode):
                 duration_value = parameters.get(node.duration.duration, None)
@@ -108,15 +105,18 @@ def locate_slave_edges(master_edges, pulse_config, parameters):
     slave_edges = []
     for edge in master_edges:
         name = edge.name
-        if 'slave_channels' in pulse_config[name]:
-
-            for slave_name, slave_info in pulse_config[name]['slave_channels'].items():
+        for slave_name, slave_info in pulse_config.items():
+            print(slave_name)
+            print(slave_info)
+            if slave_name == name:
+                pass # this is master channel
+            elif (pulse_config[slave_name]['source'] == name):
                 if edge.state == 1:  # Rising edge
-                    slave_edges.append(Edge(name=slave_name, time=edge.time - slave_info['lead'], channel=slave_info['channel'], bit=slave_info['bit'], state=1, inverted=slave_info['inverted']))
-                    slave_edges.append(Edge(name=slave_name, time=edge.time + slave_info['lag'], channel=slave_info['channel'], bit=slave_info['bit'], state=0, inverted=slave_info['inverted']))
+                    slave_edges.append(Edge(name=slave_name, time=edge.time - slave_info['lead'], bit=slave_info['bit'], state=1, inverted=slave_info['inverted']))
+                    # slave_edges.append(Edge(name=slave_name, time=edge.time + slave_info['lag'], bit=slave_info['bit'], state=0, inverted=slave_info['inverted']))
                 else:  # Falling edge
-                    slave_edges.append(Edge(name=slave_name, time=edge.time + slave_info['lag'], channel=slave_info['channel'], bit=slave_info['bit'], state=1, inverted=slave_info['inverted']))
-                    slave_edges.append(Edge(name=slave_name, time=edge.time - slave_info['lead'], channel=slave_info['channel'], bit=slave_info['bit'], state=0, inverted=slave_info['inverted']))
+                    # slave_edges.append(Edge(name=slave_name, time=edge.time + slave_info['lag'], bit=slave_info['bit'], state=1, inverted=slave_info['inverted']))
+                    slave_edges.append(Edge(name=slave_name, time=edge.time + slave_info['lag'], bit=slave_info['bit'], state=0, inverted=slave_info['inverted']))
     return slave_edges
 
 def remove_redundant_edges(edges, pulse_config):
