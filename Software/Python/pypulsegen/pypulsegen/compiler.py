@@ -24,7 +24,7 @@ PULSE_CONFIG = {
         'source': 'pulse',
         'bit': 1,
         'lead': 120e-9,
-        'lag': -80e-9,
+        'lag': 20e-9,
         'connectivity': 1000e-9,
         'inverted': False,
         'max_duration': 5e-6,
@@ -33,7 +33,7 @@ PULSE_CONFIG = {
     'PROTECT':{
         'source': 'pulse',
         'bit': 2,
-        'lead': 100e-9,
+        'lead': 200e-9,
         'lag': 100e-9,
         'connectivity': 500e-9,
         'inverted': True,
@@ -139,16 +139,21 @@ def remove_redundant_edges(edges, pulse_config):
                     else:
                         print(f'Skipping edge due to double rising edges: {edge}')
                         pass  # Skip this rising edge due to connectivity constraint
-                else: # Falling edge
+                else:
+                    last_state = 0
+        last_state = 1
+        for edge in reversed(edges):
+            if edge.name == name:
+                if edge.state == 0:  # Falling edge
                     if last_state == 1:
                         print(f'Adding edge: {edge}')
                         updated_edges.append(edge)
                         last_state = 0
-                    else:                                
+                    else:
                         print(f'Skipping edge due to double falling edges: {edge}')
-                        pass
-            else:
-                pass
+                        pass  # Skip this falling edge due to connectivity constraint   
+                else:
+                    last_state = 1
 
     return updated_edges
 
@@ -383,9 +388,9 @@ if __name__ == "__main__":
 time tau, p1, p90, p180 # this is a comment
 
 delay 1000 ns
-pulse 8 ns
+pulse 32 ns
 delay tau
-pulse 16 ns
+pulse 64 ns
 delay tau
 detect 40 ns
 """
@@ -448,4 +453,4 @@ detect 40 ns
     print('\nUploading sequence to FPGA Pulse Programmer...')
     hardware.upload_sequence(inst_bytes)
     print('Sequence uploaded to FPGA Pulse Programmer.')
-    plot_states(states, 4, 10e-6)
+    plot_states(states, 4, 3e-6)
