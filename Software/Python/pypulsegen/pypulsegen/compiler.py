@@ -382,6 +382,26 @@ def plot_states(states, n_bits = 8, max_time = None):
 
     plt.show()
 
+def write_instructions_to_file(instructions, filename):
+    with open(filename, 'w') as f:
+        for inst in instructions:
+            addr = inst.addr
+            pulse = inst.pulse_pattern
+            data = inst.data
+            op_code = inst.op_code
+            delay = inst.delay
+
+            inst_data = (pulse << 56) + (data << 36) + (op_code << 32) + delay
+            inst_data_bytes = inst_data.to_bytes(8, byteorder = 'big')
+            # inst_addr_bytes = ((1<<12) + addr).to_bytes(2, byteorder = 'big')
+
+            inst_word = inst_data_bytes
+            
+
+            # Write as 16-character hex (64-bit)
+            f.write(f"{inst_data:016X}\n")
+            # f.write(inst_word)
+
 if __name__ == "__main__":
     pulse_program = \
 """
@@ -432,7 +452,14 @@ detect 40 ns
         # print(bin(inst.pulse_pattern), bin(inst.delay))
         print(f"{inst.pulse_pattern:08b}, {inst.delay:32b}")
     #  out = compile(nodes, PULSE_CONFIG, parameters)
+
+    filename = 'output_sequence.mem'
+    print('Writing instructions to file...')
+    write_instructions_to_file(instructions, filename)
+    print(f'Instructions written to {filename}')
+    
     inst_bytes = instructions_to_bytes(instructions)
+
 
 
     edges, states, instructions = compile_ast(nodes, PULSE_CONFIG, parameters)
