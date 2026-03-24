@@ -17,14 +17,18 @@ PULSE_CONFIG = {
         'lag': 0e-9,
         'connectivity': 0e-9,
         'inverted': False,
+        'max_duration': None,
+        'duty_cycle_limit': None
         },
     'AMP GATE': {
         'source': 'pulse',
         'bit': 1,
         'lead': 120e-9,
-        'lag': 0e-9,
+        'lag': -80e-9,
         'connectivity': 1000e-9,
-        'inverted': False
+        'inverted': False,
+        'max_duration': 5e-6,
+        'duty_cycle_limit': 0.2
         },
     'PROTECT':{
         'source': 'pulse',
@@ -32,7 +36,9 @@ PULSE_CONFIG = {
         'lead': 100e-9,
         'lag': 100e-9,
         'connectivity': 500e-9,
-        'inverted': True
+        'inverted': True,
+        'max_duration': None,
+        'duty_cycle_limit': None
         },
     'detect':{
         'source': 'detect',
@@ -40,7 +46,9 @@ PULSE_CONFIG = {
         'lead': 0e-9,
         'lag': 0e-9,
         'connectivity': 0e-9,
-        'inverted': False
+        'inverted': False,
+        'max_duration': None,
+        'duty_cycle_limit': None
         },
 }
 
@@ -149,7 +157,8 @@ def connect_edges(edges, pulse_config):
     for name in pulse_config: # for master channels
         connectivity_time = pulse_config[name]['connectivity']
 
-        last_falling_edge_time = -1
+        # last_falling_edge_time = -1
+        last_falling_edge_time = -np.inf
         for edge in edges:
             if edge.name == name:
                 if edge.state == 0:
@@ -163,20 +172,28 @@ def connect_edges(edges, pulse_config):
 
     return updated_edges
 
+def shift_edges(edges): # if edges are negative, shift all edges by the minimum time to ensure non-negative timestamps
+    min_time = min(edge.time for edge in edges)
+    if min_time < 0:
+        print(f'Warning: shifting all edges by {-min_time:.2e} seconds to ensure non-negative timestamps')
+        for edge in edges:
+            edge.time += -min_time + RESOLUTION # add small epsilon to ensure non-negative timestamps
+    return edges
+
 def locate_edges(ast, pulse_config, parameters):
     master_edges = locate_master_edges(ast, pulse_config, parameters)
-    slave_edges = locate_derived_edges(master_edges, pulse_config, parameters)
-    edges = master_edges + slave_edges
-    # edges.sort(key=lambda x: x.time)  # Sort edges by time
-    # edges = connect_edges(edges, pulse_config)
+    derived_edges = locate_derived_edges(master_edges, pulse_config, parameters)
+    edges = master_edges + derived_edges
+
     edges.sort(key=lambda x: x.time)  # Sort edges by time
     edges = remove_redundant_edges(edges, pulse_config)
     edges.sort(key=lambda x: x.time)  # Sort edges by time
     edges = connect_edges(edges, pulse_config)
     edges.sort(key=lambda x: x.time)  # Sort edges by time
+    edges = shift_edges(edges)
     return edges
 
-def edges_to_states(edges, pulse_config):
+def edges_to_states(edges, pulse_config, parameters):
     if not edges:
         return [State(pulse_pattern=0, delay=0)]
 
@@ -188,12 +205,12 @@ def edges_to_states(edges, pulse_config):
     # Initial idle period (0 → first edge)
     if edges[0].time > 0:
         state = State(pulse_pattern=0, delay=edges[0].time)
-        print(f'Initial: 00000000 holds {edges[0].time*1e9:.1f} ns')
+        # print(f'Initial: 00000000 holds {edges[0].time*1e9:.1f} ns')
         states.append(state)
 
     while i < n:
         curr_time = edges[i].time
-        print(f'\nChange at {curr_time*1e9:.1f} ns:')
+        # print(f'\nChange at {curr_time*1e9:.1f} ns:')
 
         # Apply ALL edges that happen at exactly this timestamp (handles simultaneous slaves)
         while i < n and np.isclose(edges[i].time, curr_time, atol=1e-10):
@@ -202,7 +219,7 @@ def edges_to_states(edges, pulse_config):
                 current_pattern |= (1 << edge.bit)
             else:
                 current_pattern &= ~(1 << edge.bit)
-            print(f'   {edge.name} {"↑" if edge.state==1 else "↓"} bit{edge.bit} → {current_pattern:08b}')
+            # print(f'   {edge.name} {"↑" if edge.state==1 else "↓"} bit{edge.bit} → {current_pattern:08b}')
             i += 1
 
         # Compute hold time until next change (last one gets 0)
@@ -210,13 +227,20 @@ def edges_to_states(edges, pulse_config):
             delay = edges[i].time - curr_time
         else:
             delay = 0.0
-            print(f'   → Final change to {current_pattern:08b}')
+            # print(f'   → Final change to {current_pattern:08b}')
             states.append(State(pulse_pattern=current_pattern, delay=0))
             break
 
         state = State(pulse_pattern=current_pattern, delay=delay)
-        print(f'   → Holds {current_pattern:08b} for {delay*1e9:.1f} ns')
+        # print(f'   → Holds {current_pattern:08b} for {delay*1e9:.1f} ns')
         states.append(state)
+
+    rep_time = parameters.get('rep_time', REP_TIME)
+    total_time = sum(s.delay for s in states)
+    print(f'Total time: {total_time*1e9:.1f} ns')
+    if total_time > rep_time:
+        raise Exception(f"Total sequence time {total_time:.3e} s exceeds repetition time {rep_time:.3e} s")
+    states[-1].delay = max(0, rep_time - total_time)  # Ensure last state holds until repetition time
 
     get_inverted_bits(pulse_config)
 
@@ -233,13 +257,14 @@ def get_inverted_bits(pulse_config):
             inverted_bits.add(info['bit'])
     return inverted_bits
 
+
 def generate_instructions(states, config):
     ''' Create instruction list from states
     '''
     START_ADDR = 0
     # RESOLUTION = config.resolution
     addr = START_ADDR
-    inverted_bits = get_inverted_bits(config)
+    # inverted_bits = get_inverted_bits(config)
     initial_pulse_pattern = states[0].pulse_pattern
 
     instructions = []
@@ -252,33 +277,55 @@ def generate_instructions(states, config):
             print(f"Warning: enforced min delay {MIN_DELAY} cycles "
                   f"(was {cycles}) at pattern {state.pulse_pattern:08b}")
             cycles = MIN_DELAY
+            delay = (cycles + 2)*RESOLUTION
         inst = Instruction(addr = addr, pulse_pattern = state.pulse_pattern, data = 0, op_code = 1, delay = cycles)
         instructions.append(inst)
         total_time += delay
         addr += 1
 
-    rep_delay_cycles = round((REP_TIME - total_time)/RESOLUTION) - 2
-    rep_inst = Instruction(addr=addr, pulse_pattern=initial_pulse_pattern, data=0, op_code=1, delay=rep_delay_cycles)
-    instructions.append(rep_inst)
     # add jump
-    jump_inst = Instruction(addr=addr+1, pulse_pattern=initial_pulse_pattern, data=0, op_code=3, delay=0)
+    jump_inst = Instruction(addr=addr, pulse_pattern=initial_pulse_pattern, data=0, op_code=3, delay=0)
     instructions.append(jump_inst)
 
-    # for inst in instructions:
-    #     # Apply inversion to this pattern
-    #     pattern_out = inst.pulse_pattern
-    #     for bit in inverted_bits:
-    #         pattern_out ^= (1 << bit)
-    #     inst.pulse_pattern = pattern_out
-
     return instructions
+
+def check_duty_cycle(states, config):
+    for name, info in config.items():
+        if info['duty_cycle_limit'] is not None:
+            bit = info['bit']
+            total_on_time = sum(state.delay for state in states if (state.pulse_pattern & (1 << bit)) != 0)
+            total_time = sum(state.delay for state in states)
+            duty_cycle = total_on_time / total_time if total_time > 0 else 0
+            if duty_cycle > info['duty_cycle_limit']:
+                raise Exception(f"Duty cycle for {name} exceeds limit: {duty_cycle:.2%} > {info['duty_cycle_limit']:.2%}")
+
+def check_max_duration(states, config):
+    for name, info in config.items():
+        if info['max_duration'] is not None:
+            bit = info['bit']
+            current_pulse_length = 0
+            max_pulse_length = 0
+            for state in states:
+                if (state.pulse_pattern & (1 << bit)) != 0:
+                    current_pulse_length += state.delay
+                else:
+                    current_pulse_length = 0
+                max_pulse_length = max(max_pulse_length, current_pulse_length)
+
+            if max_pulse_length > info['max_duration']:
+                raise Exception(f"Max pulse length for {name} exceeds limit: {max_pulse_length:.2e} s > {info['max_duration']:.2e} s")
 
 def compile_ast(ast, pulse_config, parameters):
     edges = locate_edges(ast, pulse_config, parameters)
-    states = edges_to_states(edges, pulse_config)
+    states = edges_to_states(edges, pulse_config, parameters)
+
+    # check for max duration violations
+    check_duty_cycle(states, pulse_config)
+    check_max_duration(states, pulse_config)
+
     instructions = generate_instructions(states, pulse_config)
 
-    return instructions
+    return edges, states, instructions
 
 def instructions_to_bytes(instructions):
 
@@ -301,7 +348,7 @@ def instructions_to_bytes(instructions):
 
     return inst_bytes
 
-def plot_states(states, n_bits = 8):
+def plot_states(states, n_bits = 8, max_time = None):
     times = [0.0]
     
     # Build cumulative time axis
@@ -321,6 +368,8 @@ def plot_states(states, n_bits = 8):
 
         plt.step(times, y, where='post')
 
+    if max_time is not None:
+        plt.xlim(0, max_time*1e6)
     plt.xlabel(u"Time (\u03bcs)")
     plt.ylabel("Bit index (offset)")
     plt.title("Pulse Pattern States")
@@ -339,7 +388,6 @@ delay tau
 pulse 16 ns
 delay tau
 detect 40 ns
-delay 1 us
 """
     lexer = Lexer(pulse_program)
     tokens = lexer.tokenize()
@@ -355,7 +403,7 @@ delay 1 us
         print(node)
     print('Done.')
 
-    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6}
+    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 100e-6}
 
     print('\nCompiling...')
 
@@ -365,7 +413,9 @@ delay 1 us
         print(edge)
 
     print('\nStates:')
-    states = edges_to_states(edges, PULSE_CONFIG)
+    states = edges_to_states(edges, PULSE_CONFIG, parameters)
+    check_duty_cycle(states, PULSE_CONFIG)
+
     for state in states:
         print(f'{state.pulse_pattern:08b}', f'{state.delay*1e9:6.0f} ns')
     
@@ -379,6 +429,9 @@ delay 1 us
     #  out = compile(nodes, PULSE_CONFIG, parameters)
     inst_bytes = instructions_to_bytes(instructions)
 
+
+    edges, states, instructions = compile_ast(nodes, PULSE_CONFIG, parameters)
+
     print()
     print('-'*89)
     print('INSTRUCTION BYTES')
@@ -390,8 +443,9 @@ delay 1 us
         binary_string = ' '.join(f'{byte:08b}' for byte in inst_byte)
         print(binary_string)
     print('Done.')
+
     import hardware
     print('\nUploading sequence to FPGA Pulse Programmer...')
     hardware.upload_sequence(inst_bytes)
     print('Sequence uploaded to FPGA Pulse Programmer.')
-    plot_states(states, 4)
+    plot_states(states, 4, 10e-6)
