@@ -55,8 +55,6 @@ module pulse_programmer_core (
                     pulse_out <= pulse;
                 end
                 
-                
-                //pulse_out     <= pulse;          // ← LATCHED HERE
                 instr_valid_internal <= 1'b1;
             end
             else begin
