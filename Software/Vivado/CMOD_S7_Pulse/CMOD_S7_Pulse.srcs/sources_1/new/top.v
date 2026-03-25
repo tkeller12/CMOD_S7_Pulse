@@ -1,203 +1,181 @@
 `timescale 1ns / 1ps
 
+// ================================================
+// Top-level module for Pulse Programmer
+// ================================================
 module top(
-    input clk_12MHz,
-    input wire uart_rx_pin,
-    input [1:0] btn,
+    input  wire       clk_12MHz,
+    input  wire       uart_rx_pin,
+    input  wire [1:0] btn,
     output wire [7:0] ja,
     output wire [3:0] led
-    );
-    
-    wire clk; // 125 MHz Clock
-    wire trig;
+);
+
+    // ------------------------------------------------
+    // Clock generation
+    // ------------------------------------------------
+    wire clk;           // 125 MHz system clock
     wire pll_locked;
-    wire pll_locked_ext;
-    wire use_external_clk;
-    
-    assign reset = 0;
-    
-    assign trig = btn[0];
-    
-    //clock_wizard_wrapper u_clock_wizard_wrapper_int
-    clk_wiz_0_new u_clock_wizard_wrapper_int
-   (
-    .clk_in1(clk_12MHz),
-    .clk_out1(clk),
-    .locked(pll_locked),
-    .reset(reset)
+
+    clk_wiz_0_new u_clock_wizard (
+        .clk_in1  (clk_12MHz),
+        .clk_out1 (clk),
+        .locked   (pll_locked),
+        .reset    (1'b0)          // no external reset to PLL
     );
 
-    //reg [7:0] r_ja = 0;       
-    
-    parameter TICKS_PER_BIT = 2170; // 250 000 000 / 115 200 = 2170.1388 ~ 2170
-    
-    //parameter TICKS_PER_BIT = 1085; // 125 000 000 / 115 200 = 1085.07 ~ 1085
-    parameter UART_BITS = 8;
-    parameter UART_WORDS = 10;
-    
-    //reg uart_rx_pin;
+    // ------------------------------------------------
+    // External trigger (button)
+    // ------------------------------------------------
+    wire trig = btn[0];
+
+    // ------------------------------------------------
+    // UART Receiver + Command Shift Register
+    // ------------------------------------------------
+    parameter TICKS_PER_BIT = 2170;   // for 115200 baud @ 125 MHz
+    parameter UART_BITS     = 8;
+    parameter UART_WORDS    = 10;
+
     wire [7:0] uart_data;
-    wire uart_rx_done;
-    wire uart_rx_busy;
-    
-    reg rst = 0;
+    wire       uart_rx_done;
+    wire       uart_rx_busy;
+
+    uart_rx #(.TICKS_PER_BIT(TICKS_PER_BIT)) u_uart_rx (
+        .clk          (clk),
+        .uart_rx_pin  (uart_rx_pin),
+        .data         (uart_data),
+        .uart_rx_done (uart_rx_done),
+        .busy         (uart_rx_busy)
+    );
+
     wire [(UART_BITS*UART_WORDS)-1:0] shift_reg_data;
     wire o_DV;
-        
-    
-    uart_rx #(.TICKS_PER_BIT(TICKS_PER_BIT)) u_uart_rx (
-    .clk(clk), // input clock
-    .uart_rx_pin(uart_rx_pin), // Input RX data pin    
-    .data(uart_data), // output data
-    .uart_rx_done(uart_rx_done), // Pull high for 1 clock cycle when transmission complete
-    .busy(uart_rx_busy) // high while receiving
+
+    inst_shift_reg #(.BITS(UART_BITS), .WORDS(UART_WORDS)) u_inst_shift_reg (
+        .clk           (clk),
+        .data          (uart_data),
+        .i_DV          (uart_rx_done),
+        .rst           (1'b0),               // usually no need to reset shift reg
+        .shift_reg_data(shift_reg_data),
+        .o_DV          (o_DV)
     );
-    
-    inst_shift_reg #(.BITS(UART_BITS), .WORDS(UART_WORDS)) u_inst_shift_reg(
-    .clk(clk),
-    .data(uart_data),
-    .i_DV(uart_rx_done),
-    .rst(rst),
-    .shift_reg_data(shift_reg_data),
-    .o_DV(o_DV)
-    );
-    
-    reg [11:0] wr_addr = 0;
-    wire [11:0] addr;
-    reg i_Wr_DV = 0;
-    reg [63:0] i_Wr_Data = 0;
-    reg i_Rd_En = 1;
-    
-    wire o_Rd_DV;
+
+    // ------------------------------------------------
+    // Command decoding
+    // ------------------------------------------------
+    localparam [3:0] CMD_READ  = 4'b0000;
+    localparam [3:0] CMD_WRITE = 4'b0001;
+    localparam [3:0] CMD_START = 4'b0010;
+    localparam [3:0] CMD_STOP  = 4'b0011;
+
+    wire [3:0] COMMAND = shift_reg_data[79:76];   // assuming 80-bit shift reg
+
+    // ------------------------------------------------
+    // Dual-port RAM for pulse program
+    // ------------------------------------------------
+    reg  [11:0] wr_addr   = 0;
+    reg         i_Wr_DV   = 0;
+    reg  [63:0] i_Wr_Data = 0;
     wire [63:0] o_Rd_Data;
-    wire [7:0] pulse;
-    wire [19:0] data;
-    wire [3:0] op_code;
-    wire [31:0] delay;
+    wire        o_Rd_DV;      // not really used here
 
-    reg [11:0] addr_reg;
-    always @(posedge clk) begin
-        addr_reg <= addr;
-    end
-    
-    
-    assign pulse = o_Rd_Data[63:56];
-    assign data = o_Rd_Data[55:36];
-    assign op_code = o_Rd_Data[35:32];
-    assign delay = o_Rd_Data[31:0];   
-    
-        
     RAM_2Port #(.WIDTH(64), .DEPTH(4096)) u_RAM_2Port (
-    // Write Interface
-    .i_Wr_Clk(clk),    
-    .i_Wr_Addr(wr_addr),    
-    .i_Wr_DV(i_Wr_DV),
-    .i_Wr_Data(i_Wr_Data),
-    // Read Interface
-    .i_Rd_Clk(clk),
-    .i_Rd_Addr(addr),
-    .i_Rd_En(i_Rd_En),
-    .o_Rd_DV(o_Rd_DV),
-    .o_Rd_Data(o_Rd_Data)
+        // Write port
+        .i_Wr_Clk   (clk),
+        .i_Wr_Addr  (wr_addr),
+        .i_Wr_DV    (i_Wr_DV),
+        .i_Wr_Data  (i_Wr_Data),
+        // Read port (connected directly to pulse programmer)
+        .i_Rd_Clk   (clk),
+        .i_Rd_Addr  (addr),      // from pulse_programmer_core
+        .i_Rd_En    (1'b1),
+        .o_Rd_DV    (o_Rd_DV),
+        .o_Rd_Data  (o_Rd_Data)
     );
-    
-    
-    reg pp_rst = 1;
-    
+
+    // Extract fields for the pulse programmer
+    wire [7:0]  pulse   = o_Rd_Data[63:56];
+    wire [19:0] data    = o_Rd_Data[55:36];
+    wire [3:0]  op_code = o_Rd_Data[35:32];
+    wire [31:0] delay   = o_Rd_Data[31:0];
+
+    // ------------------------------------------------
+    // Pulse Programmer Core (new control signals)
+    // ------------------------------------------------
+    wire [11:0] addr;           // address generated by core
+
+    reg  pp_rst   = 1'b1;       // hard reset (only on power-up or emergency)
+    reg  pp_start = 1'b0;       // one-cycle pulse to (re)start sequence
+    reg  pp_stop  = 1'b0;       // one-cycle pulse to stop sequence
+
     pulse_programmer_core u_ppc (
-     .rst(pp_rst),
-     .clk(clk),
-     .addr(addr),     
-     .op_code(op_code),
-     .delay(delay),
-     .data(data),
-     .pulse(pulse),
-     .trig(trig),
-     .pulse_out(ja)
+        .rst       (pp_rst),
+        .clk       (clk),
+        .start     (pp_start),   // ← new
+        .stop      (pp_stop),    // ← new
+        .addr      (addr),
+        .op_code   (op_code),
+        .delay     (delay),
+        .data      (data),
+        .pulse     (pulse),
+        .trig      (trig),
+        .pulse_out (ja)
     );
-    
-    reg init = 1; // high when initializing
 
-    wire [3:0] COMMAND;
-    
-    reg [3:0] READ = 4'b0000;
-    reg [3:0] WRITE = 4'b0001;
-    reg [3:0] START = 4'b0010;
-    reg [3:0] STOP = 4'b0011;
-    
-    assign COMMAND = shift_reg_data[79:76];
-    
-    reg start = 1'b1;
-    
-    always @(posedge clk)
-    begin
-        if (init)  // initialize memory
-        begin
-            if (~start) begin
-            wr_addr <= wr_addr + 1;
-            end
-            else begin
-            start <= 0;
-            end
-            
-            
-            if (wr_addr == 4095)
-            begin
-                wr_addr <= 0;
-                i_Wr_DV <= 0;
-                init <= 0;
-                pp_rst <= 0;
-            end
-            else
-            begin
-                i_Wr_Data <= 0;
+    // ------------------------------------------------
+    // Main control process (init + UART commands)
+    // ------------------------------------------------
+    reg init = 1'b1;   // high during power-on memory clear
 
-                i_Wr_DV <= 1;
+    always @(posedge clk) begin
+        // Default: no write, no start/stop pulses
+        i_Wr_DV  <= 1'b0;
+        pp_start <= 1'b0;
+        pp_stop  <= 1'b0;
+
+        if (init) begin
+            // === Power-on initialization: clear BRAM to 0 ===
+            i_Wr_Data <= 64'b0;
+            i_Wr_DV   <= 1'b1;
+
+            if (wr_addr == 12'd4095) begin
+                wr_addr <= 12'd0;
+                init    <= 1'b0;
+                pp_rst  <= 1'b0;        // release hard reset after init
+            end else begin
+                wr_addr <= wr_addr + 1;
             end
-        end
-    
-        else if (o_DV)
-        begin
-            wr_addr <= shift_reg_data[75:64];
+
+        end else if (o_DV) begin
+            // === Normal UART command handling ===
+            wr_addr <= shift_reg_data[75:64];   // address for write
+
             case (COMMAND)
-                WRITE: 
-//            if (shift_reg_data[76] == 1) // write operation
-                begin
+                CMD_WRITE: begin
                     i_Wr_Data <= shift_reg_data[63:0];
-                    i_Wr_DV <= 1;
+                    i_Wr_DV   <= 1'b1;
                 end
-                
-                START:
-                begin
-                    pp_rst <= 0;
-                end
-                STOP:
-                begin
-                    pp_rst <= 1;
-                end
-                default:
-            //else // read operation
-                begin
-                    i_Wr_DV <= 0;
-                end
-            endcase
 
-        end
-        else
-        begin
-            //i_Rd_En <= 0;
-            i_Wr_DV <= 0;
+                CMD_START: begin
+                    pp_start <= 1'b1;     // one-cycle start pulse
+                end
+
+                CMD_STOP: begin
+                    pp_stop <= 1'b1;      // one-cycle stop pulse
+                end
+
+                // CMD_READ or anything else: do nothing (or add read logic later)
+                default: ;
+            endcase
         end
     end
-    
-    
-    //assign ja = pulse;
-    assign led[0] = pll_locked;
-    assign led[1] = ~pp_rst;
-    assign led[2] = uart_rx_busy;
-    assign led[3] = ~pll_locked;
-    //assign led[3:0] = addr[3:0];
-//    assign led[3:0] = delay[3:0]; 
-//    assign led[3:0] = op_code[3:0];
-    
+
+    // ------------------------------------------------
+    // Status LEDs
+    // ------------------------------------------------
+    assign led[0] = pll_locked;      // PLL locked
+    assign led[1] = ~pp_rst;         // core not in hard reset
+    assign led[2] = uart_rx_busy;    // UART receiving
+    assign led[3] = 1'b0;            // spare (or use for halted status later)
+
 endmodule

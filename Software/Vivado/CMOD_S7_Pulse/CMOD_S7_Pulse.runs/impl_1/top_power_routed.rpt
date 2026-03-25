@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date             : Tue Mar 24 20:15:27 2026
+| Date             : Wed Mar 25 19:44:16 2026
 | Host             : Tim-Workstation running 64-bit major release  (build 9200)
 | Command          : report_power -file top_power_routed.rpt -pb top_power_summary_routed.pb -rpx top_power_routed.rpx
 | Design           : top
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.239        |
+| Total On-Chip Power (W)  | 0.215        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.177        |
+| Dynamic (W)              | 0.153        |
 | Device Static (W)        | 0.062        |
 | Effective TJA (C/W)      | 3.7          |
-| Max Ambient (C)          | 84.1         |
-| Junction Temperature (C) | 25.9         |
+| Max Ambient (C)          | 84.2         |
+| Junction Temperature (C) | 25.8         |
 | Confidence Level         | Medium       |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,18 +52,18 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Clocks         |     0.004 |        8 |       --- |             --- |
-| Slice Logic    |     0.001 |      484 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      136 |     14600 |            0.93 |
-|   Register     |    <0.001 |      288 |     29200 |            0.99 |
+| Clocks         |     0.005 |        8 |       --- |             --- |
+| Slice Logic    |    <0.001 |      478 |       --- |             --- |
+|   LUT as Logic |    <0.001 |      133 |     14600 |            0.91 |
 |   CARRY4       |    <0.001 |       21 |      3650 |            0.58 |
+|   Register     |    <0.001 |      285 |     29200 |            0.98 |
 |   Others       |     0.000 |       13 |       --- |             --- |
-| Signals        |     0.002 |      471 |       --- |             --- |
-| Block RAM      |     0.059 |      7.5 |        45 |           16.67 |
+| Signals        |     0.002 |      459 |       --- |             --- |
+| Block RAM      |     0.036 |      7.5 |        45 |           16.67 |
 | MMCM           |     0.105 |        1 |         3 |           33.33 |
-| I/O            |     0.006 |       15 |       150 |           10.00 |
+| I/O            |     0.005 |       15 |       150 |           10.00 |
 | Static Power   |     0.062 |          |           |                 |
-| Total          |     0.239 |          |           |                 |
+| Total          |     0.215 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -73,16 +73,16 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.067 |       0.062 |      0.005 |       NA    | Unspecified | NA         |
-| Vccaux    |       1.800 |     0.068 |       0.058 |      0.009 |       NA    | Unspecified | NA         |
-| Vcco33    |       3.300 |     0.003 |       0.002 |      0.001 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.046 |       0.041 |      0.005 |       NA    | Unspecified | NA         |
+| Vccaux    |       1.800 |     0.067 |       0.058 |      0.009 |       NA    | Unspecified | NA         |
+| Vcco33    |       3.300 |     0.002 |       0.001 |      0.001 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco15    |       1.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vccaux_io |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
-| Vccbram   |       1.000 |     0.005 |       0.005 |      0.000 |       NA    | Unspecified | NA         |
+| Vccbram   |       1.000 |     0.003 |       0.003 |      0.000 |       NA    | Unspecified | NA         |
 | Vccadc    |       1.800 |     0.020 |       0.000 |      0.020 |       NA    | Unspecified | NA         |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 
@@ -124,16 +124,16 @@ Table of Contents
 2.2 Clock Constraints
 ---------------------
 
-+--------------------------+--------------------------------------------------------+-----------------+
-| Clock                    | Domain                                                 | Constraint (ns) |
-+--------------------------+--------------------------------------------------------+-----------------+
-| clk_12MHz                | clk_12MHz                                              |            83.3 |
-| clk_out1_clk_wiz_0_new   | u_clock_wizard_wrapper_int/inst/clk_out1_clk_wiz_0_new |             4.0 |
-| clk_out1_clk_wiz_0_new_1 | u_clock_wizard_wrapper_int/inst/clk_out1_clk_wiz_0_new |             4.0 |
-| clkfbout_clk_wiz_0_new   | u_clock_wizard_wrapper_int/inst/clkfbout_clk_wiz_0_new |            83.3 |
-| clkfbout_clk_wiz_0_new_1 | u_clock_wizard_wrapper_int/inst/clkfbout_clk_wiz_0_new |            83.3 |
-| sys_clk_pin              | clk_12MHz                                              |            83.3 |
-+--------------------------+--------------------------------------------------------+-----------------+
++--------------------------+--------------------------------------------+-----------------+
+| Clock                    | Domain                                     | Constraint (ns) |
++--------------------------+--------------------------------------------+-----------------+
+| clk_12MHz                | clk_12MHz                                  |            83.3 |
+| clk_out1_clk_wiz_0_new   | u_clock_wizard/inst/clk_out1_clk_wiz_0_new |             4.0 |
+| clk_out1_clk_wiz_0_new_1 | u_clock_wizard/inst/clk_out1_clk_wiz_0_new |             4.0 |
+| clkfbout_clk_wiz_0_new   | u_clock_wizard/inst/clkfbout_clk_wiz_0_new |            83.3 |
+| clkfbout_clk_wiz_0_new_1 | u_clock_wizard/inst/clkfbout_clk_wiz_0_new |            83.3 |
+| sys_clk_pin              | clk_12MHz                                  |            83.3 |
++--------------------------+--------------------------------------------+-----------------+
 
 
 3. Detailed Reports
@@ -142,16 +142,16 @@ Table of Contents
 3.1 By Hierarchy
 ----------------
 
-+------------------------------+-----------+
-| Name                         | Power (W) |
-+------------------------------+-----------+
-| top                          |     0.177 |
-|   u_RAM_2Port                |     0.059 |
-|   u_clock_wizard_wrapper_int |     0.105 |
-|     inst                     |     0.105 |
-|   u_inst_shift_reg           |     0.001 |
-|   u_ppc                      |     0.002 |
-|   u_uart_rx                  |     0.001 |
-+------------------------------+-----------+
++--------------------+-----------+
+| Name               | Power (W) |
++--------------------+-----------+
+| top                |     0.153 |
+|   u_RAM_2Port      |     0.037 |
+|   u_clock_wizard   |     0.105 |
+|     inst           |     0.105 |
+|   u_inst_shift_reg |     0.002 |
+|   u_ppc            |     0.002 |
+|   u_uart_rx        |     0.001 |
++--------------------+-----------+
 
 

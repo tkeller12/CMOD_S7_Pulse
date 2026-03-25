@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Tue Mar 24 20:15:27 2026
+| Date         : Wed Mar 25 19:44:16 2026
 | Host         : Tim-Workstation running 64-bit major release  (build 9200)
 | Command      : report_methodology -file top_methodology_drc_routed.rpt -pb top_methodology_drc_routed.pb -rpx top_methodology_drc_routed.rpx
 | Design       : top
@@ -51,12 +51,12 @@ Related violations: <none>
 
 TIMING-56#1 Warning
 Missing logically or physically excluded clock groups constraint  
-Multiple clocks are user generated or auto-derived on the source pin u_clock_wizard_wrapper_int/inst/mmcm_adv_inst/CLKFBOUT but are not logically or physically exclusive with respect to one another. To have the static timing analysis match the behavior in hardware, there cannot be multiple clocks generated on the same pin and when such situation occurs, the clocks should be defined as physically or logically exclusive. The list of clocks generated on the source pin is: clkfbout_clk_wiz_0_new, clkfbout_clk_wiz_0_new_1
+Multiple clocks are user generated or auto-derived on the source pin u_clock_wizard/inst/mmcm_adv_inst/CLKFBOUT but are not logically or physically exclusive with respect to one another. To have the static timing analysis match the behavior in hardware, there cannot be multiple clocks generated on the same pin and when such situation occurs, the clocks should be defined as physically or logically exclusive. The list of clocks generated on the source pin is: clkfbout_clk_wiz_0_new, clkfbout_clk_wiz_0_new_1
 Related violations: <none>
 
 TIMING-56#2 Warning
 Missing logically or physically excluded clock groups constraint  
-Multiple clocks are user generated or auto-derived on the source pin u_clock_wizard_wrapper_int/inst/mmcm_adv_inst/CLKOUT0 but are not logically or physically exclusive with respect to one another. To have the static timing analysis match the behavior in hardware, there cannot be multiple clocks generated on the same pin and when such situation occurs, the clocks should be defined as physically or logically exclusive. The list of clocks generated on the source pin is: clk_out1_clk_wiz_0_new, clk_out1_clk_wiz_0_new_1
+Multiple clocks are user generated or auto-derived on the source pin u_clock_wizard/inst/mmcm_adv_inst/CLKOUT0 but are not logically or physically exclusive with respect to one another. To have the static timing analysis match the behavior in hardware, there cannot be multiple clocks generated on the same pin and when such situation occurs, the clocks should be defined as physically or logically exclusive. The list of clocks generated on the source pin is: clk_out1_clk_wiz_0_new, clk_out1_clk_wiz_0_new_1
 Related violations: <none>
 
 

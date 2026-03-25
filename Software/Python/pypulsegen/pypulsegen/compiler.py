@@ -289,6 +289,9 @@ def generate_instructions(states, config):
         addr += 1
 
     # add jump
+    # halt_inst = Instruction(addr=addr, pulse_pattern=initial_pulse_pattern, data=0, op_code=7, delay=0)
+    # instructions.append(halt_inst)
+    # add jump
     jump_inst = Instruction(addr=addr, pulse_pattern=initial_pulse_pattern, data=0, op_code=3, delay=0)
     instructions.append(jump_inst)
 
@@ -407,7 +410,7 @@ if __name__ == "__main__":
 """
 time tau, p1, p90, p180 # this is a comment
 
-delay 1000 ns
+#delay 1000 ns
 pulse 32 ns
 delay tau
 pulse 64 ns
@@ -481,5 +484,6 @@ detect 40 ns
     import hardware
     print('\nUploading sequence to FPGA Pulse Programmer...')
     hardware.upload_sequence(inst_bytes)
+    hardware.start()
     print('Sequence uploaded to FPGA Pulse Programmer.')
     plot_states(states, 4, 3e-6)
