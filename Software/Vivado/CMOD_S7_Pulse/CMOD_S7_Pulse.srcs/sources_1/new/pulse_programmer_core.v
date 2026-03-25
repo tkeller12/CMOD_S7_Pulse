@@ -49,7 +49,14 @@ module pulse_programmer_core (
                 current_op    <= op_code;
                 current_delay <= delay;
                 current_data  <= data;
-                pulse_out     <= pulse;          // ← LATCHED HERE
+                
+                // ←←← ONLY update pulse for instructions that actually use it
+                if (op_code == DELAY || op_code == WAIT) begin
+                    pulse_out <= pulse;
+                end
+                
+                
+                //pulse_out     <= pulse;          // ← LATCHED HERE
                 instr_valid_internal <= 1'b1;
             end
             else begin
