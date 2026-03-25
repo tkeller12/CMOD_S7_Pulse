@@ -428,7 +428,7 @@ detect 40 ns
         print(node)
     print('Done.')
 
-    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 100e-6}
+    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 10e-6}
 
     print('\nCompiling...')
 
@@ -453,10 +453,6 @@ detect 40 ns
         print(f"{inst.pulse_pattern:08b}, {inst.delay:32b}")
     #  out = compile(nodes, PULSE_CONFIG, parameters)
 
-    filename = 'output_sequence.mem'
-    print('Writing instructions to file...')
-    write_instructions_to_file(instructions, filename)
-    print(f'Instructions written to {filename}')
     
     inst_bytes = instructions_to_bytes(instructions)
 
@@ -475,6 +471,12 @@ detect 40 ns
         binary_string = ' '.join(f'{byte:08b}' for byte in inst_byte)
         print(binary_string)
     print('Done.')
+
+    # filename = 'output_sequence.mem'
+    filename = 'pulse_program.mem'
+    print('Writing instructions to file...')
+    write_instructions_to_file(instructions, filename)
+    print(f'Instructions written to {filename}')
 
     import hardware
     print('\nUploading sequence to FPGA Pulse Programmer...')
