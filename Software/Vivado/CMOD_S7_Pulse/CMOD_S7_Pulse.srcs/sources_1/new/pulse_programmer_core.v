@@ -61,6 +61,7 @@ module pulse_programmer_core (
             instr_valid_internal <= 1'b0;
             pulse_out            <= 8'b0;
             stack_ptr            <= 4'b0;
+            control_flow_change  <= 1'b0;
         end
         else begin
             // Metastability synchronizers
@@ -103,7 +104,7 @@ module pulse_programmer_core (
 
                     instr_valid_internal <= 1'b1;
                 end
-                else begin
+                else if (instr_valid_internal) begin
                     // === EXECUTE PHASE ===
                     case (current_op)
                         NO_OP: begin
@@ -165,7 +166,7 @@ module pulse_programmer_core (
                         end
             
                         LOOP_END: begin
-                            control_flow_change <= 1'b1; //added
+                            control_flow_change <= 1'b1;   // ALWAYS bubble after LOOP_END
                             if (stack_ptr > 0) begin
                                 if (count_stack[stack_ptr-1] > 16'd1) begin
                                     // More iterations: decrement and jump back
