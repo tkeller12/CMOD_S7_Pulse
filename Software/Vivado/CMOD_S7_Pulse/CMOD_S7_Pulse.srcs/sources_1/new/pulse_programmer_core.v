@@ -15,6 +15,12 @@ module pulse_programmer_core (
     output wire running
 );
 
+    parameter STACK_DEPTH = 8;                    // supports 8 nested loops
+    reg [11:0] addr_stack [0:STACK_DEPTH-1];
+    reg [15:0] count_stack [0:STACK_DEPTH-1];     // iteration counter
+    reg [3:0]  stack_ptr = 0;                     // 0 = empty
+
+
     reg running_reg = 1'b0;
     
     assign running = running_reg;
@@ -29,18 +35,23 @@ module pulse_programmer_core (
     reg [31:0] current_delay;
     reg [19:0] current_data;
     reg instr_valid_internal = 1'b0;
+    reg control_flow_change = 1'b0;
 
-    localparam [3:0] NO_OP  = 4'b0000;
-    localparam [3:0] DELAY  = 4'b0001;
-    localparam [3:0] HALT   = 4'b0111;
-    localparam [3:0] JUMP   = 4'b0011;
-    localparam [3:0] WAIT   = 4'b1000;
+    localparam [3:0] NO_OP      = 4'b0000;
+    localparam [3:0] DELAY      = 4'b0001;
+    localparam [3:0] LOOP_START = 4'b0100;
+    localparam [3:0] LOOP_END   = 4'b0101;
+    localparam [3:0] HALT       = 4'b0111;
+    localparam [3:0] JUMP       = 4'b0011;
+    localparam [3:0] WAIT       = 4'b1000;
 
     always @(posedge clk) begin
+        if (control_flow_change) control_flow_change <= 1'b0;
+        
         if (rst) begin
             addr                 <= 12'd0;
             count                <= 32'd0;
-            running_reg          <= 1'b1; // setting to 1 for testing
+            running_reg          <= 1'b1; // setting to 1 for testing, should be 0 in production
             trig_meta            <= 1'b0;
             trig_sync            <= 1'b0;
             start_meta           <= 1'b0;
@@ -49,6 +60,7 @@ module pulse_programmer_core (
             stop_sync            <= 1'b0;
             instr_valid_internal <= 1'b0;
             pulse_out            <= 8'b0;
+            stack_ptr            <= 4'b0;
         end
         else begin
             // Metastability synchronizers
@@ -66,6 +78,7 @@ module pulse_programmer_core (
                 addr                 <= 12'd0;
                 count                <= 32'd0;
                 instr_valid_internal <= 1'b0;
+                stack_ptr            <= 4'b0;
                 // pulse_out keeps its last value until a DELAY/WAIT loads a new one
             end
             else if (!running_reg) begin
@@ -76,7 +89,7 @@ module pulse_programmer_core (
                 trig_meta <= trig;
                 trig_sync <= trig_meta;
 
-                if (!instr_valid_internal) begin
+                if (!instr_valid_internal && !control_flow_change) begin
                     // === LOAD PHASE ===
                     current_op    <= op_code;
                     current_delay <= delay;
@@ -118,13 +131,60 @@ module pulse_programmer_core (
                         end
 
                         JUMP: begin
+                            control_flow_change <= 1'b1; // added
                             addr <= current_data[11:0];
                             count <= 0;
                             instr_valid_internal <= 1'b0;
                         end
 
                         HALT: begin
-                            running_reg <= 1'b0;        // soft halt
+                            running_reg <= 1'b0;
+                            // Force pipeline to stop cleanly - no further address advance
+                            addr <= addr;                    // hold address
+                            instr_valid_internal <= 1'b0;    // prevent loading next instruction
+                            count <= 0;
+                        end
+                        
+                        LOOP_START: begin
+                            if (stack_ptr < STACK_DEPTH) begin
+                                // Push current address (next instruction after this LOOP_START)
+                                addr_stack[stack_ptr]     <= addr + 1;           // or addr if you want to include the start instr
+                                count_stack[stack_ptr] <= current_data[15:0]; // loop count from data field
+                                //count_stack[stack_ptr] <= 16'd5; // loop count from data field
+                                
+                                stack_ptr <= stack_ptr + 1;
+                
+                                // Continue to next instruction (loop body starts here)
+                                addr <= addr + 1;
+                                count <= 0;
+                                instr_valid_internal <= 1'b0;
+                            end else begin
+                                // Stack overflow - treat as HALT or error (you can add a flag later)
+                                running_reg <= 1'b0;
+                            end
+                        end
+            
+                        LOOP_END: begin
+                            control_flow_change <= 1'b1; //added
+                            if (stack_ptr > 0) begin
+                                if (count_stack[stack_ptr-1] > 16'd1) begin
+                                    // More iterations: decrement and jump back
+                                    count_stack[stack_ptr-1] <= count_stack[stack_ptr-1] - 16'd1;
+                                    addr                     <= addr_stack[stack_ptr-1];
+                                    count                    <= 0;
+                                    instr_valid_internal     <= 1'b0;
+                                end else begin
+                                    // Final iteration: pop stack and continue to next instruction
+                                    stack_ptr                <= stack_ptr - 1;
+                                    addr                     <= addr + 1;
+                                    count                    <= 0;
+                                    instr_valid_internal     <= 1'b0;
+                                end
+                            end else begin
+                                addr <= addr + 1;
+                                count <= 0;
+                                instr_valid_internal <= 1'b0;
+                            end
                         end
 
                         default: begin

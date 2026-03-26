@@ -1,0 +1,6 @@
+0.7
+2020.2
+May 22 2025
+00:13:55
+C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.sim/sim_top_mem/synth/func/xsim/tb_top_func_synth.v,1774483906,verilog,,C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v,,RAM_2Port;clk_wiz_0_new;clk_wiz_0_new_clk_wiz;glbl;inst_shift_reg;pulse_programmer_core;top;uart_rx,,,../../../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef;../../../../../CMOD_S7_Pulse.ip_user_files/ipstatic,,,,,
+C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v,1774396212,verilog,,,,tb_top,,,../../../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef;../../../../../CMOD_S7_Pulse.ip_user_files/ipstatic,,,,,

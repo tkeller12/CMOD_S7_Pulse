@@ -107,6 +107,7 @@ module top(
     reg  pp_rst   = 1'b1;       // hard reset (only on power-up or emergency)
     reg  pp_start = 1'b0;       // one-cycle pulse to (re)start sequence
     reg  pp_stop  = 1'b0;       // one-cycle pulse to stop sequence
+    wire pp_running;
 
     pulse_programmer_core u_ppc (
         .rst       (pp_rst),
@@ -119,7 +120,8 @@ module top(
         .data      (data),
         .pulse     (pulse),
         .trig      (trig),
-        .pulse_out (ja)
+        .pulse_out (ja),
+        .running (pp_running)
     );
 
     // ------------------------------------------------
@@ -176,6 +178,6 @@ module top(
     assign led[0] = pll_locked;      // PLL locked
     assign led[1] = ~pp_rst;         // core not in hard reset
     assign led[2] = uart_rx_busy;    // UART receiving
-    assign led[3] = 1'b0;            // spare (or use for halted status later)
+    assign led[3] = pp_running;      // spare (or use for halted status later)
 
 endmodule

@@ -17,6 +17,9 @@ module tb_top;
     wire        o_Rd_DV;
     wire [7:0]  ja;
     wire [3:0]  led;
+    
+    wire stack_ptr;
+    //wire [15:0] count_stack [0:7];
 
     // Instantiate top (uart_rx_pin is left unconnected - it's ok for simulation)
     top DUT (
@@ -36,6 +39,9 @@ module tb_top;
     assign op_code   = DUT.op_code;
     assign delay     = DUT.delay;
     assign o_Rd_DV   = DUT.o_Rd_DV;
+    
+    assign stack_ptr = DUT.u_ppc.stack_ptr;
+    //assign count_stack = DUT.u_ppc.count_stack;
 
     // ------------------------------------------------------------------
     // 12 MHz clock

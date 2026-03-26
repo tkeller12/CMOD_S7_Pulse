@@ -1,0 +1,14 @@
+Vivado Simulator v2025.1.0
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: C:/Xilinx/2025.1/Vivado/bin/unwrapped/win64.o/xelab.exe --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L secureip --snapshot tb_top_func_synth xil_defaultlib.tb_top xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+ERROR: [VRFC 10-2991] 'o_Rd_Data' is not declared under prefix 'DUT' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v:33]
+ERROR: [VRFC 10-2991] 'pulse' is not declared under prefix 'DUT' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v:34]
+ERROR: [VRFC 10-2991] 'data' is not declared under prefix 'DUT' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v:35]
+ERROR: [VRFC 10-2991] 'delay' is not declared under prefix 'DUT' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v:37]
+ERROR: [VRFC 10-2991] 'o_Rd_DV' is not declared under prefix 'DUT' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v:38]
+ERROR: [VRFC 10-2991] 'r_Mem' is not declared under prefix 'u_RAM_2Port' [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v:56]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.

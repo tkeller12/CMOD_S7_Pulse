@@ -263,7 +263,7 @@ def get_inverted_bits(pulse_config):
     return inverted_bits
 
 
-def generate_instructions(states, config):
+def generate_instructions(states, config, parameters):
     ''' Create instruction list from states
     '''
     START_ADDR = 0
@@ -273,6 +273,13 @@ def generate_instructions(states, config):
     initial_pulse_pattern = states[0].pulse_pattern
 
     instructions = []
+    shots = parameters.get('shots', 1)
+    if shots > 2**16:
+        raise Exception(f"Number of shots {shots} exceeds maximum representable value in 16 bits")
+
+    loop_start_inst = Instruction(addr=addr, pulse_pattern=0, data=shots, op_code=4, delay=0) # GOTO instruction to be patched later with correct loop start address
+    instructions.append(loop_start_inst)
+    addr += 1
 
     total_time = 0
     for state in states:
@@ -288,12 +295,23 @@ def generate_instructions(states, config):
         total_time += delay
         addr += 1
 
+    # Add Loop Stop Instruction
+    loop_stop_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=5, delay=0)
+    instructions.append(loop_stop_inst)
+    addr += 1
+
+    # # add noop
+    # noop_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=0, delay=0)
+    # instructions.append(noop_inst)
+    # addr += 1
+
+    # add halt
+    halt_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=7, delay=0)
+    instructions.append(halt_inst)
+
     # add jump
-    # halt_inst = Instruction(addr=addr, pulse_pattern=initial_pulse_pattern, data=0, op_code=7, delay=0)
-    # instructions.append(halt_inst)
-    # add jump
-    jump_inst = Instruction(addr=addr, pulse_pattern=initial_pulse_pattern, data=0, op_code=3, delay=0)
-    instructions.append(jump_inst)
+    # jump_inst = Instruction(addr=addr, pulse_pattern=initial_pulse_pattern, data=0, op_code=3, delay=0)
+    # instructions.append(jump_inst)
 
     return instructions
 
@@ -331,7 +349,7 @@ def compile_ast(ast, pulse_config, parameters):
     check_duty_cycle(states, pulse_config)
     check_max_duration(states, pulse_config)
 
-    instructions = generate_instructions(states, pulse_config)
+    instructions = generate_instructions(states, pulse_config, parameters)
 
     return edges, states, instructions
 
@@ -431,7 +449,7 @@ detect 40 ns
         print(node)
     print('Done.')
 
-    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 10e-6}
+    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 10e-6, 'shots': 10}
 
     print('\nCompiling...')
 
@@ -449,7 +467,7 @@ detect 40 ns
     
 
     # instructions = edges_to_instructions(states, PULSE_CONFIG)
-    instructions = generate_instructions(states, PULSE_CONFIG)
+    instructions = generate_instructions(states, PULSE_CONFIG, parameters)
     print('\nInstructions:')
     for inst in instructions:
         # print(bin(inst.pulse_pattern), bin(inst.delay))
