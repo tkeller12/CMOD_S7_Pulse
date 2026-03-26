@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import numpy as np
 import matplotlib.pylab as plt
+import time
 
 try:
     from .lexer import Lexer
@@ -277,7 +278,13 @@ def generate_instructions(states, config, parameters):
     if shots > 2**16:
         raise Exception(f"Number of shots {shots} exceeds maximum representable value in 16 bits")
 
-    loop_start_inst = Instruction(addr=addr, pulse_pattern=0, data=shots, op_code=4, delay=0) # GOTO instruction to be patched later with correct loop start address
+    # # add noop
+    noop_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=0, delay=0)
+    instructions.append(noop_inst)
+    addr += 1
+
+    # Add loop start instruction
+    loop_start_inst = Instruction(addr=addr, pulse_pattern=0, data=shots, op_code=4, delay=0) # LOOP_START instruction to be patched later with correct loop start address
     instructions.append(loop_start_inst)
     addr += 1
 
@@ -301,17 +308,24 @@ def generate_instructions(states, config, parameters):
     addr += 1
 
     # # add noop
-    # noop_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=0, delay=0)
-    # instructions.append(noop_inst)
+    noop_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=0, delay=0)
+    instructions.append(noop_inst)
+    addr += 1
+
+    # # add halt
+    # halt_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=7, delay=0)
+    # instructions.append(halt_inst)
     # addr += 1
 
     # add halt
     halt_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=7, delay=0)
     instructions.append(halt_inst)
+    addr += 1
 
     # add jump
     # jump_inst = Instruction(addr=addr, pulse_pattern=initial_pulse_pattern, data=0, op_code=3, delay=0)
     # instructions.append(jump_inst)
+    addr += 1
 
     return instructions
 
@@ -428,7 +442,7 @@ if __name__ == "__main__":
 """
 time tau, p1, p90, p180 # this is a comment
 
-#delay 1000 ns
+delay 1000 ns
 pulse 32 ns
 delay tau
 pulse 64 ns
@@ -449,7 +463,7 @@ detect 40 ns
         print(node)
     print('Done.')
 
-    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 10e-6, 'shots': 10}
+    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 10e-6, 'shots': 2}
 
     print('\nCompiling...')
 
@@ -500,8 +514,29 @@ detect 40 ns
     print(f'Instructions written to {filename}')
 
     import hardware
+    RESET_MEMORY = False
+    if RESET_MEMORY:
+        print('Resetting FPGA Pulse Programmer memory...')
+        inst_list = []
+        for ix in range(4095):
+            inst = Instruction(addr=ix, pulse_pattern=0, data=0, op_code=0, delay=0)
+            inst_list.append(inst)
+        hardware.upload_sequence(instructions_to_bytes(inst_list))
+        print('FPGA Pulse Programmer memory reset.')
     print('\nUploading sequence to FPGA Pulse Programmer...')
     hardware.upload_sequence(inst_bytes)
+    # time.sleep(1.0)
     hardware.start()
+    # hardware.start()
     print('Sequence uploaded to FPGA Pulse Programmer.')
-    plot_states(states, 4, 3e-6)
+    # time.sleep(1.0)
+    # hardware.start()
+    # hardware.start()
+    # time.sleep(1.0)
+    # hardware.start()
+    # hardware.start()
+    # time.sleep(1.0)
+    # hardware.start()
+    # hardware.start()
+
+    # plot_states(states, 4, 3e-6)

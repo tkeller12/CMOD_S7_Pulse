@@ -51,7 +51,7 @@ module pulse_programmer_core (
         if (rst) begin
             addr                 <= 12'd0;
             count                <= 32'd0;
-            running_reg          <= 1'b1; // setting to 1 for testing, should be 0 in production
+            running_reg          <= 1'b0;
             trig_meta            <= 1'b0;
             trig_sync            <= 1'b0;
             start_meta           <= 1'b0;
@@ -69,10 +69,15 @@ module pulse_programmer_core (
             start_sync <= start_meta;
             stop_meta  <= stop;
             stop_sync  <= stop_meta;
-
+            trig_meta <= trig;
+            trig_sync <= trig_meta;
+            
             // Priority: stop > start > normal operation
             if (stop_sync) begin
                 running_reg <= 1'b0;
+                addr <= 0;
+                stack_ptr <= 0;
+                count <= 0;
             end
             else if (start_sync) begin
                 running_reg          <= 1'b1;
@@ -87,8 +92,7 @@ module pulse_programmer_core (
             end
             else begin
                 // === Normal running state ===
-                trig_meta <= trig;
-                trig_sync <= trig_meta;
+
 
                 if (!instr_valid_internal && !control_flow_change) begin
                     // === LOAD PHASE ===
@@ -140,8 +144,7 @@ module pulse_programmer_core (
 
                         HALT: begin
                             running_reg <= 1'b0;
-                            // Force pipeline to stop cleanly - no further address advance
-                            addr <= addr;                    // hold address
+                            addr <= 0;                    // address reset to 0
                             instr_valid_internal <= 1'b0;    // prevent loading next instruction
                             count <= 0;
                         end

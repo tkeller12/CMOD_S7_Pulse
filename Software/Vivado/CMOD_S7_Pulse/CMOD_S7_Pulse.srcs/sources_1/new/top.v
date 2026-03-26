@@ -14,7 +14,7 @@ module top(
     // ------------------------------------------------
     // Clock generation
     // ------------------------------------------------
-    wire clk;           // 125 MHz system clock
+    wire clk;           // 250 MHz system clock
     wire pll_locked;
 
     clk_wiz_0_new u_clock_wizard (
@@ -32,7 +32,7 @@ module top(
     // ------------------------------------------------
     // UART Receiver + Command Shift Register
     // ------------------------------------------------
-    parameter TICKS_PER_BIT = 2170;   // for 115200 baud @ 125 MHz
+    parameter TICKS_PER_BIT = 2170;   // for 115200 baud @ 250 MHz
     parameter UART_BITS     = 8;
     parameter UART_WORDS    = 10;
 
@@ -131,9 +131,17 @@ module top(
 
     always @(posedge clk) begin
         // Default: no write, no start/stop pulses
-        i_Wr_DV  <= 1'b0;
-        pp_start <= 1'b0;
-        pp_stop  <= 1'b0;
+        if (i_Wr_DV) begin
+            i_Wr_DV  <= 1'b0;
+        end
+        
+        if (pp_start) begin
+            pp_start <= 1'b0;
+        end
+        
+        if (pp_stop) begin
+            pp_stop  <= 1'b0;
+        end
 
         if (init) begin
             // === Power-on initialization: clear BRAM to 0 ===
