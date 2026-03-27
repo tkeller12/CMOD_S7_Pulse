@@ -170,9 +170,9 @@ module pulse_programmer_core (
                         end
             
                         LOOP_END: begin
-                            control_flow_change <= 1'b1;   // ALWAYS bubble after LOOP_END
                             if (stack_ptr > 0) begin
                                 if (count_stack[stack_ptr-1] > 16'd1) begin
+                                    control_flow_change <= 1'b1;   // ALWAYS bubble after LOOP_END                                
                                     // More iterations: decrement and jump back
                                     count_stack[stack_ptr-1] <= count_stack[stack_ptr-1] - 16'd1;
                                     addr                     <= addr_stack[stack_ptr-1];

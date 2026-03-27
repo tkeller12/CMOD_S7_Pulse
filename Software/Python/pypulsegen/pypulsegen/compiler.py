@@ -308,9 +308,9 @@ def generate_instructions(states, config, parameters):
     addr += 1
 
     # Add no-op, currently required to avoid missing HALT instruction
-    noop_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=0, delay=0)
-    instructions.append(noop_inst)
-    addr += 1
+    # noop_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=0, delay=0)
+    # instructions.append(noop_inst)
+    # addr += 1
 
     # add halt
     halt_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=7, delay=0)
