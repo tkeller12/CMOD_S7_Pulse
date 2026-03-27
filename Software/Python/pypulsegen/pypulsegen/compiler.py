@@ -437,7 +437,7 @@ if __name__ == "__main__":
 """
 time tau, p1, p90, p180 # this is a comment
 
-delay 1000 ns
+# delay 1000 ns
 pulse 32 ns
 delay tau
 pulse 64 ns
@@ -458,7 +458,7 @@ detect 40 ns
         print(node)
     print('Done.')
 
-    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 10e-6, 'shots': 5}
+    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 5e-6, 'shots': 4}
 
     print('\nCompiling...')
 
