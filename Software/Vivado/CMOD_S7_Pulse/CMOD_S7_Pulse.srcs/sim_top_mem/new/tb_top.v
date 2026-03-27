@@ -4,8 +4,8 @@ module tb_top;
 
     // Testbench signals
     reg clk_12MHz;
-    reg uart_rx_pin;
-    reg [1:0] btn;
+    reg uart_rx_pin = 1'b1;
+    reg [1:0] btn = 2'b0;
 
     // Internal signals for monitoring
     wire clk;
@@ -24,6 +24,8 @@ module tb_top;
     
     wire pp_running;
     
+    wire init;
+    
     wire [3:0] stack_ptr;
     //wire [15:0] count_stack [0:7];
     
@@ -41,6 +43,7 @@ module tb_top;
 
     // Connect internal signals
     assign clk       = DUT.clk;
+    assign init      = DUT.init;
     assign addr      = DUT.addr;
     assign o_Rd_Data = DUT.o_Rd_Data;
     assign pulse     = DUT.pulse;
@@ -48,6 +51,8 @@ module tb_top;
     assign op_code   = DUT.op_code;
     assign delay     = DUT.delay;
     assign o_Rd_DV   = DUT.o_Rd_DV;
+    
+
     
     assign stack_ptr = DUT.u_ppc.stack_ptr;
     //assign count_stack = DUT.u_ppc.count_stack;
@@ -162,7 +167,7 @@ module tb_top;
     // Load BRAM from .mem file
     // ------------------------------------------------------------------
     initial begin
-        #50_000;   // wait for PLL lock + initial reset
+        #100_000;   // wait for PLL lock + initial reset
 
         $display("[%0t] INFO: Loading pulse_program.mem into BRAM...", $time);
 
@@ -175,7 +180,7 @@ module tb_top;
     // Test sequence
     // ------------------------------------------------------------------
     initial begin
-        btn = 2'b00;
+        // btn = 2'b00;
 
         // Wait until BRAM is loaded and init phase in top.v is done
         #100_000;

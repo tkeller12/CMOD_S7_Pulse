@@ -95,6 +95,7 @@ module pulse_programmer_core (
 
 
                 if (!instr_valid_internal && !control_flow_change) begin
+                //if (!instr_valid_internal) begin
                     // === LOAD PHASE ===
                     current_op    <= op_code;
                     current_delay <= delay;
@@ -136,7 +137,7 @@ module pulse_programmer_core (
                         end
 
                         JUMP: begin
-                            control_flow_change <= 1'b1; // added
+                            //control_flow_change <= 1'b1; // added
                             addr <= current_data[11:0];
                             count <= 0;
                             instr_valid_internal <= 1'b0;
@@ -147,6 +148,7 @@ module pulse_programmer_core (
                             addr <= 0;                    // address reset to 0
                             instr_valid_internal <= 1'b0;    // prevent loading next instruction
                             count <= 0;
+                            stack_ptr <= 0;
                         end
                         
                         LOOP_START: begin
@@ -154,7 +156,6 @@ module pulse_programmer_core (
                                 // Push current address (next instruction after this LOOP_START)
                                 addr_stack[stack_ptr]     <= addr + 1;           // or addr if you want to include the start instr
                                 count_stack[stack_ptr] <= current_data[15:0]; // loop count from data field
-                                //count_stack[stack_ptr] <= 16'd5; // loop count from data field
                                 
                                 stack_ptr <= stack_ptr + 1;
                 

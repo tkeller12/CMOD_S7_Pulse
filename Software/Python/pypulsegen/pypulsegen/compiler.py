@@ -278,12 +278,12 @@ def generate_instructions(states, config, parameters):
     if shots > 2**16:
         raise Exception(f"Number of shots {shots} exceeds maximum representable value in 16 bits")
 
-    # # add noop
-    noop_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=0, delay=0)
-    instructions.append(noop_inst)
-    addr += 1
+    # # # add noop
+    # noop_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=0, delay=0)
+    # instructions.append(noop_inst)
+    # addr += 1
 
-    # Add loop start instruction
+    # Add loop start instruction, seems like no-op is not needed at the beginning
     loop_start_inst = Instruction(addr=addr, pulse_pattern=0, data=shots, op_code=4, delay=0) # LOOP_START instruction to be patched later with correct loop start address
     instructions.append(loop_start_inst)
     addr += 1
@@ -307,15 +307,10 @@ def generate_instructions(states, config, parameters):
     instructions.append(loop_stop_inst)
     addr += 1
 
-    # # add noop
+    # Add no-op, currently required to avoid missing HALT instruction
     noop_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=0, delay=0)
     instructions.append(noop_inst)
     addr += 1
-
-    # # add halt
-    # halt_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=7, delay=0)
-    # instructions.append(halt_inst)
-    # addr += 1
 
     # add halt
     halt_inst = Instruction(addr=addr, pulse_pattern=0, data=0, op_code=7, delay=0)
@@ -325,7 +320,7 @@ def generate_instructions(states, config, parameters):
     # add jump
     # jump_inst = Instruction(addr=addr, pulse_pattern=initial_pulse_pattern, data=0, op_code=3, delay=0)
     # instructions.append(jump_inst)
-    addr += 1
+    # addr += 1
 
     return instructions
 
@@ -463,7 +458,7 @@ detect 40 ns
         print(node)
     print('Done.')
 
-    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 10e-6, 'shots': 2}
+    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 10e-6, 'shots': 5}
 
     print('\nCompiling...')
 
@@ -518,7 +513,7 @@ detect 40 ns
     if RESET_MEMORY:
         print('Resetting FPGA Pulse Programmer memory...')
         inst_list = []
-        for ix in range(4095):
+        for ix in range(4096):
             inst = Instruction(addr=ix, pulse_pattern=0, data=0, op_code=0, delay=0)
             inst_list.append(inst)
         hardware.upload_sequence(instructions_to_bytes(inst_list))

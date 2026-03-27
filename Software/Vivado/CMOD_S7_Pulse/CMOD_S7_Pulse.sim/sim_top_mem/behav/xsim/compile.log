@@ -10,7 +10,7 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7
 INFO: [VRFC 10-311] analyzing module pulse_programmer_core
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module top
-WARNING: [VRFC 10-2938] 'addr' is already implicitly declared on line 90 [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v:105]
+WARNING: [VRFC 10-2938] 'addr' is already implicitly declared on line 92 [C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/new/top.v:107]
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sources_1/imports/UART/uart_rx.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module uart_rx
 INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v" into library xil_defaultlib

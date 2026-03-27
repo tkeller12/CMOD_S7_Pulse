@@ -78,7 +78,9 @@ module top(
     reg  [63:0] i_Wr_Data = 0;
     wire [63:0] o_Rd_Data;
     wire        o_Rd_DV;      // not really used here
+    
 
+    
     RAM_2Port #(.WIDTH(64), .DEPTH(4096)) u_RAM_2Port (
         // Write port
         .i_Wr_Clk   (clk),
