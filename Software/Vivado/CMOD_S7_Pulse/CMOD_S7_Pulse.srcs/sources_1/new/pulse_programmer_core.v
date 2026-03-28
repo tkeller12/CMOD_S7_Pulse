@@ -18,10 +18,12 @@ module pulse_programmer_core (
     parameter STACK_DEPTH = 8;                    // supports 8 nested loops
     reg [11:0] addr_stack [0:STACK_DEPTH-1];
     reg [15:0] count_stack [0:STACK_DEPTH-1];     // iteration counter
-    reg [3:0]  stack_ptr = 0;                     // 0 = empty
+    reg [2:0]  stack_ptr = 0;                     // 0 = empty
 
 
     reg running_reg = 1'b0;
+    
+    reg init = 1'b0;
     
     assign running = running_reg;
 
@@ -34,8 +36,8 @@ module pulse_programmer_core (
     reg [3:0]  current_op;
     reg [31:0] current_delay;
     reg [19:0] current_data;
-    reg instr_valid_internal = 1'b0;
-    reg control_flow_change = 1'b0;
+    reg execute = 1'b0;
+    reg stall_load = 1'b0;
 
     localparam [3:0] NO_OP      = 4'b0000;
     localparam [3:0] DELAY      = 4'b0001;
@@ -46,7 +48,7 @@ module pulse_programmer_core (
     localparam [3:0] WAIT       = 4'b1000;
 
     always @(posedge clk) begin
-        if (control_flow_change) control_flow_change <= 1'b0;
+        if (stall_load) stall_load <= 1'b0; // set back to zero if stalling load for single clock cycle
         
         if (rst) begin
             addr                 <= 12'd0;
@@ -58,10 +60,12 @@ module pulse_programmer_core (
             start_sync           <= 1'b0;
             stop_meta            <= 1'b0;
             stop_sync            <= 1'b0;
-            instr_valid_internal <= 1'b0;
+            execute              <= 1'b0;
             pulse_out            <= 8'b0;
             stack_ptr            <= 4'b0;
-            control_flow_change  <= 1'b0;
+            stall_load           <= 1'b0;
+            init                 <= 1'b0;
+            
         end
         else begin
             // Metastability synchronizers
@@ -83,46 +87,48 @@ module pulse_programmer_core (
                 running_reg          <= 1'b1;
                 addr                 <= 12'd0;
                 count                <= 32'd0;
-                instr_valid_internal <= 1'b0;
+                execute              <= 1'b1;
                 stack_ptr            <= 4'b0;
+                init                 <= 1'b1;
+                stall_load           <= 1'b0; 
                 // pulse_out keeps its last value until a DELAY/WAIT loads a new one
             end
             else if (!running_reg) begin
                 // Halted: do nothing, keep last pulse_out and addr
+                //pulse_out <= 8'hAA; // Put into the safe state, for testing we set AA, change later to safe outputs
+                current_op    <= op_code;
+                current_delay <= delay;
+                current_data  <= data;
             end
             else begin
                 // === Normal running state ===
-
-
-                if (!instr_valid_internal && !control_flow_change) begin
-                //if (!instr_valid_internal) begin
+                if (!execute && !stall_load) begin // Load Next op_code, delay, data; stall load if jumping addresses
                     // === LOAD PHASE ===
                     current_op    <= op_code;
                     current_delay <= delay;
                     current_data  <= data;
 
                     // Only update pulse_out for instructions that should drive outputs
-                    if (op_code == DELAY || op_code == WAIT) begin
+                    if (op_code == DELAY) begin // Only update output when OP_CODE is DELAY
                         pulse_out <= pulse;
                     end
-                    // JUMP, NO_OP, HALT do NOT change pulse_out
-
-                    instr_valid_internal <= 1'b1;
+                    execute <= 1'b1; // Set flag to execute on next clock cycle
                 end
-                else if (instr_valid_internal) begin
+                
+                else if (execute) begin
                     // === EXECUTE PHASE ===
                     case (current_op)
                         NO_OP: begin
                             addr <= addr + 1;
                             count <= 0;
-                            instr_valid_internal <= 1'b0;
+                            execute <= 1'b0;
                         end
 
                         DELAY: begin
                             if (count >= current_delay) begin
                                 count <= 0;
                                 addr <= addr + 1;
-                                instr_valid_internal <= 1'b0;
+                                execute <= 1'b0;
                             end else begin
                                 count <= count + 1;
                             end
@@ -132,21 +138,21 @@ module pulse_programmer_core (
                             if (trig_sync) begin
                                 addr <= addr + 1;
                                 count <= 0;
-                                instr_valid_internal <= 1'b0;
+                                execute <= 1'b0;
                             end
                         end
 
                         JUMP: begin
-                            //control_flow_change <= 1'b1; // added
                             addr <= current_data[11:0];
                             count <= 0;
-                            instr_valid_internal <= 1'b0;
+                            execute <= 1'b0;
+                            stall_load <= 1'b1; // Bubble after JUMP, required when changing address
                         end
 
                         HALT: begin
                             running_reg <= 1'b0;
                             addr <= 0;                    // address reset to 0
-                            instr_valid_internal <= 1'b0;    // prevent loading next instruction
+                            execute <= 1'b0;    // prevent loading next instruction
                             count <= 0;
                             stack_ptr <= 0;
                         end
@@ -162,7 +168,7 @@ module pulse_programmer_core (
                                 // Continue to next instruction (loop body starts here)
                                 addr <= addr + 1;
                                 count <= 0;
-                                instr_valid_internal <= 1'b0;
+                                execute <= 1'b0;
                             end else begin
                                 // Stack overflow - treat as HALT or error (you can add a flag later)
                                 running_reg <= 1'b0;
@@ -172,30 +178,30 @@ module pulse_programmer_core (
                         LOOP_END: begin
                             if (stack_ptr > 0) begin
                                 if (count_stack[stack_ptr-1] > 16'd1) begin
-                                    control_flow_change <= 1'b1;   // ALWAYS bubble after LOOP_END                                
+                                    stall_load <= 1'b1;   // ALWAYS bubble after LOOP_END                                
                                     // More iterations: decrement and jump back
                                     count_stack[stack_ptr-1] <= count_stack[stack_ptr-1] - 16'd1;
                                     addr                     <= addr_stack[stack_ptr-1];
                                     count                    <= 0;
-                                    instr_valid_internal     <= 1'b0;
+                                    execute     <= 1'b0;
                                 end else begin
                                     // Final iteration: pop stack and continue to next instruction
                                     stack_ptr                <= stack_ptr - 1;
                                     addr                     <= addr + 1;
                                     count                    <= 0;
-                                    instr_valid_internal     <= 1'b0;
+                                    execute     <= 1'b0;
                                 end
                             end else begin
                                 addr <= addr + 1;
                                 count <= 0;
-                                instr_valid_internal <= 1'b0;
+                                execute <= 1'b0;
                             end
                         end
 
                         default: begin
                             addr <= addr + 1;
                             count <= 0;
-                            instr_valid_internal <= 1'b0;
+                            execute <= 1'b0;
                         end
                     endcase
                 end

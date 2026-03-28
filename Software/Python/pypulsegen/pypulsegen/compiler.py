@@ -26,7 +26,7 @@ PULSE_CONFIG = {
         'bit': 1,
         'lead': 120e-9,
         'lag': 20e-9,
-        'connectivity': 1000e-9,
+        'connectivity': 100e-9,
         'inverted': False,
         'max_duration': 5e-6,
         'duty_cycle_limit': 0.2
@@ -458,7 +458,7 @@ detect 40 ns
         print(node)
     print('Done.')
 
-    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 5e-6, 'shots': 4}
+    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 10e-6, 'shots': 2}
 
     print('\nCompiling...')
 

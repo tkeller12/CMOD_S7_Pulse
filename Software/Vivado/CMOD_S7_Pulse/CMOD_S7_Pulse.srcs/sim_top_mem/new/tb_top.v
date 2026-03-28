@@ -22,11 +22,14 @@ module tb_top;
     wire [31:0] current_delay;
     wire [19:0] current_data;
     
+    wire execute;
+    wire stall_load;
+    
     wire pp_running;
     
     wire init;
     
-    wire [3:0] stack_ptr;
+    wire [2:0] stack_ptr;
     //wire [15:0] count_stack [0:7];
     
     wire pp_start;
@@ -64,6 +67,9 @@ module tb_top;
     assign current_data = DUT.u_ppc.current_data;
     
     assign pp_running = DUT.pp_running;
+    
+    assign execute = DUT.u_ppc.execute;
+    assign stall_load = DUT.u_ppc.stall_load;
 
     // ------------------------------------------------------------------
     // 12 MHz clock
