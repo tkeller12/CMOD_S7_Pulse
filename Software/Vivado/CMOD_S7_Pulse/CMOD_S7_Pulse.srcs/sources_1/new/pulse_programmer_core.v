@@ -23,8 +23,6 @@ module pulse_programmer_core (
 
     reg running_reg = 1'b0;
     
-    reg init = 1'b0;
-    
     assign running = running_reg;
 
     reg [31:0] count = 0;
@@ -49,7 +47,7 @@ module pulse_programmer_core (
 
     always @(posedge clk) begin
         if (stall_load) stall_load <= 1'b0; // set back to zero if stalling load for single clock cycle
-        
+                
         if (rst) begin
             addr                 <= 12'd0;
             count                <= 32'd0;
@@ -64,7 +62,7 @@ module pulse_programmer_core (
             pulse_out            <= 8'b0;
             stack_ptr            <= 4'b0;
             stall_load           <= 1'b0;
-            init                 <= 1'b0;
+//            init                 <= 1'b0;
             
         end
         else begin
@@ -85,17 +83,20 @@ module pulse_programmer_core (
             end
             else if (start_sync) begin
                 running_reg          <= 1'b1;
-                addr                 <= 12'd0;
+                addr                 <= 12'd1; // important, set address to 1, so that next data is ready in time
                 count                <= 32'd0;
-                execute              <= 1'b1;
+                execute              <= 1'b0; // important
                 stack_ptr            <= 4'b0;
-                init                 <= 1'b1;
-                stall_load           <= 1'b0; 
+                stall_load           <= 1'b0; // important
+                current_op    <= op_code;
+                current_delay <= delay;
+                current_data  <= data;
                 // pulse_out keeps its last value until a DELAY/WAIT loads a new one
             end
             else if (!running_reg) begin
                 // Halted: do nothing, keep last pulse_out and addr
-                //pulse_out <= 8'hAA; // Put into the safe state, for testing we set AA, change later to safe outputs
+                //pulse_out <= safe_pulse_out; // Put into the safe state, for testing we set AA, change later to safe outputs
+                addr <= 0; // reset address to 0
                 current_op    <= op_code;
                 current_delay <= delay;
                 current_data  <= data;
@@ -112,7 +113,8 @@ module pulse_programmer_core (
                     if (op_code == DELAY) begin // Only update output when OP_CODE is DELAY
                         pulse_out <= pulse;
                     end
-                    execute <= 1'b1; // Set flag to execute on next clock cycle
+                    execute <= 1'b1;
+                    
                 end
                 
                 else if (execute) begin
@@ -169,6 +171,7 @@ module pulse_programmer_core (
                                 addr <= addr + 1;
                                 count <= 0;
                                 execute <= 1'b0;
+                                //stall_load <= 1'b1;
                             end else begin
                                 // Stack overflow - treat as HALT or error (you can add a flag later)
                                 running_reg <= 1'b0;

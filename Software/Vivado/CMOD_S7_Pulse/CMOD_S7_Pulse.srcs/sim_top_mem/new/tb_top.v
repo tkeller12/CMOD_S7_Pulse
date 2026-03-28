@@ -27,7 +27,7 @@ module tb_top;
     
     wire pp_running;
     
-    wire init;
+    //wire init;
     
     wire [2:0] stack_ptr;
     //wire [15:0] count_stack [0:7];
@@ -46,7 +46,7 @@ module tb_top;
 
     // Connect internal signals
     assign clk       = DUT.clk;
-    assign init      = DUT.init;
+//    assign init      = DUT.init;
     assign addr      = DUT.addr;
     assign o_Rd_Data = DUT.o_Rd_Data;
     assign pulse     = DUT.pulse;
