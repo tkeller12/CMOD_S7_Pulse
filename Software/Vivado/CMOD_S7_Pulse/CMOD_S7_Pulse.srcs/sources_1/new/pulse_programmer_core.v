@@ -16,9 +16,11 @@ module pulse_programmer_core (
 );
 
     parameter STACK_DEPTH = 8;                    // supports 8 nested loops
-    reg [11:0] addr_stack [0:STACK_DEPTH-1];
-    reg [15:0] count_stack [0:STACK_DEPTH-1];     // iteration counter
-    reg [2:0]  stack_ptr = 0;                     // 0 = empty
+//    reg [11:0] addr_stack [0:STACK_DEPTH-1];
+//    reg [15:0] count_stack [0:STACK_DEPTH-1];     // iteration counter
+    reg [(12*STACK_DEPTH)-1:0] addr_stack_vec  = 0;
+    reg [(16*STACK_DEPTH)-1:0] count_stack_vec = 0;     // iteration counter    
+    reg [2:0]  stack_ptr   = 0;                     // 0 = empty
 
 
     reg running_reg = 1'b0;
@@ -47,6 +49,7 @@ module pulse_programmer_core (
 
     always @(posedge clk) begin
         if (stall_load) stall_load <= 1'b0; // set back to zero if stalling load for single clock cycle
+
                 
         if (rst) begin
             addr                 <= 12'd0;
@@ -60,9 +63,10 @@ module pulse_programmer_core (
             stop_sync            <= 1'b0;
             execute              <= 1'b0;
             pulse_out            <= 8'b0;
-            stack_ptr            <= 4'b0;
+            stack_ptr            <= 3'b0;
+            addr_stack_vec       <= 0;
+            count_stack_vec      <= 0;
             stall_load           <= 1'b0;
-//            init                 <= 1'b0;
             
         end
         else begin
@@ -79,6 +83,8 @@ module pulse_programmer_core (
                 running_reg <= 1'b0;
                 addr <= 0;
                 stack_ptr <= 0;
+                addr_stack_vec <=0;
+                count_stack_vec <=0;
                 count <= 0;
             end
             else if (start_sync) begin
@@ -88,18 +94,18 @@ module pulse_programmer_core (
                 execute              <= 1'b0; // important
                 stack_ptr            <= 4'b0;
                 stall_load           <= 1'b0; // important
-                current_op    <= op_code;
-                current_delay <= delay;
-                current_data  <= data;
+                current_op           <= op_code;
+                current_delay        <= delay;
+                current_data         <= data;
                 // pulse_out keeps its last value until a DELAY/WAIT loads a new one
             end
             else if (!running_reg) begin
                 // Halted: do nothing, keep last pulse_out and addr
-                //pulse_out <= safe_pulse_out; // Put into the safe state, for testing we set AA, change later to safe outputs
-                addr <= 0; // reset address to 0
-                current_op    <= op_code;
-                current_delay <= delay;
-                current_data  <= data;
+                //pulse_out <= safe_pulse_out; // Put into the safe state, not implemented yet
+                addr                <= 0; // reset address to 0
+                current_op          <= op_code;
+                current_delay       <= delay;
+                current_data        <= data;
             end
             else begin
                 // === Normal running state ===
@@ -162,8 +168,12 @@ module pulse_programmer_core (
                         LOOP_START: begin
                             if (stack_ptr < STACK_DEPTH) begin
                                 // Push current address (next instruction after this LOOP_START)
-                                addr_stack[stack_ptr]     <= addr + 1;           // or addr if you want to include the start instr
-                                count_stack[stack_ptr] <= current_data[15:0]; // loop count from data field
+//                                addr_stack[stack_ptr]     <= addr + 1;           // or addr if you want to include the start instr
+//                                count_stack[stack_ptr] <= current_data[15:0]; // loop count from data field
+                                addr_stack_vec <= (addr_stack_vec << 12) |
+                                                  { {(12*(STACK_DEPTH-1)){1'b0}}, (addr + 12'd1) };
+                                count_stack_vec <= (count_stack_vec << 16) |
+                                                   { {(16*(STACK_DEPTH-1)){1'b0}}, current_data[15:0] };
                                 
                                 stack_ptr <= stack_ptr + 1;
                 
@@ -180,21 +190,33 @@ module pulse_programmer_core (
             
                         LOOP_END: begin
                             if (stack_ptr > 0) begin
-                                if (count_stack[stack_ptr-1] > 16'd1) begin
+                                if (count_stack_vec[15:0] > 16'd1) begin
+//                                if (count_stack[stack_ptr-1] > 16'd1) begin
                                     stall_load <= 1'b1;   // ALWAYS bubble after LOOP_END                                
                                     // More iterations: decrement and jump back
-                                    count_stack[stack_ptr-1] <= count_stack[stack_ptr-1] - 16'd1;
-                                    addr                     <= addr_stack[stack_ptr-1];
+//                                    count_stack[stack_ptr-1] <= count_stack[stack_ptr-1] - 16'd1;
+//                                    addr                     <= addr_stack[stack_ptr-1];
+                                    count_stack_vec <= { count_stack_vec[(16*STACK_DEPTH)-1:16],
+                                                         (count_stack_vec[15:0] - 16'd1) };
+
+                                    // Jump back to start of loop body (top address = fixed low 12 bits)
+                                    addr                     <= addr_stack_vec[11:0];
                                     count                    <= 0;
                                     execute     <= 1'b0;
                                 end else begin
                                     // Final iteration: pop stack and continue to next instruction
+//                                    stack_ptr                <= stack_ptr - 1;
                                     stack_ptr                <= stack_ptr - 1;
+                                    addr_stack_vec           <= addr_stack_vec >> 12;
+                                    count_stack_vec          <= count_stack_vec >> 16;
+                                                                        
                                     addr                     <= addr + 1;
                                     count                    <= 0;
                                     execute     <= 1'b0;
+                   
                                 end
                             end else begin
+                            
                                 addr <= addr + 1;
                                 count <= 0;
                                 execute <= 1'b0;
