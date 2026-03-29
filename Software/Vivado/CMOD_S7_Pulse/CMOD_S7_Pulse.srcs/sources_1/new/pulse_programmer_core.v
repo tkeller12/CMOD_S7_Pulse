@@ -168,10 +168,10 @@ module pulse_programmer_core (
                         LOOP_START: begin
                             if (stack_ptr < STACK_DEPTH) begin
                                 // Push current address (next instruction after this LOOP_START)
-//                                addr_stack[stack_ptr]     <= addr + 1;           // or addr if you want to include the start instr
-//                                count_stack[stack_ptr] <= current_data[15:0]; // loop count from data field
                                 addr_stack_vec <= (addr_stack_vec << 12) |
-                                                  { {(12*(STACK_DEPTH-1)){1'b0}}, (addr + 12'd1) };
+                                                  { {(12*(STACK_DEPTH-1)){1'b0}}, (addr) }; // Should it be same address???
+//                                addr_stack_vec <= (addr_stack_vec << 12) |
+//                                                  { {(12*(STACK_DEPTH-1)){1'b0}}, (addr + 12'd1) }; // Should it be same address???                                                  
                                 count_stack_vec <= (count_stack_vec << 16) |
                                                    { {(16*(STACK_DEPTH-1)){1'b0}}, current_data[15:0] };
                                 
@@ -191,11 +191,8 @@ module pulse_programmer_core (
                         LOOP_END: begin
                             if (stack_ptr > 0) begin
                                 if (count_stack_vec[15:0] > 16'd1) begin
-//                                if (count_stack[stack_ptr-1] > 16'd1) begin
                                     stall_load <= 1'b1;   // ALWAYS bubble after LOOP_END                                
                                     // More iterations: decrement and jump back
-//                                    count_stack[stack_ptr-1] <= count_stack[stack_ptr-1] - 16'd1;
-//                                    addr                     <= addr_stack[stack_ptr-1];
                                     count_stack_vec <= { count_stack_vec[(16*STACK_DEPTH)-1:16],
                                                          (count_stack_vec[15:0] - 16'd1) };
 
@@ -205,7 +202,6 @@ module pulse_programmer_core (
                                     execute     <= 1'b0;
                                 end else begin
                                     // Final iteration: pop stack and continue to next instruction
-//                                    stack_ptr                <= stack_ptr - 1;
                                     stack_ptr                <= stack_ptr - 1;
                                     addr_stack_vec           <= addr_stack_vec >> 12;
                                     count_stack_vec          <= count_stack_vec >> 16;

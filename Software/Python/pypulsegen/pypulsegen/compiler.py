@@ -35,9 +35,9 @@ PULSE_CONFIG = {
         'source': 'pulse',
         'bit': 2,
         'lead': 200e-9,
-        'lag': 100e-9,
+        'lag': 120e-9,
         'connectivity': 500e-9,
-        'inverted': False,
+        'inverted': True,
         'max_duration': None,
         'duty_cycle_limit': None
         },
@@ -534,4 +534,4 @@ detect 40 ns
     # hardware.start()
     # hardware.start()
 
-    # plot_states(states, 4, 3e-6)
+    plot_states(states, 4, 3e-6)

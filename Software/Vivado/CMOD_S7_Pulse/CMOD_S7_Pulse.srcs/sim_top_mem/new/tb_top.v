@@ -22,6 +22,9 @@ module tb_top;
     wire [31:0] current_delay;
     wire [19:0] current_data;
     
+    wire [11:0] addr_stack_vec; // concat addr_stack_vec
+    wire [15:0] count_stack_vec;
+    
     wire execute;
     wire stall_load;
     
@@ -70,6 +73,9 @@ module tb_top;
     
     assign execute = DUT.u_ppc.execute;
     assign stall_load = DUT.u_ppc.stall_load;
+    
+    assign addr_stack_vec = DUT.u_ppc.addr_stack_vec;
+    assign count_stack_vec = DUT.u_ppc.count_stack_vec;
 
     // ------------------------------------------------------------------
     // 12 MHz clock
