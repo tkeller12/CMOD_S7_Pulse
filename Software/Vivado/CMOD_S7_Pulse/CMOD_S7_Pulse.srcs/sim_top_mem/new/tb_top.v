@@ -197,12 +197,12 @@ module tb_top;
         //btn[0] = 1'b1;   // trigger / start
         #50_000;
         send_start_command();
-        #50_000;
-        send_start_command();
-        #50_000;
-        send_start_command();
-        #50_000;
-        send_start_command();
+        //#50_000;
+        //send_start_command();
+        //#50_000;
+        //send_start_command();
+        //#50_000;
+        //send_start_command();
 //        btn[0] = 1'b0;
 
         $display("[%0t] INFO: Trigger asserted - program should now run", $time);

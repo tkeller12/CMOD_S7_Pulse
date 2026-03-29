@@ -37,7 +37,7 @@ PULSE_CONFIG = {
         'lead': 200e-9,
         'lag': 100e-9,
         'connectivity': 500e-9,
-        'inverted': True,
+        'inverted': False,
         'max_duration': None,
         'duty_cycle_limit': None
         },
