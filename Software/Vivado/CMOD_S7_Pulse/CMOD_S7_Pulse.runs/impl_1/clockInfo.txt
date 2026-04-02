@@ -1,6 +1,6 @@
 -------------------------------------
-| Tool Version : Vivado v.2024.1.2
-| Date         : Wed Dec 18 20:40:08 2024
+| Tool Version : Vivado v.2025.1
+| Date         : Sat Mar 28 21:58:27 2026
 | Host         : Tim-Workstation
 | Design       : design_1
 | Device       : xc7s25-csga225-1--

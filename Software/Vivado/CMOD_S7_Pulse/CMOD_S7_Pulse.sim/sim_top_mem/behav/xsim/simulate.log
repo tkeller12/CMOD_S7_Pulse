@@ -1,0 +1,7 @@
+Time resolution is 1 ps
+[100000000] INFO: Loading pulse_program.mem into BRAM...
+[100000000] INFO: BRAM load command executed.
+[100000000] INFO: Starting pulse programmer test...
+[1018056000] INFO: Trigger asserted - program should now run
+[1118056000] INFO: Simulation finished. Check waveform on ja[7:0].
+$finish called at time : 1118055600 ps : File "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v" Line 220

@@ -1,0 +1,39 @@
+### Footprint positions - created on 2025-07-11T15:32:57-0400 ###
+### Printed by KiCad version 9.0.0
+## Unit = mm, Angle = deg.
+## Side : bottom
+# Ref     Val             Package                        PosX       PosY       Rot  Side
+C1        100nF           C_0805_2012Metric           62.9361   -44.9580   90.0000  bottom
+C2        100nF           C_0805_2012Metric           98.5520   -44.9580   90.0000  bottom
+C3        100nF           C_0805_2012Metric           62.8650   -62.4840   90.0000  bottom
+C4        100nF           C_0805_2012Metric           98.5520   -62.7380   90.0000  bottom
+C5        10uF            C_0805_2012Metric           67.6920   -78.9725   90.0000  bottom
+R1        10k             R_0805_2012Metric           56.8401   -44.9580   90.0000  bottom
+R2        10k             R_0805_2012Metric           61.8490   -56.6420  -90.0000  bottom
+R3        100             R_0805_2012Metric           60.9041   -44.9580   90.0000  bottom
+R4        100             R_0805_2012Metric           58.8721   -44.9580   90.0000  bottom
+R5        100             R_0805_2012Metric           57.7850   -56.6420  -90.0000  bottom
+R6        100             R_0805_2012Metric           59.8170   -56.6420  -90.0000  bottom
+R7        10k             R_0805_2012Metric           97.5360   -56.6420  -90.0000  bottom
+R8        10k             R_0805_2012Metric           92.4560   -44.9580   90.0000  bottom
+R9        100             R_0805_2012Metric           94.4880   -44.9580   90.0000  bottom
+R10       100             R_0805_2012Metric           96.5200   -44.9580   90.0000  bottom
+R11       100             R_0805_2012Metric           95.5040   -56.6420  -90.0000  bottom
+R12       100             R_0805_2012Metric           93.4720   -56.6420  -90.0000  bottom
+R13       10k             R_0805_2012Metric           61.9760   -74.1680  -90.0000  bottom
+R14       10k             R_0805_2012Metric           56.7690   -62.4840   90.0000  bottom
+R15       100             R_0805_2012Metric           58.8010   -62.4840   90.0000  bottom
+R16       100             R_0805_2012Metric           60.8330   -62.4840   90.0000  bottom
+R17       100             R_0805_2012Metric           59.9440   -74.1680  -90.0000  bottom
+R18       100             R_0805_2012Metric           57.9120   -74.1680  -90.0000  bottom
+R19       10k             R_0805_2012Metric           97.5360   -74.4220  -90.0000  bottom
+R20       10k             R_0805_2012Metric           92.4560   -62.7380   90.0000  bottom
+R21       100             R_0805_2012Metric           94.4880   -62.7380   90.0000  bottom
+R22       100             R_0805_2012Metric           96.5200   -62.7380   90.0000  bottom
+R23       100             R_0805_2012Metric           95.5040   -74.4220  -90.0000  bottom
+R24       100             R_0805_2012Metric           93.4720   -74.4220  -90.0000  bottom
+U1        74LVC04AT14-13  TSSOP-14_4.4x5mm_P0.65mm    59.8881   -50.8000   90.0000  bottom
+U2        74LVC04AT14-13  TSSOP-14_4.4x5mm_P0.65mm    95.5040   -50.8000   90.0000  bottom
+U3        74LVC04AT14-13  TSSOP-14_4.4x5mm_P0.65mm    59.9440   -68.3260   90.0000  bottom
+U4        74LVC04AT14-13  TSSOP-14_4.4x5mm_P0.65mm    95.5040   -68.5800   90.0000  bottom
+## End

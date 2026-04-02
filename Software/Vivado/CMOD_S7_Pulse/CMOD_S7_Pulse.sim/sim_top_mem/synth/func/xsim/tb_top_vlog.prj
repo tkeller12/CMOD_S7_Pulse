@@ -1,0 +1,7 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../../../../../../../../../Xilinx/2025.1/Vivado/data/rsb/busdef" --include "../../../../../CMOD_S7_Pulse.ip_user_files/ipstatic" \
+"tb_top_func_synth.v" \
+"../../../../../CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v" \
+
+# Do not sort compile order
+nosort

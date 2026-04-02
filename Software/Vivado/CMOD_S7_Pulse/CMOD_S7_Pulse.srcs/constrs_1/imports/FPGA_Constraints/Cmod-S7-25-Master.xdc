@@ -5,7 +5,17 @@
 
 ## 12 MHz System Clock
 set_property -dict { PACKAGE_PIN M9    IOSTANDARD LVCMOS33 } [get_ports { clk_12MHz }]; #IO_L13P_T2_MRCC_14 Sch=gclk
-#create_clock -add -name sys_clk_pin -period 83.33 -waveform {0 41.66} [get_ports { clk_12MHz }];
+create_clock -add -name sys_clk_pin -period 83.33 -waveform {0 41.66} [get_ports { clk_12MHz }];
+#set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_nets clk_12MHz];
+
+## 10 MHz System Clock
+#set_property -dict { PACKAGE_PIN P14    IOSTANDARD LVCMOS33 } [get_ports { clk_10MHz }]; #IO_L13P_T2_MRCC_14 Sch=gclk
+#set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_nets clk_10MHz];
+#create_clock -add -name sys_clk_pin -period 100 -waveform {0 50} [get_ports { clk_10MHz }];
+#set_property -dict { PACKAGE_PIN P14   IOSTANDARD LVCMOS33 } [get_ports { pio16 }]; #IO_L11P_T1_SRCC_14 Sch=pio[16]
+# Important: Use dedicated low-jitter routing path to MMCM/PLL
+#set_property CLOCK_DEDICATED_ROUTE TRUE [get_nets ext_clk_10mhz_IBUF];
+
 
 ## Push Buttons
 set_property -dict { PACKAGE_PIN D2    IOSTANDARD LVCMOS33 } [get_ports { btn[0] }]; #IO_L6P_T0_34 Sch=btn[0]
@@ -23,6 +33,16 @@ set_property -dict { PACKAGE_PIN J1    IOSTANDARD LVCMOS33 } [get_ports { led[2]
 set_property -dict { PACKAGE_PIN E1    IOSTANDARD LVCMOS33 } [get_ports { led[3] }]; #IO_L8N_T1_34 Sch=led[4]
 
 ## Pmod Header JA
+#set_property -dict { PACKAGE_PIN J2    IOSTANDARD LVCMOS33 } [get_ports { ja[0] }]; #IO_L14P_T2_SRCC_34 Sch=ja[1]
+#set_property -dict { PACKAGE_PIN H2    IOSTANDARD LVCMOS33 } [get_ports { ja[1] }]; #IO_L14N_T2_SRCC_34 Sch=ja[2]
+#set_property -dict { PACKAGE_PIN H4    IOSTANDARD LVCMOS33 } [get_ports { ja[2] }]; #IO_L13P_T2_MRCC_34 Sch=ja[3]
+#set_property -dict { PACKAGE_PIN F3    IOSTANDARD LVCMOS33 } [get_ports { ja[3] }]; #IO_L11N_T1_SRCC_34 Sch=ja[4]
+
+#set_property -dict { PACKAGE_PIN H3    IOSTANDARD LVCMOS33 } [get_ports { ja[4] }]; #IO_L13N_T2_MRCC_34 Sch=ja[7]
+#set_property -dict { PACKAGE_PIN H1    IOSTANDARD LVCMOS33 } [get_ports { ja[5] }]; #IO_L12P_T1_MRCC_34 Sch=ja[8]
+#set_property -dict { PACKAGE_PIN G1    IOSTANDARD LVCMOS33 } [get_ports { ja[6] }]; #IO_L12N_T1_MRCC_34 Sch=ja[9]
+#set_property -dict { PACKAGE_PIN F4    IOSTANDARD LVCMOS33 } [get_ports { ja[7] }]; #IO_L11P_T1_SRCC_34 Sch=ja[10]
+
 set_property -dict { PACKAGE_PIN J2    IOSTANDARD LVCMOS33 } [get_ports { ja[4] }]; #IO_L14P_T2_SRCC_34 Sch=ja[1]
 set_property -dict { PACKAGE_PIN H2    IOSTANDARD LVCMOS33 } [get_ports { ja[5] }]; #IO_L14N_T2_SRCC_34 Sch=ja[2]
 set_property -dict { PACKAGE_PIN H4    IOSTANDARD LVCMOS33 } [get_ports { ja[6] }]; #IO_L13P_T2_MRCC_34 Sch=ja[3]

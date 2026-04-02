@@ -1,0 +1,11 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.sim/sim_top_mem/synth/func/xsim/tb_top_func_synth.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RAM_2Port
+INFO: [VRFC 10-311] analyzing module clk_wiz_0_new
+INFO: [VRFC 10-311] analyzing module clk_wiz_0_new_clk_wiz
+INFO: [VRFC 10-311] analyzing module inst_shift_reg
+INFO: [VRFC 10-311] analyzing module pulse_programmer_core
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-311] analyzing module uart_rx
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_top

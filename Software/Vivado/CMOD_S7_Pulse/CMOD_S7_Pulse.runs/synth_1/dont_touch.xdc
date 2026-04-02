@@ -3,10 +3,5 @@
 
 # XDC: imports/FPGA_Constraints/Cmod-S7-25-Master.xdc
 
-# Block Designs: bd/clock_wizard/clock_wizard.bd
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==clock_wizard || ORIG_REF_NAME==clock_wizard} -quiet] -quiet
-
-# IP: bd/clock_wizard/ip/clock_wizard_clk_wiz_0_0/clock_wizard_clk_wiz_0_0.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==clock_wizard_clk_wiz_0_0 || ORIG_REF_NAME==clock_wizard_clk_wiz_0_0} -quiet] -quiet
-
-# XDC: c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/bd/clock_wizard/clock_wizard_ooc.xdc
+# IP: ip/clk_wiz_0_new/clk_wiz_0_new.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==clk_wiz_0_new || ORIG_REF_NAME==clk_wiz_0_new} -quiet] -quiet

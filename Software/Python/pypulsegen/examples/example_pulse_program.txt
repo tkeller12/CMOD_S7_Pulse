@@ -1,0 +1,4 @@
+delay 1000e-9
+pulse 100e-9
+delay 500e-9
+pulse 200e-9
