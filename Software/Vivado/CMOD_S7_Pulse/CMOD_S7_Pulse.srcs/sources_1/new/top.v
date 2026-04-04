@@ -8,21 +8,56 @@ module top(
     input  wire       uart_rx_pin,
     input  wire [1:0] btn,
     output wire [7:0] ja,
-    output wire [3:0] led
+    output wire [3:0] led,
+    output wire [2:0] led_rgb
 );
 
     // ------------------------------------------------
     // Clock generation
     // ------------------------------------------------
     wire clk;           // 250 MHz system clock
+    wire clk_250MHz;
     wire pll_locked;
 
     clk_wiz_0_new u_clock_wizard (
-        .clk_in1  (clk_12MHz),
-        .clk_out1 (clk),
+        .clk_in_12MHz  (clk_12MHz),
+        .clk_out_125MHz (clk),
+        .clk_out_250MHz (clk_250MHz),
         .locked   (pll_locked),
         .reset    (1'b0)          // no external reset to PLL
     );
+    
+    (* IOB = "TRUE" *) reg [7:0] pulse_reg;
+    wire [7:0] pulse_output_from_core;     
+    
+
+   
+    wire [3:0] ddr_out;
+    
+    genvar i;
+    generate
+        for (i = 0; i < 4; i = i + 1) begin : ddr_serializer
+            ODDR #(
+                .DDR_CLK_EDGE("SAME_EDGE")
+            ) oddr_inst (
+                .Q(ddr_out[i]),
+                .C(clk),
+                .CE(1'b1),
+//                .D1(pulse_reg[2*i]),     // lower bit of the pair
+//                .D2(pulse_reg[2*i+1]),   // upper bit of the pair
+                .D1(1'b1),     // lower bit of the pair
+                .D2(1'b0),   // upper bit of the pair
+                .R(1'b0),
+                .S(1'b0)
+            );
+    
+            OBUF obuf_inst (
+                .I(ddr_out[i]),
+                .O(ja[i])
+            );
+        end
+    endgenerate
+
 
     // ------------------------------------------------
     // External trigger (button)
@@ -32,8 +67,12 @@ module top(
     // ------------------------------------------------
     // UART Receiver + Command Shift Register
     // ------------------------------------------------
+    parameter real BAUD_RATE      = 1_000_000; // Desired baud rate in Hz (1 Mbps)
+    parameter real CLK_FREQ_MHZ   = 125.0;
     //parameter TICKS_PER_BIT = 2170;   // for 115 200 baud @ 250 MHz
-    parameter TICKS_PER_BIT = 250;   // for 1 000 000 baud @ 250 MHz    
+    //parameter TICKS_PER_BIT = 250;   // for 1 000 000 baud @ 250 MHz
+    localparam integer TICKS_PER_BIT = $rtoi(CLK_FREQ_MHZ * 1_000_000 / BAUD_RATE);    
+    
     parameter UART_BITS     = 8;
     parameter UART_WORDS    = 10;
 
@@ -111,6 +150,8 @@ module top(
     reg  pp_start = 1'b0;       // one-cycle pulse to (re)start sequence
     reg  pp_stop  = 1'b0;       // one-cycle pulse to stop sequence
     wire pp_running;
+    
+    //wire [6:0] ja_temp; //temp test for serializer output
 
     pulse_programmer_core u_ppc (
         .rst       (pp_rst),
@@ -123,7 +164,7 @@ module top(
         .data      (data),
         .pulse     (pulse),
         .trig      (trig),
-        .pulse_out (ja),
+        .pulse_out (pulse_output_from_core),
         .running (pp_running)
     );
 
@@ -190,5 +231,20 @@ module top(
     assign led[1] = ~pp_rst;         // core not in hard reset
     assign led[2] = uart_rx_busy;    // UART receiving
     assign led[3] = pp_running;      // spare (or use for halted status later)
-
+    assign ja[7:4] = 4'b1010;   // or simply 4'd0, this is for serializer test
+    assign led_rgb[2:0] = 3'b111;
+    
+    always @(posedge clk) begin
+        if (pp_rst)
+            pulse_reg <= 8'd0;
+        else
+            pulse_reg <= pulse_output_from_core;
+    end
+    
+    
+    // TEMPORARY: Force ja[7:0] to 0xAA (10101010) for debugging
+    // ------------------------------------------------
+//    assign ja[7:0] = 8'hAA;     // 0xAA = 8'b1010_1010
+    
+    
 endmodule

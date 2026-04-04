@@ -14,11 +14,12 @@ Compiling module unisims_ver.MMCME2_ADV(CLKFBOUT_MULT_F=62.5,...
 Compiling module unisims_ver.BUFG
 Compiling module xil_defaultlib.clk_wiz_0_new_clk_wiz
 Compiling module xil_defaultlib.clk_wiz_0_new
-Compiling module xil_defaultlib.uart_rx(TICKS_PER_BIT=250)
+Compiling module unisims_ver.ODDR(DDR_CLK_EDGE="SAME_EDGE")
+Compiling module xil_defaultlib.uart_rx(TICKS_PER_BIT=125)
 Compiling module xil_defaultlib.inst_shift_reg(WORDS=10)
 Compiling module xil_defaultlib.RAM_2Port(WIDTH=64,DEPTH=4096)
 Compiling module xil_defaultlib.pulse_programmer_core
-Compiling module xil_defaultlib.top
+Compiling module xil_defaultlib.top_default
 Compiling module xil_defaultlib.tb_top
 Compiling module xil_defaultlib.glbl
 Built simulation snapshot tb_top_behav

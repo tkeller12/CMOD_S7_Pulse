@@ -2,10 +2,10 @@
 -- Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
--- Date        : Tue Mar 17 18:29:29 2026
+-- Date        : Sat Apr  4 17:43:28 2026
 -- Host        : Tim-Workstation running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim -rename_top clk_wiz_0_new -prefix
---               clk_wiz_0_new_ clk_wiz_0_new_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim
+--               c:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.gen/sources_1/ip/clk_wiz_0_new/clk_wiz_0_new_sim_netlist.vhdl
 -- Design      : clk_wiz_0_new
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -15,25 +15,26 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity clk_wiz_0_new_clk_wiz_0_new_clk_wiz is
+entity clk_wiz_0_new_clk_wiz is
   port (
-    clk_out1 : out STD_LOGIC;
+    clk_out_125MHz : out STD_LOGIC;
+    clk_out_250MHz : out STD_LOGIC;
     reset : in STD_LOGIC;
     locked : out STD_LOGIC;
-    clk_in1 : in STD_LOGIC
+    clk_in_12MHz : in STD_LOGIC
   );
-end clk_wiz_0_new_clk_wiz_0_new_clk_wiz;
+end clk_wiz_0_new_clk_wiz;
 
-architecture STRUCTURE of clk_wiz_0_new_clk_wiz_0_new_clk_wiz is
-  signal clk_in1_clk_wiz_0_new : STD_LOGIC;
-  signal clk_out1_clk_wiz_0_new : STD_LOGIC;
+architecture STRUCTURE of clk_wiz_0_new_clk_wiz is
+  signal clk_in_12MHz_clk_wiz_0_new : STD_LOGIC;
+  signal clk_out_125MHz_clk_wiz_0_new : STD_LOGIC;
+  signal clk_out_250MHz_clk_wiz_0_new : STD_LOGIC;
   signal clkfbout_buf_clk_wiz_0_new : STD_LOGIC;
   signal clkfbout_clk_wiz_0_new : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKFBOUTB_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKFBSTOPPED_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKINSTOPPED_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKOUT0B_UNCONNECTED : STD_LOGIC;
-  signal NLW_mmcm_adv_inst_CLKOUT1_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKOUT1B_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKOUT2_UNCONNECTED : STD_LOGIC;
   signal NLW_mmcm_adv_inst_CLKOUT2B_UNCONNECTED : STD_LOGIC;
@@ -55,6 +56,7 @@ architecture STRUCTURE of clk_wiz_0_new_clk_wiz_0_new_clk_wiz is
   attribute IFD_DELAY_VALUE : string;
   attribute IFD_DELAY_VALUE of clkin1_ibufg : label is "AUTO";
   attribute BOX_TYPE of clkout1_buf : label is "PRIMITIVE";
+  attribute BOX_TYPE of clkout2_buf : label is "PRIMITIVE";
   attribute BOX_TYPE of mmcm_adv_inst : label is "PRIMITIVE";
 begin
 clkf_buf: unisim.vcomponents.BUFG
@@ -67,13 +69,18 @@ clkin1_ibufg: unisim.vcomponents.IBUF
       IOSTANDARD => "DEFAULT"
     )
         port map (
-      I => clk_in1,
-      O => clk_in1_clk_wiz_0_new
+      I => clk_in_12MHz,
+      O => clk_in_12MHz_clk_wiz_0_new
     );
 clkout1_buf: unisim.vcomponents.BUFG
      port map (
-      I => clk_out1_clk_wiz_0_new,
-      O => clk_out1
+      I => clk_out_125MHz_clk_wiz_0_new,
+      O => clk_out_125MHz
+    );
+clkout2_buf: unisim.vcomponents.BUFG
+     port map (
+      I => clk_out_250MHz_clk_wiz_0_new,
+      O => clk_out_250MHz
     );
 mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
     generic map(
@@ -83,11 +90,11 @@ mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
       CLKFBOUT_USE_FINE_PS => false,
       CLKIN1_PERIOD => 83.333000,
       CLKIN2_PERIOD => 0.000000,
-      CLKOUT0_DIVIDE_F => 3.000000,
+      CLKOUT0_DIVIDE_F => 6.000000,
       CLKOUT0_DUTY_CYCLE => 0.500000,
       CLKOUT0_PHASE => 0.000000,
       CLKOUT0_USE_FINE_PS => false,
-      CLKOUT1_DIVIDE => 1,
+      CLKOUT1_DIVIDE => 3,
       CLKOUT1_DUTY_CYCLE => 0.500000,
       CLKOUT1_PHASE => 0.000000,
       CLKOUT1_USE_FINE_PS => false,
@@ -131,13 +138,13 @@ mmcm_adv_inst: unisim.vcomponents.MMCME2_ADV
       CLKFBOUT => clkfbout_clk_wiz_0_new,
       CLKFBOUTB => NLW_mmcm_adv_inst_CLKFBOUTB_UNCONNECTED,
       CLKFBSTOPPED => NLW_mmcm_adv_inst_CLKFBSTOPPED_UNCONNECTED,
-      CLKIN1 => clk_in1_clk_wiz_0_new,
+      CLKIN1 => clk_in_12MHz_clk_wiz_0_new,
       CLKIN2 => '0',
       CLKINSEL => '1',
       CLKINSTOPPED => NLW_mmcm_adv_inst_CLKINSTOPPED_UNCONNECTED,
-      CLKOUT0 => clk_out1_clk_wiz_0_new,
+      CLKOUT0 => clk_out_125MHz_clk_wiz_0_new,
       CLKOUT0B => NLW_mmcm_adv_inst_CLKOUT0B_UNCONNECTED,
-      CLKOUT1 => NLW_mmcm_adv_inst_CLKOUT1_UNCONNECTED,
+      CLKOUT1 => clk_out_250MHz_clk_wiz_0_new,
       CLKOUT1B => NLW_mmcm_adv_inst_CLKOUT1B_UNCONNECTED,
       CLKOUT2 => NLW_mmcm_adv_inst_CLKOUT2_UNCONNECTED,
       CLKOUT2B => NLW_mmcm_adv_inst_CLKOUT2B_UNCONNECTED,
@@ -168,10 +175,11 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity clk_wiz_0_new is
   port (
-    clk_out1 : out STD_LOGIC;
+    clk_out_125MHz : out STD_LOGIC;
+    clk_out_250MHz : out STD_LOGIC;
     reset : in STD_LOGIC;
     locked : out STD_LOGIC;
-    clk_in1 : in STD_LOGIC
+    clk_in_12MHz : in STD_LOGIC
   );
   attribute NotValidForBitStream : boolean;
   attribute NotValidForBitStream of clk_wiz_0_new : entity is true;
@@ -179,10 +187,11 @@ end clk_wiz_0_new;
 
 architecture STRUCTURE of clk_wiz_0_new is
 begin
-inst: entity work.clk_wiz_0_new_clk_wiz_0_new_clk_wiz
+inst: entity work.clk_wiz_0_new_clk_wiz
      port map (
-      clk_in1 => clk_in1,
-      clk_out1 => clk_out1,
+      clk_in_12MHz => clk_in_12MHz,
+      clk_out_125MHz => clk_out_125MHz,
+      clk_out_250MHz => clk_out_250MHz,
       locked => locked,
       reset => reset
     );

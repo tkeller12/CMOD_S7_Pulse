@@ -3,8 +3,8 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Fri Apr  3 21:07:57 2026
-# Process ID         : 40260
+# Start of session at: Sat Apr  4 18:26:38 2026
+# Process ID         : 47900
 # Current directory  : C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/synth_1
 # Command line       : vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
 # Log file           : C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.runs/synth_1/top.vds
@@ -19,6 +19,6 @@
 # Host memory        : 136475 MB
 # Swap memory        : 8589 MB
 # Total Virtual      : 145065 MB
-# Available Virtual  : 116041 MB
+# Available Virtual  : 110604 MB
 #-----------------------------------------------------------
 source top.tcl -notrace

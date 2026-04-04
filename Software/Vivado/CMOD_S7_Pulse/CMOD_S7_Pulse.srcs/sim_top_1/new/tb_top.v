@@ -6,6 +6,7 @@ module tb_top;
     reg         clk_12MHz;
     reg         uart_rx_pin;
     reg  [1:0]  btn;
+
     
     // Make internal DUT signals visible
     wire        clk;           // 125 MHz clock
@@ -25,14 +26,15 @@ module tb_top;
     // DUT outputs
     wire [7:0]  ja;
     wire [3:0]  led;
-
+    wire serial_out;
     // Instantiate the top module
     top DUT (
         .clk_12MHz   (clk_12MHz),
         .uart_rx_pin (uart_rx_pin),
         .btn         (btn),
         .ja          (ja),
-        .led         (led)
+        .led         (led),
+        .serial_out  (serial_out)
     );
     
     // Connect internal clk to testbench wire

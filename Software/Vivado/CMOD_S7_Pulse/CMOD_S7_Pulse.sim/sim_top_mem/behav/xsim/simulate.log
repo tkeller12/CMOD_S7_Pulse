@@ -4,4 +4,4 @@ Time resolution is 1 ps
 [100000000] INFO: Starting pulse programmer test...
 [250000000] INFO: Trigger asserted - program should now run
 [350000000] INFO: Simulation finished. Check waveform on ja[7:0].
-$finish called at time : 350 us : File "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v" Line 221
+$finish called at time : 350 us : File "C:/Users/jkell/Repositories/CMOD_S7_Pulse/Software/Vivado/CMOD_S7_Pulse/CMOD_S7_Pulse.srcs/sim_top_mem/new/tb_top.v" Line 223

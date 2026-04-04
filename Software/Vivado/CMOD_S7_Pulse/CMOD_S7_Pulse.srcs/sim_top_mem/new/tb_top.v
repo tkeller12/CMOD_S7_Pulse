@@ -25,6 +25,8 @@ module tb_top;
     wire [11:0] addr_stack_vec; // concat addr_stack_vec
     wire [15:0] count_stack_vec;
     
+    wire [7:0] pulse_output_from_core;
+    
     wire execute;
     wire stall_load;
     
@@ -58,7 +60,7 @@ module tb_top;
     assign delay     = DUT.delay;
     assign o_Rd_DV   = DUT.o_Rd_DV;
     
-
+    assign pulse_output_from_core = DUT.pulse_output_from_core;
     
     assign stack_ptr = DUT.u_ppc.stack_ptr;
     //assign count_stack = DUT.u_ppc.count_stack;
