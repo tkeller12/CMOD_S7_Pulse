@@ -6,7 +6,8 @@ from serial.tools import list_ports
 # Serial port configuration
 #SERIAL_PORT = 'COM7'  # Default COM port, can be changed by user
 SERIAL_PORT = None    # Default COM port, can be changed by user
-BAUDRATE = 115200     # Fixed baudrate
+# BAUDRATE = 115200     # Fixed baudrate
+BAUDRATE = 1000000     # Fixed baudrate
 TIMEOUT = 1.0         # Fixed timeout in seconds
 VID = 1027
 PID = 24592

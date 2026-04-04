@@ -511,13 +511,16 @@ detect 40 ns
     import hardware
     RESET_MEMORY = False
     if RESET_MEMORY:
+        start_time = time.time()
         print('Resetting FPGA Pulse Programmer memory...')
         inst_list = []
         for ix in range(4096):
             inst = Instruction(addr=ix, pulse_pattern=0, data=0, op_code=0, delay=0)
             inst_list.append(inst)
         hardware.upload_sequence(instructions_to_bytes(inst_list))
+        stop_time = time.time()
         print('FPGA Pulse Programmer memory reset.')
+        print(f'Memory reset took {stop_time - start_time:.2f} seconds.')
     print('\nUploading sequence to FPGA Pulse Programmer...')
     hardware.upload_sequence(inst_bytes)
     # time.sleep(1.0)

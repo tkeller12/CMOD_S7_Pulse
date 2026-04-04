@@ -32,7 +32,8 @@ module top(
     // ------------------------------------------------
     // UART Receiver + Command Shift Register
     // ------------------------------------------------
-    parameter TICKS_PER_BIT = 2170;   // for 115200 baud @ 250 MHz
+    //parameter TICKS_PER_BIT = 2170;   // for 115 200 baud @ 250 MHz
+    parameter TICKS_PER_BIT = 250;   // for 1 000 000 baud @ 250 MHz    
     parameter UART_BITS     = 8;
     parameter UART_WORDS    = 10;
 
