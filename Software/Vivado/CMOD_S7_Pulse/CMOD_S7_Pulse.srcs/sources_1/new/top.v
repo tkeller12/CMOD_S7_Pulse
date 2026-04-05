@@ -8,7 +8,8 @@ module top(
     input  wire       uart_rx_pin,
     input  wire [1:0] btn,
     output wire [7:0] ja,
-    output wire [3:0] led
+    output wire [3:0] led,
+    output wire [2:0] led_rgb
 );
 
     // ------------------------------------------------
@@ -190,5 +191,6 @@ module top(
     assign led[1] = ~pp_rst;         // core not in hard reset
     assign led[2] = uart_rx_busy;    // UART receiving
     assign led[3] = pp_running;      // spare (or use for halted status later)
+    assign led_rgb[2:0] = 3'b111;    // Turns off RGB LED on board
 
 endmodule
