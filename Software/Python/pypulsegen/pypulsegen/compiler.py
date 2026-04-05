@@ -458,7 +458,7 @@ detect 40 ns
         print(node)
     print('Done.')
 
-    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 10e-6, 'shots': 4}
+    parameters = {'tau': 208e-9, 'p1': 2e-6, 'p90': 4e-6, 'rep_time': 1e-3, 'shots': 1000}
 
     print('\nCompiling...')
 
@@ -527,14 +527,5 @@ detect 40 ns
     hardware.start()
     # hardware.start()
     print('Sequence uploaded to FPGA Pulse Programmer.')
-    # time.sleep(1.0)
-    # hardware.start()
-    # hardware.start()
-    # time.sleep(1.0)
-    # hardware.start()
-    # hardware.start()
-    # time.sleep(1.0)
-    # hardware.start()
-    # hardware.start()
 
     plot_states(states, 4, 3e-6)

@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Fri Apr  3 21:08:27 2026
+| Date         : Sat Apr  4 18:42:57 2026
 | Host         : Tim-Workstation running 64-bit major release  (build 9200)
 | Command      : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
 | Design       : top
@@ -95,7 +95,7 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 +-----------------------------+------+-------+------------+-----------+-------+
 |          Site Type          | Used | Fixed | Prohibited | Available | Util% |
 +-----------------------------+------+-------+------------+-----------+-------+
-| Bonded IOB                  |   14 |     0 |          0 |       150 |  9.33 |
+| Bonded IOB                  |   17 |     0 |          0 |       150 | 11.33 |
 | Bonded IPADs                |    0 |     0 |          0 |         2 |  0.00 |
 | PHY_CONTROL                 |    0 |     0 |          0 |         3 |  0.00 |
 | PHASER_REF                  |    0 |     0 |          0 |         3 |  0.00 |
@@ -158,7 +158,7 @@ Warning! For any ECO changes, please run place_design if there are unplaced inst
 | LUT5     |   36 |                 LUT |
 | CARRY4   |   22 |          CarryLogic |
 | LUT1     |   17 |                 LUT |
-| OBUF     |   12 |                  IO |
+| OBUF     |   15 |                  IO |
 | RAMB36E1 |    7 |        Block Memory |
 | IBUF     |    2 |                  IO |
 | RAMB18E1 |    1 |        Block Memory |
